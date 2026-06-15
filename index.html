@@ -300,7 +300,7 @@
     <!-- Navigasi Atas -->
     <header>
         <div class="logo-container">
-            <img src="https://i.ibb.co.com/CFfcqK5/e4d1e201-1d19-465c-b020-30a1f71927e1.png" alt="DNE Auto Solution" class="logo-img">
+            <img src="https://i.ibb.co.com/zTbFwmLv/Adobe-Express-file.png" alt="DNE Auto Solution" class="logo-img">
         </div>
         <nav>
             <a href="#home">Beranda</a>
@@ -311,7 +311,7 @@
 
     <!-- Banner Utama -->
     <section class="hero" id="home">
-        <img src="https://i.ibb.co.com/CFfcqK5/e4d1e201-1d19-465c-b020-30a1f71927e1.png" alt="DNE Auto Solution" class="hero-logo">
+        <img src="https://i.ibb.co.com/zTbFwmLv/Adobe-Express-file.png" alt="DNE Auto Solution" class="hero-logo">
         <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
         <a href="#booking" class="btn">Booking Sekarang</a>
     </section>
@@ -323,7 +323,7 @@
             <div class="service-card">
                 <div class="service-icon">🚗</div>
                 <h3>Car Service</h3>
-                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, scanner OBD, dan perbaikan kaki-kaki mobil.</p>
+                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, dan perbaikan kaki-kaki mobil.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🏍️</div>
@@ -357,12 +357,16 @@
                     <input type="text" id="alamat" placeholder="Masukkan kota atau alamat lengkap Anda" required>
                 </div>
                 <div class="form-group">
-                    <label for="jenis">Kategori Servis</label>
-                    <select id="jenis" required>
-                        <option value="">-- Pilih Jenis Kendaraan --</option>
+                    <label for="kategori">Kategori Servis</label>
+                    <select id="kategori" required>
+                        <option value="">-- Pilih Kategori --</option>
                         <option value="Mobil (Car Service) 🚗">Mobil</option>
                         <option value="Motor (Motor Service) 🏍️">Motor</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="kendaraan">Jenis / Merek Kendaraan</label>
+                    <input type="text" id="kendaraan" placeholder="Contoh: Honda Vario 150 / Toyota Avanza 2019" required>
                 </div>
                 <div class="form-group">
                     <label for="keluhan">Detail Kendala & Jenis Perbaikan</label>
@@ -375,7 +379,7 @@
 
     <!-- Bagian Footer bawah -->
     <footer>
-        <img src="https://i.ibb.co.com/CFfcqK5/e4d1e201-1d19-465c-b020-30a1f71927e1.png" alt="DNE Auto Solution" class="footer-logo"><br>
+        <img src="https://i.ibb.co.com/zTbFwmLv/Adobe-Express-file.png" alt="DNE Auto Solution" class="footer-logo"><br>
         <p>&copy; 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
     </footer>
 
@@ -387,28 +391,30 @@
             // Nomor WhatsApp tujuan bisnis Anda
             const nomorWABengkel = "6285326200929"; 
 
-            // Mengambil input dari user termasuk Alamat
+            // Mengambil seluruh input dari form
             const nama = document.getElementById('nama').value;
             const waCustomer = document.getElementById('whatsapp').value;
             const alamat = document.getElementById('alamat').value;
-            const jenis = document.getElementById('jenis').value;
+            const kategori = document.getElementById('kategori').value;
+            const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
 
-            // Membuat draf teks pesan yang menyertakan alamat
+            // Membuat format isi pesan teks WhatsApp
             const templatePesan = 
                 "*BOOKING ONLINE - DNE AUTO SOLUTION*\n" +
                 "-------------------------------------------\n" +
-                "*Nama Pelanggan :* " + nama + "\n" +
-                "*No. WhatsApp   :* " + waCustomer + "\n" +
-                "*Alamat         :* " + alamat + "\n" +
-                "*Jenis Servis   :* " + jenis + "\n" +
-                "*Keluhan/Request:* " + keluhan + "\n\n" +
+                "*Nama Pelanggan  :* " + nama + "\n" +
+                "*No. WhatsApp    :* " + waCustomer + "\n" +
+                "*Alamat          :* " + alamat + "\n" +
+                "*Kategori Servis :* " + kategori + "\n" +
+                "*Jenis Kendaraan :* " + kendaraan + "\n" +
+                "*Keluhan/Request :* " + keluhan + "\n\n" +
                 "_Pesan ini dikirim otomatis melalui sistem Formulir Website._";
 
-            // Membuat link URL API resmi WhatsApp
+            // Membuat tautan kirim ke WhatsApp API
             const linkArahWA = "https://api.whatsapp.com/send?phone=" + nomorWABengkel + "&text=" + encodeURIComponent(templatePesan);
 
-            // Membuka chat WhatsApp secara otomatis di tab baru
+            // Membuka tab baru untuk melanjutkan obrolan ke WhatsApp
             window.open(linkArahWA, '_blank');
         }
     </script>
