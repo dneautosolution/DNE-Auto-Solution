@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNE Auto Solution - Motor & Car Service</title>
+    <style>
+        /* --- RESET & STYLE DASAR --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f0f11;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        /* --- NAVIGASI / HEADER --- */
+        header {
+            background-color: rgba(20, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #dc2626;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.5));
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            background-color: #dc2626;
+        }
+
+        /* --- HERO BANNER --- */
+        .hero {
+            background: linear-gradient(rgba(10, 10, 12, 0.85), rgba(15, 15, 17, 0.95)), url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200') no-repeat center center/cover;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-logo {
+            max-width: 360px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(220, 38, 38, 0.2));
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 35px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+            padding: 14px 35px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+        }
+
+        /* --- LAYANAN BENGKEL --- */
+        .services {
+            padding: 80px 5%;
+            background-color: #141418;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 32px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .services h2 span {
+            color: #dc2626;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: #1e1e24;
+            padding: 40px 30px;
+            border-radius: 10px;
+            border-bottom: 4px solid #2e2e38;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .service-card:hover {
+            border-bottom-color: #dc2626;
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        }
+
+        .service-icon {
+            font-size: 40px;
+            color: #dc2626;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(220, 38, 38, 0.1);
+            padding: 15px;
+            border-radius: 50%;
+            width: 75px;
+            height: 75px;
+            line-height: 45px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        .service-card p {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* --- FORM BOOKING --- */
+        .booking {
+            padding: 80px 5%;
+            background-color: #0f0f11;
+            text-align: center;
+        }
+
+        .booking h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .booking p.subtitle {
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #141418;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #2a2a35;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            background-color: #1e1e24;
+            border: 1px solid #3f3f46;
+            color: white;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
+            background-color: #22222a;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0a0a0c;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #1e1e24;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        footer .footer-logo {
+            height: 50px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        /* --- LAYOUT RESPONSIVE (HP) --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+            nav {
+                gap: 10px;
+            }
+            nav a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+            .hero {
+                height: auto;
+                padding: 60px 20px;
+            }
+            .hero-logo {
+                max-width: 260px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .booking-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi Atas -->
+    <header>
+        <div class="logo-container">
+            <img src="https://i.ibb.co.com/CFfcqK5/e4d1e201-1d19-465c-b020-30a1f71927e1.png" alt="DNE Auto Solution" class="logo-img">
+        </div>
+        <nav>
+            <a href="#home">Beranda</a>
+            <a href="#layanan">Layanan</a>
+            <a href="#booking">Booking WA</a>
+        </nav>
+    </header>
+
+    <!-- Banner Utama -->
+    <section class="hero" id="home">
+        <img src="https://i.ibb.co.com/CFfcqK5/e4d1e201-1d19-465c-b020-30a1f71927e1.png" alt="DNE Auto Solution" class="hero-logo">
+        <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
+        <a href="#booking" class="btn">Booking Sekarang</a>
+    </section>
+
+    <!-- Bagian Layanan -->
+    <section class="services" id="layanan">
+        <h2>Layanan <span>Kami</span></h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3>Car Service</h3>
+                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, scanner OBD, dan perbaikan kaki-kaki mobil.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏍️</div>
+                <h3>Motor Service</h3>
+                <p>Servis berkala motor matic & manual, bersihkan sistem injeksi/karburator, ganti oli mesin & gardan, serta perawatan CVT.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Sparepart</h3>
+                <p>Penyediaan suku cadang original dan komponen aftermarket berkualitas tinggi demi jaminan ketahanan performa kendaraan Anda.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Form Booking terarah ke WhatsApp -->
+    <section class="booking" id="booking">
+        <h2>Booking Servis Online</h2>
+        <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis terkirim ke WhatsApp bengkel.</p>
+        <div class="booking-form">
+            <form id="formBengkelWA" onsubmit="kirimWhatsApp(event)">
+                <div class="form-group">
+                    <label for="nama">Nama Pemilik</label>
+                    <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">Nomor HP / WhatsApp Anda</label>
+                    <input type="tel" id="whatsapp" placeholder="Contoh: 0812345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat Tinggal / Penjemputan</label>
+                    <input type="text" id="alamat" placeholder="Masukkan kota atau alamat lengkap Anda" required>
+                </div>
+                <div class="form-group">
+                    <label for="jenis">Kategori Servis</label>
+                    <select id="jenis" required>
+                        <option value="">-- Pilih Jenis Kendaraan --</option>
+                        <option value="Mobil (Car Service) 🚗">Mobil</option>
+                        <option value="Motor (Motor Service) 🏍️">Motor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="keluhan">Detail Kendala & Jenis Perbaikan</label>
+                    <textarea id="keluhan" rows="4" placeholder="Contoh: Ganti oli berkala, rem berdecit, atau tune up mesin" required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Kirim Booking via WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Bagian Footer bawah -->
+    <footer>
+        <img src="https://i.ibb.co.com/CFfcqK5/e4d1e201-1d19-465c-b020-30a1f71927e1.png" alt="DNE Auto Solution" class="footer-logo"><br>
+        <p>&copy; 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <!-- Sistem Otomatis WhatsApp Generator -->
+    <script>
+        function kirimWhatsApp(event) {
+            event.preventDefault();
+
+            // Nomor WhatsApp tujuan bisnis Anda
+            const nomorWABengkel = "6285326200929"; 
+
+            // Mengambil input dari user termasuk Alamat
+            const nama = document.getElementById('nama').value;
+            const waCustomer = document.getElementById('whatsapp').value;
+            const alamat = document.getElementById('alamat').value;
+            const jenis = document.getElementById('jenis').value;
+            const keluhan = document.getElementById('keluhan').value;
+
+            // Membuat draf teks pesan yang menyertakan alamat
+            const templatePesan = 
+                "*BOOKING ONLINE - DNE AUTO SOLUTION*\n" +
+                "-------------------------------------------\n" +
+                "*Nama Pelanggan :* " + nama + "\n" +
+                "*No. WhatsApp   :* " + waCustomer + "\n" +
+                "*Alamat         :* " + alamat + "\n" +
+                "*Jenis Servis   :* " + jenis + "\n" +
+                "*Keluhan/Request:* " + keluhan + "\n\n" +
+                "_Pesan ini dikirim otomatis melalui sistem Formulir Website._";
+
+            // Membuat link URL API resmi WhatsApp
+            const linkArahWA = "https://api.whatsapp.com/send?phone=" + nomorWABengkel + "&text=" + encodeURIComponent(templatePesan);
+
+            // Membuka chat WhatsApp secara otomatis di tab baru
+            window.open(linkArahWA, '_blank');
+        }
+    </script>
+
+</body>
+</html>
