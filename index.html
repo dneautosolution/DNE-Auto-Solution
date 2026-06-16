@@ -357,9 +357,9 @@
         }
 
         .form-group label span.opsional {
-            color: #64748b;
+            color: #fbbf24;
             font-size: 11px;
-            text-transform: lowercase;
+            text-transform: none;
             font-weight: normal;
             margin-left: 5px;
         }
@@ -563,19 +563,21 @@
                     <input type="tel" id="whatsapp" placeholder="Contoh: 0812345678" required>
                 </div>
                 
-                <!-- BAGIAN LOKASI (SEKARANG OPSIONAL/TIDAK WAJIB) -->
+                <!-- PILIHAN 1: LOKASI GPS (TIDAK WAJIB) -->
                 <div class="form-group">
-                    <label for="share_loc">Lokasi GPS Maps <span class="opsional">(Opsional - Jika Anda berada di lokasi)</span></label>
+                    <label for="share_loc">Pilihan 1: Lokasi GPS Maps <span class="opsional">(Boleh isi ini saja)</span></label>
                     <div class="location-wrapper">
-                        <input type="text" id="share_loc" placeholder="Klik tombol biru ➡️ (Boleh dikosongkan)">
+                        <input type="text" id="share_loc" placeholder="Klik tombol biru sebelah kanan ➡️">
                         <button type="button" class="btn-gps" onclick="dapatkanGpsOtomatis()">📍 Ambil Lokasi Otomatis</button>
                     </div>
                 </div>
 
+                <!-- PILIHAN 2: ALAMAT KETIK (TIDAK WAJIB) -->
                 <div class="form-group">
-                    <label for="alamat">Alamat Lengkap Tujuan / Penjemputan</label>
-                    <input type="text" id="alamat" placeholder="Nama jalan, nomor rumah, desa, RT/RW, atau ciri rumah" required>
+                    <label for="alamat">Pilihan 2: Alamat Lengkap / Patokan Rumah <span class="opsional">(Boleh ketik ini saja)</span></label>
+                    <input type="text" id="alamat" placeholder="Masukkan nama jalan, desa, RT/RW, atau nomor rumah">
                 </div>
+
                 <div class="form-group">
                     <label for="kategori">Kategori Servis</label>
                     <select id="kategori" required>
@@ -649,18 +651,13 @@
                     }, 
                     function (error) {
                         kolomInputLokasi.value = "";
-                        kolomInputLokasi.placeholder = "Gagal melacak otomatis. Silakan kosongkan saja.";
-                        
-                        if(error.code == 1) {
-                            alert("Izin lokasi ditolak. Kolom ini opsional, Anda bisa langsung lanjut isi Alamat Lengkap.");
-                        } else {
-                            alert("Gagal mendeteksi lokasi. Kolom ini tidak wajib diisi, silakan lanjut isi data berikutnya.");
-                        }
+                        kolomInputLokasi.placeholder = "Gagal melacak otomatis.";
+                        alert("Gagal mendeteksi lokasi otomatis. Anda dapat mengetik alamat manual pada kolom di bawahnya.");
                     },
                     { enableHighAccuracy: true, timeout: 10000 }
                 );
             } else {
-                alert("Browser tidak mendukung pelacakan otomatis. Cukup isi Alamat Lengkap di bawah.");
+                alert("Browser tidak mendukung pelacakan otomatis.");
                 kolomInputLokasi.placeholder = "Gagal melacak otomatis.";
             }
         }
@@ -673,15 +670,23 @@
             const nama = document.getElementById('nama').value;
             const waCustomer = document.getElementById('whatsapp').value;
             let shareLoc = document.getElementById('share_loc').value;
-            const alamat = document.getElementById('alamat').value;
+            let alamat = document.getElementById('alamat').value;
             const kategori = document.getElementById('kategori').value;
             const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
 
-            // Jika kosong, ubah teks menjadi penanda khusus di WA agar admin paham
-            if (!shareLoc || shareLoc.trim() === "" || shareLoc.includes("Sedang melacak")) {
-                shareLoc = "(Tidak dilampirkan / Booking untuk orang lain)";
+            // --- VALIDASI "SALAH SATU WAJIB DIISI" ---
+            const gpsKosong = (!shareLoc || shareLoc.trim() === "" || shareLoc.includes("Sedang melacak"));
+            const alamatKosong = (!alamat || alamat.trim() === "");
+
+            if (gpsKosong && alamatKosong) {
+                alert("❌ Mohon isi salah satu: Gunakan tombol 'Ambil Lokasi Otomatis' atau ketik 'Alamat Lengkap' agar mekanik kami tahu lokasi tujuan!");
+                return; // Membatalkan pengiriman formulir
             }
+
+            // Atur teks tampilan di WhatsApp jika salah satunya kosong
+            if (gpsKosong) shareLoc = "(Tidak dilampirkan)";
+            if (alamatKosong) alamat = "(Tidak dilampirkan, mengacu pada titik GPS)";
 
             let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
             let barisPromo = "";
