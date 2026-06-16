@@ -48,7 +48,7 @@
 
         nav {
             display: flex;
-            gap: 25px;
+            gap: 20px;
         }
 
         nav a {
@@ -61,18 +61,31 @@
             transition: all 0.3s ease;
             padding: 8px 12px;
             border-radius: 4px;
+            cursor: pointer;
         }
 
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: #ffffff;
             background-color: #dc2626;
+        }
+
+        /* --- FITUR SPA (SEMBUNYIKAN HALAMAN) --- */
+        .page-section {
+            display: none; 
+        }
+
+        .page-section.active {
+            display: block; 
+        }
+
+        .hero.page-section.active {
+            display: flex; 
         }
 
         /* --- HERO BANNER --- */
         .hero {
             background: linear-gradient(rgba(10, 10, 12, 0.85), rgba(15, 15, 17, 0.95)), url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200') no-repeat center center/cover;
             height: 75vh;
-            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -187,10 +200,95 @@
             line-height: 1.7;
         }
 
+        /* --- BAGIAN PROMO --- */
+        .promo-section {
+            padding: 80px 5%;
+            background-color: #0f0f11;
+            text-align: center;
+        }
+
+        .promo-section h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .promo-section h2 span {
+            color: #dc2626;
+        }
+
+        .promo-subtitle {
+            color: #94a3b8;
+            margin-bottom: 50px;
+            font-size: 15px;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .promo-card {
+            background: linear-gradient(145deg, #1e1e24, #141418);
+            border: 1px solid #2e2e38;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            text-align: left;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-5px);
+            border-color: #dc2626;
+        }
+
+        .promo-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #dc2626;
+            color: white;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .promo-content {
+            padding: 30px;
+        }
+
+        .promo-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .promo-content p {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .promo-footer {
+            font-size: 12px;
+            color: #ef4444;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
         /* --- FORM BOOKING --- */
         .booking {
             padding: 80px 5%;
-            background-color: #0f0f11;
+            background-color: #141418;
             text-align: center;
         }
 
@@ -209,7 +307,7 @@
         .booking-form {
             max-width: 600px;
             margin: 0 auto;
-            background-color: #141418;
+            background-color: #1e1e24;
             padding: 40px;
             border-radius: 12px;
             border: 1px solid #2a2a35;
@@ -219,6 +317,11 @@
         .form-group {
             margin-bottom: 25px;
             text-align: left;
+        }
+
+        /* Sembunyikan field promo secara default */
+        #group-promo-terpilih {
+            display: none; 
         }
 
         .form-group label {
@@ -234,7 +337,7 @@
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 14px;
-            background-color: #1e1e24;
+            background-color: #141418;
             border: 1px solid #3f3f46;
             color: white;
             border-radius: 6px;
@@ -247,6 +350,15 @@
             border-color: #dc2626;
             box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
             background-color: #22222a;
+        }
+
+        /* Style khusus input promo yang terisi otomatis */
+        .form-group input[readonly] {
+            background-color: #1c1c22;
+            color: #fbbf24;
+            border: 1px dashed #fbbf24;
+            font-weight: bold;
+            cursor: not-allowed;
         }
 
         /* --- FOOTER --- */
@@ -273,10 +385,12 @@
                 padding: 15px;
             }
             nav {
-                gap: 10px;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             nav a {
-                font-size: 12px;
+                font-size: 11px;
                 padding: 6px 10px;
             }
             .hero {
@@ -284,7 +398,7 @@
                 padding: 20px 20px;
             }
             .hero-logo {
-                max-width: 200px;
+                max-width: 160px;
             }
             .hero p {
                 font-size: 16px;
@@ -303,21 +417,22 @@
             <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="logo-img">
         </div>
         <nav>
-            <a href="#home">Beranda</a>
-            <a href="#layanan">Layanan</a>
-            <a href="#booking">Booking WA</a>
+            <a onclick="bukaHalamanBiasa('home')" id="nav-home" class="active">Beranda</a>
+            <a onclick="bukaHalamanBiasa('layanan')" id="nav-layanan">Layanan</a>
+            <a onclick="bukaHalamanBiasa('promo')" id="nav-promo">Promo</a>
+            <a onclick="bukaHalamanBiasa('booking')" id="nav-booking">Booking WA</a>
         </nav>
     </header>
 
-    <!-- Banner Utama -->
-    <section class="hero" id="home">
+    <!-- Banner Utama (Beranda) -->
+    <section class="hero page-section active" id="home">
         <img src="https://i.ibb.co.com/4Z6Q8Bzy/DAS-Transparan-Presisi-Full.png" alt="DNE Auto Solution" class="hero-logo">
         <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
-        <a href="#booking" class="btn">Booking Sekarang</a>
+        <button onclick="bukaHalamanBiasa('booking')" class="btn">Booking Sekarang</button>
     </section>
 
     <!-- Bagian Layanan -->
-    <section class="services" id="layanan">
+    <section class="services page-section" id="layanan">
         <h2>Layanan <span>Kami</span></h2>
         <div class="services-grid">
             <div class="service-card">
@@ -338,12 +453,45 @@
         </div>
     </section>
 
-    <!-- Bagian Form Booking terarah ke WhatsApp -->
-    <section class="booking" id="booking">
+    <!-- Bagian Promo -->
+    <section class="promo-section page-section" id="promo">
+        <h2>Promo <span>Spesial</span></h2>
+        <p class="promo-subtitle">Jangan lewatkan penawaran menarik khusus bulan ini untuk kendaraan kesayangan Anda!</p>
+        <div class="promo-grid">
+            <div class="promo-card">
+                <span class="promo-badge">Diskon 15%</span>
+                <div class="promo-content">
+                    <h3>Paket Servis Lengkap Mobil</h3>
+                    <p>Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit. Berlaku untuk semua jenis mobil.</p>
+                    <div class="promo-footer">*Syarat & Ketentuan Berlaku</div>
+                    <button onclick="ambilPromo('Paket Servis Lengkap Mobil (Diskon 15%)')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
+                </div>
+            </div>
+            <div class="promo-card">
+                <span class="promo-badge">Hemat CVT</span>
+                <div class="promo-content">
+                    <h3>Service CVT Gratis Oli Gardan</h3>
+                    <p>Khusus pemilik Motor Matic! Lakukan perawatan dan pembersihan CVT berkala, gratis Oli Gardan berkualitas premium.</p>
+                    <div class="promo-footer">*Khusus Hari Senin - Kamis</div>
+                    <button onclick="ambilPromo('Service CVT Gratis Oli Gardan')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Form Booking Tunggal -->
+    <section class="booking page-section" id="booking">
         <h2>Booking Servis Online</h2>
         <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis terkirim ke WhatsApp bengkel.</p>
         <div class="booking-form">
             <form id="formBengkelWA" onsubmit="kirimWhatsApp(event)">
+                
+                <!-- INPUT INPUT PROMO (Otomatis muncul & terisi jika klik dari menu promo) -->
+                <div class="form-group" id="group-promo-terpilih">
+                    <label for="promo_terpilih">Promo yang Anda Klaim</label>
+                    <input type="text" id="promo_terpilih" readonly>
+                </div>
+
                 <div class="form-group">
                     <label for="nama">Nama Pemilik</label>
                     <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
@@ -383,15 +531,53 @@
         <p>&copy; 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
     </footer>
 
-    <!-- Sistem Otomatis WhatsApp Generator -->
+    <!-- Sistem Navigasi SPA & WhatsApp Generator -->
     <script>
+        // Fungsi Navigasi jika diklik secara normal lewat menu header atas
+        function bukaHalamanBiasa(idHalaman) {
+            // Jika pindah halaman biasa, reset/sembunyikan kolom promo
+            document.getElementById('group-promo-terpilih').style.display = 'none';
+            document.getElementById('promo_terpilih').value = ''; 
+            
+            tampilkanHalamanSPA(idHalaman);
+        }
+
+        // Trigger saat customer klik tombol "Ambil Promo" di halaman Promo
+        function ambilPromo(namaPromo) {
+            // Tampilkan kolom promo di dalam form
+            document.getElementById('group-promo-terpilih').style.display = 'block';
+            // Input otomatis nama promo ke dalam field input
+            document.getElementById('promo_terpilih').value = namaPromo;
+
+            // Arahkan ke halaman booking
+            tampilkanHalamanSPA('booking');
+            document.getElementById('nama').focus();
+        }
+
+        // Logika Core pertukaran halaman SPA
+        function tampilkanHalamanSPA(idHalaman) {
+            const semuaHalaman = document.querySelectorAll('.page-section');
+            semuaHalaman.forEach(halaman => halaman.classList.remove('active'));
+
+            const halamanAktif = document.getElementById(idHalaman);
+            if (halamanAktif) halamanAktif.classList.add('active');
+
+            const semuaMenu = document.querySelectorAll('nav a');
+            semuaMenu.forEach(menu => menu.classList.remove('active'));
+            
+            const menuAktif = document.getElementById('nav-' + idHalaman);
+            if (menuAktif) menuAktif.classList.add('active');
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Fungsi kirim data form tunggal ke WhatsApp
         function kirimWhatsApp(event) {
             event.preventDefault();
 
-            // Nomor WhatsApp tujuan bisnis Anda
             const nomorWABengkel = "6285326200929"; 
 
-            // Mengambil seluruh input dari form
+            const promo = document.getElementById('promo_terpilih').value;
             const nama = document.getElementById('nama').value;
             const waCustomer = document.getElementById('whatsapp').value;
             const alamat = document.getElementById('alamat').value;
@@ -399,10 +585,19 @@
             const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
 
-            // Membuat format isi pesan teks WhatsApp
+            // Logika membuat Judul Teks WA dinamis berdasarkan kondisi promo kosong/terisi
+            let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
+            let barisPromo = "";
+            
+            if (promo !== "") {
+                judulPesan = "*KLAIM PROMO SPESIAL - DNE AUTO SOLUTION*";
+                barisPromo = "*Promo Diklaim   :* " + promo + "\n";
+            }
+
             const templatePesan = 
-                "*BOOKING ONLINE - DNE AUTO SOLUTION*\n" +
+                judulPesan + "\n" +
                 "-------------------------------------------\n" +
+                barisPromo +
                 "*Nama Pelanggan  :* " + nama + "\n" +
                 "*No. WhatsApp    :* " + waCustomer + "\n" +
                 "*Alamat          :* " + alamat + "\n" +
@@ -411,10 +606,8 @@
                 "*Keluhan/Request :* " + keluhan + "\n\n" +
                 "_Pesan ini dikirim otomatis melalui sistem Formulir Website._";
 
-            // Membuat tautan kirim ke WhatsApp API
             const linkArahWA = "https://api.whatsapp.com/send?phone=" + nomorWABengkel + "&text=" + encodeURIComponent(templatePesan);
 
-            // Membuka tab baru untuk melanjutkan obrolan ke WhatsApp
             window.open(linkArahWA, '_blank');
         }
     </script>
