@@ -82,43 +82,46 @@
             display: flex; 
         }
 
-        /* --- HERO BANNER (PERBAIKAN DI SINI) --- */
+        /* --- HERO BANNER (OPTIMALISASI LAYAR KOMPUTER/LAPTOP) --- */
         .hero {
             background: linear-gradient(rgba(10, 10, 12, 0.85), rgba(15, 15, 17, 0.95)), url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200') no-repeat center center/cover;
-            /* Diubah ke min-height 100vh minus tinggi header agar pas satu layar laptop penuh */
-            min-height: calc(100vh - 88px); 
+            /* Memaksa konten pas setinggi sisa layar laptop */
+            height: calc(100vh - 88px); 
+            min-height: 500px; /* Batas aman device pendek */
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px;
+            overflow: hidden; /* Mencegah muncul scrollbar di section hero */
         }
 
         .hero-logo {
-            max-width: 420px; /* Dioptimalkan ukurannya untuk laptop */
+            /* Dikecilkan sedikit dari 420px ke 320px agar tombol terangkat ke atas */
+            max-width: 320px; 
             width: 100%;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             filter: drop-shadow(0 10px 20px rgba(220, 38, 38, 0.2));
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 18px;
             color: #cbd5e1;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             font-weight: 400;
-            letter-spacing: 1px;
-            max-width: 600px;
-            line-height: 1.5;
+            letter-spacing: 0.5px;
+            max-width: 550px;
+            line-height: 1.4;
         }
 
         .btn {
             background: linear-gradient(135deg, #dc2626, #991b1b);
             color: white;
-            padding: 14px 35px;
+            padding: 12px 30px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-radius: 6px;
@@ -131,7 +134,7 @@
 
         .btn:hover {
             background: linear-gradient(135deg, #ef4444, #b91c1c);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
         }
 
@@ -393,14 +396,16 @@
                 padding: 6px 10px;
             }
             .hero {
+                height: auto;
                 min-height: auto;
                 padding: 60px 20px;
             }
             .hero-logo {
-                max-width: 240px; /* Ukuran pas untuk HP */
+                max-width: 240px; 
             }
             .hero p {
                 font-size: 16px;
+                margin-bottom: 30px;
             }
             .booking-form {
                 padding: 25px;
@@ -410,7 +415,6 @@
 </head>
 <body>
 
-    <!-- Navigasi Atas -->
     <header>
         <div class="logo-container">
             <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="logo-img">
@@ -423,14 +427,12 @@
         </nav>
     </header>
 
-    <!-- Banner Utama (Beranda) -->
     <section class="hero page-section active" id="home">
         <img src="https://i.ibb.co.com/4Z6Q8Bzy/DAS-Transparan-Presisi-Full.png" alt="DNE Auto Solution" class="hero-logo">
         <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
         <button onclick="bukaHalamanBiasa('booking')" class="btn">Booking Sekarang</button>
     </section>
 
-    <!-- Bagian Layanan -->
     <section class="services page-section" id="layanan">
         <h2>Layanan <span>Kami</span></h2>
         <div class="services-grid">
@@ -452,7 +454,6 @@
         </div>
     </section>
 
-    <!-- Bagian Promo -->
     <section class="promo-section page-section" id="promo">
         <h2>Promo <span>Spesial</span></h2>
         <p class="promo-subtitle">Jangan lewatkan penawaran menarik khusus bulan ini untuk kendaraan kesayangan Anda!</p>
@@ -478,7 +479,6 @@
         </div>
     </section>
 
-    <!-- Bagian Form Booking -->
     <section class="booking page-section" id="booking">
         <h2>Booking Servis Online</h2>
         <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis terkirim ke WhatsApp bengkel.</p>
@@ -523,13 +523,11 @@
         </div>
     </section>
 
-    <!-- Bagian Footer bawah -->
     <footer>
         <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="footer-logo"><br>
         <p>&copy; 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
     </footer>
 
-    <!-- Sistem Navigasi SPA & WhatsApp Generator -->
     <script>
         function bukaHalamanBiasa(idHalaman) {
             document.getElementById('group-promo-terpilih').style.display = 'none';
