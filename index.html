@@ -82,22 +82,20 @@
             display: flex; 
         }
 
-        /* --- HERO BANNER (OPTIMALISASI LAYAR KOMPUTER/LAPTOP) --- */
+        /* --- HERO BANNER --- */
         .hero {
             background: linear-gradient(rgba(10, 10, 12, 0.85), rgba(15, 15, 17, 0.95)), url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200') no-repeat center center/cover;
-            /* Memaksa konten pas setinggi sisa layar laptop */
             height: calc(100vh - 88px); 
-            min-height: 500px; /* Batas aman device pendek */
+            min-height: 500px; 
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 20px;
-            overflow: hidden; /* Mencegah muncul scrollbar di section hero */
+            overflow: hidden; 
         }
 
         .hero-logo {
-            /* Dikecilkan sedikit dari 420px ke 320px agar tombol terangkat ke atas */
             max-width: 320px; 
             width: 100%;
             height: auto;
@@ -108,11 +106,25 @@
         .hero p {
             font-size: 18px;
             color: #cbd5e1;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-weight: 400;
             letter-spacing: 0.5px;
             max-width: 550px;
             line-height: 1.4;
+        }
+
+        .area-badge {
+            background-color: rgba(220, 38, 38, 0.15);
+            color: #f87171;
+            border: 1px solid #dc2626;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .btn {
@@ -304,8 +316,15 @@
 
         .booking p.subtitle {
             color: #94a3b8;
-            margin-bottom: 40px;
+            margin-bottom: 5px;
             font-size: 15px;
+        }
+
+        .booking p.area-note {
+            color: #fbbf24;
+            font-size: 13px;
+            margin-bottom: 35px;
+            font-weight: 500;
         }
 
         .booking-form {
@@ -337,6 +356,14 @@
             letter-spacing: 0.5px;
         }
 
+        .form-group label span.opsional {
+            color: #64748b;
+            font-size: 11px;
+            text-transform: lowercase;
+            font-weight: normal;
+            margin-left: 5px;
+        }
+
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 14px;
@@ -355,11 +382,33 @@
             background-color: #22222a;
         }
 
+        /* Area Input Share Location */
+        .location-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-gps {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: background 0.3s ease;
+        }
+
+        .btn-gps:hover {
+            background: #3b82f6;
+        }
+
         .form-group input[readonly] {
             background-color: #1c1c22;
             color: #fbbf24;
-            border: 1px dashed #fbbf24;
-            font-weight: bold;
+            border: 1px dashed #3f3f46;
             cursor: not-allowed;
         }
 
@@ -405,10 +454,21 @@
             }
             .hero p {
                 font-size: 16px;
-                margin-bottom: 30px;
+                margin-bottom: 15px;
+            }
+            .area-badge {
+                margin-bottom: 25px;
+                font-size: 11px;
             }
             .booking-form {
                 padding: 25px;
+            }
+            .location-wrapper {
+                flex-direction: column;
+            }
+            .btn-gps {
+                padding: 12px;
+                text-align: center;
             }
         }
     </style>
@@ -430,6 +490,9 @@
     <section class="hero page-section active" id="home">
         <img src="https://i.ibb.co.com/9m9t9BdN/DAS-Full-Transparan.png" alt="DNE Auto Solution" class="hero-logo">
         <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
+        <div class="area-badge">
+            📍 Layanan Saat Ini Baru Tersedia di Purwokerto & Sekitarnya
+        </div>
         <button onclick="bukaHalamanBiasa('booking')" class="btn">Booking Sekarang</button>
     </section>
 
@@ -482,25 +545,36 @@
     <section class="booking page-section" id="booking">
         <h2>Booking Servis Online</h2>
         <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis terkirim ke WhatsApp bengkel.</p>
+        <p class="area-note">⚠️ Saat ini jangkauan servis kami baru tersedia khusus untuk area Purwokerto & Sekitarnya.</p>
         <div class="booking-form">
             <form id="formBengkelWA" onsubmit="kirimWhatsApp(event)">
                 
                 <div class="form-group" id="group-promo-terpilih">
                     <label for="promo_terpilih">Promo yang Anda Klaim</label>
-                    <input type="text" id="promo_terpilih" readonly>
+                    <input type="text" id="promo_terpilih" readonly style="border: 1px dashed #fbbf24;">
                 </div>
 
                 <div class="form-group">
-                    <label for="nama">Nama Pemilik</label>
+                    <label for="nama">Nama Pemilik / Pemesan</label>
                     <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
                 </div>
                 <div class="form-group">
                     <label for="whatsapp">Nomor HP / WhatsApp Anda</label>
                     <input type="tel" id="whatsapp" placeholder="Contoh: 0812345678" required>
                 </div>
+                
+                <!-- BAGIAN LOKASI (SEKARANG OPSIONAL/TIDAK WAJIB) -->
                 <div class="form-group">
-                    <label for="alamat">Alamat Tinggal / Penjemputan</label>
-                    <input type="text" id="alamat" placeholder="Masukkan alamat lengkap Anda" required>
+                    <label for="share_loc">Lokasi GPS Maps <span class="opsional">(Opsional - Jika Anda berada di lokasi)</span></label>
+                    <div class="location-wrapper">
+                        <input type="text" id="share_loc" placeholder="Klik tombol biru ➡️ (Boleh dikosongkan)">
+                        <button type="button" class="btn-gps" onclick="dapatkanGpsOtomatis()">📍 Ambil Lokasi Otomatis</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat">Alamat Lengkap Tujuan / Penjemputan</label>
+                    <input type="text" id="alamat" placeholder="Nama jalan, nomor rumah, desa, RT/RW, atau ciri rumah" required>
                 </div>
                 <div class="form-group">
                     <label for="kategori">Kategori Servis</label>
@@ -558,6 +632,39 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
+        function dapatkanGpsOtomatis() {
+            const kolomInputLokasi = document.getElementById('share_loc');
+            
+            if (navigator.geolocation) {
+                kolomInputLokasi.value = "Sedang melacak lokasi GPS Anda...";
+                
+                navigator.geolocation.getCurrentPosition(
+                    function (posisi) {
+                        const latitude = posisi.coords.latitude;
+                        const longitude = posisi.coords.longitude;
+                        const linkMaps = "https://www.google.com/maps?q=" + latitude + "," + longitude;
+                        
+                        kolomInputLokasi.value = linkMaps;
+                        alert("✅ Lokasi Anda berhasil dideteksi!");
+                    }, 
+                    function (error) {
+                        kolomInputLokasi.value = "";
+                        kolomInputLokasi.placeholder = "Gagal melacak otomatis. Silakan kosongkan saja.";
+                        
+                        if(error.code == 1) {
+                            alert("Izin lokasi ditolak. Kolom ini opsional, Anda bisa langsung lanjut isi Alamat Lengkap.");
+                        } else {
+                            alert("Gagal mendeteksi lokasi. Kolom ini tidak wajib diisi, silakan lanjut isi data berikutnya.");
+                        }
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            } else {
+                alert("Browser tidak mendukung pelacakan otomatis. Cukup isi Alamat Lengkap di bawah.");
+                kolomInputLokasi.placeholder = "Gagal melacak otomatis.";
+            }
+        }
+
         function kirimWhatsApp(event) {
             event.preventDefault();
             const nomorWABengkel = "6285326200929"; 
@@ -565,10 +672,16 @@
             const promo = document.getElementById('promo_terpilih').value;
             const nama = document.getElementById('nama').value;
             const waCustomer = document.getElementById('whatsapp').value;
+            let shareLoc = document.getElementById('share_loc').value;
             const alamat = document.getElementById('alamat').value;
             const kategori = document.getElementById('kategori').value;
             const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
+
+            // Jika kosong, ubah teks menjadi penanda khusus di WA agar admin paham
+            if (!shareLoc || shareLoc.trim() === "" || shareLoc.includes("Sedang melacak")) {
+                shareLoc = "(Tidak dilampirkan / Booking untuk orang lain)";
+            }
 
             let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
             let barisPromo = "";
@@ -584,7 +697,8 @@
                 barisPromo +
                 "*Nama Pelanggan  :* " + nama + "\n" +
                 "*No. WhatsApp    :* " + waCustomer + "\n" +
-                "*Alamat          :* " + alamat + "\n" +
+                "*Share Location  :* " + shareLoc + "\n" +
+                "*Alamat Lengkap  :* " + alamat + "\n" +
                 "*Kategori Servis :* " + kategori + "\n" +
                 "*Jenis Kendaraan :* " + kendaraan + "\n" +
                 "*Keluhan/Request :* " + keluhan + "\n\n" +
