@@ -69,7 +69,7 @@
             background-color: #dc2626;
         }
 
-        /* --- FITUR SPA (SEMBUNYIKAN HALAMAN) --- */
+        /* --- FITUR SPA --- */
         .page-section {
             display: none; 
         }
@@ -157,18 +157,18 @@
             text-align: center;
         }
 
-        .services h2 {
+        .services h2, .promo-section h2, .booking h2 {
             font-size: 32px;
             margin-bottom: 50px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
-        .services h2 span {
+        .services h2 span, .promo-section h2 span {
             color: #dc2626;
         }
 
-        .services-grid {
+        .services-grid, .promo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
@@ -176,7 +176,7 @@
             margin: 0 auto;
         }
 
-        .service-card {
+        .service-card, .promo-card {
             background-color: #1e1e24;
             padding: 40px 30px;
             border-radius: 10px;
@@ -185,7 +185,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .service-card:hover {
+        .service-card:hover, .promo-card:hover {
             border-bottom-color: #dc2626;
             transform: translateY(-10px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.5);
@@ -207,7 +207,6 @@
         .service-card h3 {
             margin-bottom: 15px;
             font-size: 22px;
-            letter-spacing: 0.5px;
         }
 
         .service-card p {
@@ -223,29 +222,10 @@
             text-align: center;
         }
 
-        .promo-section h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .promo-section h2 span {
-            color: #dc2626;
-        }
-
         .promo-subtitle {
             color: #94a3b8;
             margin-bottom: 50px;
             font-size: 15px;
-        }
-
-        .promo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .promo-card {
@@ -255,13 +235,6 @@
             overflow: hidden;
             position: relative;
             text-align: left;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .promo-card:hover {
-            transform: translateY(-5px);
-            border-color: #dc2626;
         }
 
         .promo-badge {
@@ -277,14 +250,9 @@
             text-transform: uppercase;
         }
 
-        .promo-content {
-            padding: 30px;
-        }
-
         .promo-content h3 {
             font-size: 22px;
             margin-bottom: 10px;
-            color: #ffffff;
         }
 
         .promo-content p {
@@ -306,12 +274,6 @@
             padding: 80px 5%;
             background-color: #141418;
             text-align: center;
-        }
-
-        .booking h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
         }
 
         .booking p.subtitle {
@@ -353,14 +315,12 @@
             font-weight: 600;
             font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .form-group label span.opsional {
             color: #fbbf24;
             font-size: 11px;
             text-transform: none;
-            font-weight: normal;
             margin-left: 5px;
         }
 
@@ -372,17 +332,14 @@
             color: white;
             border-radius: 6px;
             font-size: 15px;
-            transition: all 0.3s ease;
         }
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
             border-color: #dc2626;
             box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
-            background-color: #22222a;
         }
 
-        /* Area Input Share Location */
         .location-wrapper {
             display: flex;
             gap: 10px;
@@ -398,21 +355,11 @@
             font-weight: bold;
             font-size: 13px;
             white-space: nowrap;
-            transition: background 0.3s ease;
         }
 
-        .btn-gps:hover {
-            background: #3b82f6;
-        }
+        .btn-gps:hover { background: #3b82f6; }
+        .form-group input[readonly] { background-color: #1c1c22; color: #fbbf24; cursor: not-allowed; }
 
-        .form-group input[readonly] {
-            background-color: #1c1c22;
-            color: #fbbf24;
-            border: 1px dashed #3f3f46;
-            cursor: not-allowed;
-        }
-
-        /* --- FOOTER --- */
         footer {
             background-color: #0a0a0c;
             padding: 40px 20px;
@@ -428,48 +375,15 @@
             opacity: 0.7;
         }
 
-        /* --- LAYOUT RESPONSIVE (HP) --- */
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 20px;
-                padding: 15px;
-            }
-            nav {
-                gap: 8px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            nav a {
-                font-size: 11px;
-                padding: 6px 10px;
-            }
-            .hero {
-                height: auto;
-                min-height: auto;
-                padding: 60px 20px;
-            }
-            .hero-logo {
-                max-width: 240px; 
-            }
-            .hero p {
-                font-size: 16px;
-                margin-bottom: 15px;
-            }
-            .area-badge {
-                margin-bottom: 25px;
-                font-size: 11px;
-            }
-            .booking-form {
-                padding: 25px;
-            }
-            .location-wrapper {
-                flex-direction: column;
-            }
-            .btn-gps {
-                padding: 12px;
-                text-align: center;
-            }
+            header { flex-direction: column; gap: 20px; padding: 15px; }
+            nav { gap: 8px; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 11px; padding: 6px 10px; }
+            .hero { height: auto; padding: 60px 20px; }
+            .hero-logo { max-width: 240px; }
+            .booking-form { padding: 25px; }
+            .location-wrapper { flex-direction: column; }
+            .btn-gps { padding: 12px; text-align: center; }
         }
     </style>
 </head>
@@ -480,20 +394,18 @@
             <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="logo-img">
         </div>
         <nav>
-            <a onclick="bukaHalamanBiasa('home')" id="nav-home" class="active">Beranda</a>
-            <a onclick="bukaHalamanBiasa('layanan')" id="nav-layanan">Layanan</a>
-            <a onclick="bukaHalamanBiasa('promo')" id="nav-promo">Promo</a>
-            <a onclick="bukaHalamanBiasa('booking')" id="nav-booking">Booking WA</a>
+            <a onclick="window.bukaHalaman('home')" id="nav-home" class="active">Beranda</a>
+            <a onclick="window.bukaHalaman('layanan')" id="nav-layanan">Layanan</a>
+            <a onclick="window.bukaHalaman('promo')" id="nav-promo">Promo</a>
+            <a onclick="window.bukaHalaman('booking')" id="nav-booking">Booking WA</a>
         </nav>
     </header>
 
     <section class="hero page-section active" id="home">
         <img src="https://i.ibb.co.com/9m9t9BdN/DAS-Full-Transparan.png" alt="DNE Auto Solution" class="hero-logo">
         <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
-        <div class="area-badge">
-            📍 Layanan Saat Ini Baru Tersedia di Purwokerto & Sekitarnya
-        </div>
-        <button onclick="bukaHalamanBiasa('booking')" class="btn">Booking Sekarang</button>
+        <div class="area-badge">📍 Layanan Saat Ini Baru Tersedia di Purwokerto & Sekitarnya</div>
+        <button onclick="window.bukaHalaman('booking')" class="btn">Booking Sekarang</button>
     </section>
 
     <section class="services page-section" id="layanan">
@@ -502,7 +414,7 @@
             <div class="service-card">
                 <div class="service-icon">🚗</div>
                 <h3>Car Service</h3>
-                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, dan perbaikan kaki-kaki mobil.</p>
+                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, and perbaikan kaki-kaki mobil.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🏍️</div>
@@ -527,7 +439,7 @@
                     <h3>Paket Servis Lengkap Mobil</h3>
                     <p>Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit. Berlaku untuk semua jenis mobil.</p>
                     <div class="promo-footer">*Syarat & Ketentuan Berlaku</div>
-                    <button onclick="ambilPromo('Paket Servis Lengkap Mobil (Diskon 15%)')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
+                    <button onclick="window.ambilPromo('Paket Servis Lengkap Mobil (Diskon 15%)')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
                 </div>
             </div>
             <div class="promo-card">
@@ -536,7 +448,7 @@
                     <h3>Service CVT Gratis Oli Gardan</h3>
                     <p>Khusus pemilik Motor Matic! Lakukan perawatan dan pembersihan CVT berkala, gratis Oli Gardan berkualitas premium.</p>
                     <div class="promo-footer">*Khusus Hari Senin - Kamis</div>
-                    <button onclick="ambilPromo('Service CVT Gratis Oli Gardan')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
+                    <button onclick="window.ambilPromo('Service CVT Gratis Oli Gardan')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
                 </div>
             </div>
         </div>
@@ -547,13 +459,11 @@
         <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis terkirim ke WhatsApp bengkel.</p>
         <p class="area-note">⚠️ Saat ini jangkauan servis kami baru tersedia khusus untuk area Purwokerto & Sekitarnya.</p>
         <div class="booking-form">
-            <form id="formBengkelWA" onsubmit="kirimWhatsApp(event)">
-                
+            <form id="formBengkelWA">
                 <div class="form-group" id="group-promo-terpilih">
                     <label for="promo_terpilih">Promo yang Anda Klaim</label>
                     <input type="text" id="promo_terpilih" readonly style="border: 1px dashed #fbbf24;">
                 </div>
-
                 <div class="form-group">
                     <label for="nama">Nama Pemilik / Pemesan</label>
                     <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
@@ -562,22 +472,17 @@
                     <label for="whatsapp">Nomor HP / WhatsApp Anda</label>
                     <input type="tel" id="whatsapp" placeholder="Contoh: 0812345678" required>
                 </div>
-                
-                <!-- PILIHAN 1: LOKASI GPS (TIDAK WAJIB) -->
                 <div class="form-group">
                     <label for="share_loc">Pilihan 1: Lokasi GPS Maps <span class="opsional">(Boleh isi ini saja)</span></label>
                     <div class="location-wrapper">
                         <input type="text" id="share_loc" placeholder="Klik tombol biru sebelah kanan ➡️">
-                        <button type="button" class="btn-gps" onclick="dapatkanGpsOtomatis()">📍 Ambil Lokasi Otomatis</button>
+                        <button type="button" class="btn-gps" id="btn-lacak-gps">📍 Ambil Lokasi Otomatis</button>
                     </div>
                 </div>
-
-                <!-- PILIHAN 2: ALAMAT KETIK (TIDAK WAJIB) -->
                 <div class="form-group">
                     <label for="alamat">Pilihan 2: Alamat Lengkap / Patokan Rumah <span class="opsional">(Boleh ketik ini saja)</span></label>
                     <input type="text" id="alamat" placeholder="Masukkan nama jalan, desa, RT/RW, atau nomor rumah">
                 </div>
-
                 <div class="form-group">
                     <label for="kategori">Kategori Servis</label>
                     <select id="kategori" required>
@@ -601,68 +506,55 @@
 
     <footer>
         <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="footer-logo"><br>
-        <p>&copy; 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
+        <p>© 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
     </footer>
 
-    <script>
-        function bukaHalamanBiasa(idHalaman) {
-            document.getElementById('group-promo-terpilih').style.display = 'none';
-            document.getElementById('promo_terpilih').value = ''; 
-            tampilkanHalamanSPA(idHalaman);
-        }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        function ambilPromo(namaPromo) {
-            document.getElementById('group-promo-terpilih').style.display = 'block';
-            document.getElementById('promo_terpilih').value = namaPromo;
-            tampilkanHalamanSPA('booking');
-            document.getElementById('nama').focus();
-        }
+        const firebaseConfig = { databaseURL: "https://dneautosolution-5a2b1-default-rtdb.firebaseio.com/" };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-        function tampilkanHalamanSPA(idHalaman) {
-            const semuaHalaman = document.querySelectorAll('.page-section');
-            semuaHalaman.forEach(halaman => halaman.classList.remove('active'));
-
-            const halamanAktif = document.getElementById(idHalaman);
-            if (halamanAktif) halamanAktif.classList.add('active');
-
-            const semuaMenu = document.querySelectorAll('nav a');
-            semuaMenu.forEach(menu => menu.classList.remove('active'));
-            
-            const menuAktif = document.getElementById('nav-' + idHalaman);
-            if (menuAktif) menuAktif.classList.add('active');
-
+        window.bukaHalaman = function(idHalaman) {
+            if (idHalaman !== 'booking') {
+                document.getElementById('group-promo-terpilih').style.display = 'none';
+                document.getElementById('promo_terpilih').value = '';
+            }
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(idHalaman).classList.add('active');
+            document.querySelectorAll('nav a').forEach(menu => menu.classList.remove('active'));
+            document.getElementById('nav-' + idHalaman).classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        function dapatkanGpsOtomatis() {
+        window.ambilPromo = function(namaPromo) {
+            document.getElementById('group-promo-terpilih').style.display = 'block';
+            document.getElementById('promo_terpilih').value = namaPromo;
+            window.bukaHalaman('booking');
+            document.getElementById('nama').focus();
+        }
+
+        document.getElementById('btn-lacak-gps').addEventListener('click', () => {
             const kolomInputLokasi = document.getElementById('share_loc');
-            
             if (navigator.geolocation) {
                 kolomInputLokasi.value = "Sedang melacak lokasi GPS Anda...";
-                
                 navigator.geolocation.getCurrentPosition(
-                    function (posisi) {
-                        const latitude = posisi.coords.latitude;
-                        const longitude = posisi.coords.longitude;
-                        const linkMaps = "https://www.google.com/maps?q=" + latitude + "," + longitude;
-                        
-                        kolomInputLokasi.value = linkMaps;
+                    (pos) => { 
+                        kolomInputLokasi.value = "https://www.google.com/maps?q=" + pos.coords.latitude + "," + pos.coords.longitude; 
                         alert("✅ Lokasi Anda berhasil dideteksi!");
-                    }, 
-                    function (error) {
-                        kolomInputLokasi.value = "";
-                        kolomInputLokasi.placeholder = "Gagal melacak otomatis.";
-                        alert("Gagal mendeteksi lokasi otomatis. Anda dapat mengetik alamat manual pada kolom di bawahnya.");
+                    },
+                    () => { 
+                        kolomInputLokasi.value = ""; 
+                        alert("Gagal mendeteksi lokasi otomatis. Anda dapat mengetik alamat manual pada kolom di bawahnya."); 
                     },
                     { enableHighAccuracy: true, timeout: 10000 }
                 );
-            } else {
-                alert("Browser tidak mendukung pelacakan otomatis.");
-                kolomInputLokasi.placeholder = "Gagal melacak otomatis.";
             }
-        }
+        });
 
-        function kirimWhatsApp(event) {
+        document.getElementById('formBengkelWA').addEventListener('submit', (event) => {
             event.preventDefault();
             const nomorWABengkel = "62881080809993"; 
 
@@ -675,43 +567,52 @@
             const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
 
-            // --- VALIDASI "SALAH SATU WAJIB DIISI" ---
             const gpsKosong = (!shareLoc || shareLoc.trim() === "" || shareLoc.includes("Sedang melacak"));
             const alamatKosong = (!alamat || alamat.trim() === "");
 
             if (gpsKosong && alamatKosong) {
-                alert("❌ Mohon isi salah satu: Gunakan tombol 'Ambil Lokasi Otomatis' atau ketik 'Alamat Lengkap' agar mekanik kami tahu lokasi tujuan!");
-                return; // Membatalkan pengiriman formulir
+                alert("❌ Mohon isi salah satu: Gunakan tombol 'Ambil Lokasi Otomatis' atau ketik 'Alamat Lengkap'!");
+                return;
             }
 
-            // Atur teks tampilan di WhatsApp jika salah satunya kosong
             if (gpsKosong) shareLoc = "(Tidak dilampirkan)";
             if (alamatKosong) alamat = "(Tidak dilampirkan, mengacu pada titik GPS)";
 
-            let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
-            let barisPromo = "";
-            
-            if (promo !== "") {
-                judulPesan = "*KLAIM PROMO SPESIAL - DNE AUTO SOLUTION*";
-                barisPromo = "*Promo Diklaim   :* " + promo + "\n";
-            }
+            const idBooking = 'DNE-' + Date.now().toString().slice(-5);
+            const dataBaru = {
+                id: idBooking, promo: promo || 'Tidak Ada', nama: nama, whatsapp: waCustomer,
+                lokasi: !gpsKosong ? shareLoc : alamat, kategori: kategori, kendaraan: kendaraan, keluhan: keluhan,
+                status: 'Menunggu', montir: 'Belum Diplot', biaya_jasa: 0, biaya_sparepart: 0, sparepart_detail: ''
+            };
 
-            const templatePesan = 
-                judulPesan + "\n" +
-                "-------------------------------------------\n" +
-                barisPromo +
-                "*Nama Pelanggan  :* " + nama + "\n" +
-                "*No. WhatsApp    :* " + waCustomer + "\n" +
-                "*Share Location  :* " + shareLoc + "\n" +
-                "*Alamat Lengkap  :* " + alamat + "\n" +
-                "*Kategori Servis :* " + kategori + "\n" +
-                "*Jenis Kendaraan :* " + kendaraan + "\n" +
-                "*Keluhan/Request :* " + keluhan + "\n\n" +
-                "_Pesan ini dikirim otomatis melalui sistem Formulir Website._";
+            set(ref(database, 'bookings/' + idBooking), dataBaru)
+                .then(() => {
+                    let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
+                    let barisPromo = promo ? `*Promo Diklaim   :* ${promo}\n` : "";
+                    if (promo) judulPesan = "*KLAIM PROMO SPESIAL - DNE AUTO SOLUTION*";
 
-            window.open("https://api.whatsapp.com/send?phone=" + nomorWABengkel + "&text=" + encodeURIComponent(templatePesan), '_blank');
-        }
+                    const templatePesan = 
+                        judulPesan + "\n" +
+                        "-------------------------------------------\n" +
+                        `*ID Booking      :* ${idBooking}\n` +
+                        barisPromo +
+                        `*Nama Pelanggan  :* ${nama}\n` +
+                        `*No. WhatsApp    :* ${waCustomer}\n` +
+                        `*Share Location  :* ${shareLoc}\n` +
+                        `*Alamat Lengkap  :* ${alamat}\n` +
+                        `*Kategori Servis :* ${kategori}\n` +
+                        `*Jenis Kendaraan :* ${kendaraan}\n` +
+                        `*Keluhan/Request :* ${keluhan}\n\n` +
+                        "_Pesan ini disimpan secara real-time ke sistem kasir dan terkirim otomatis._";
+
+                    window.open(`https://api.whatsapp.com/send?phone=${nomorWABengkel}&text=${encodeURIComponent(templatePesan)}`, '_blank');
+                    alert(`✅ Booking Berhasil Terkirim & Tersimpan! ID: ${idBooking}`);
+                    document.getElementById('formBengkelWA').reset();
+                    document.getElementById('group-promo-terpilih').style.display = 'none';
+                    window.bukaHalaman('home');
+                })
+                .catch((error) => { alert("Koneksi Firebase Gagal: " + error.message); });
+        });
     </script>
-
 </body>
 </html>
