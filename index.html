@@ -542,7 +542,8 @@
                 kolomInputLokasi.value = "Sedang melacak lokasi GPS Anda...";
                 navigator.geolocation.getCurrentPosition(
                     (pos) => { 
-                        kolomInputLokasi.value = "https://www.google.com/maps?q=" + pos.coords.latitude + "," + pos.coords.longitude; 
+                        // Normalisasi format link agar valid dibuka di smartphone mekanik
+                        kolomInputLokasi.value = "https://maps.google.com/?q=" + pos.coords.latitude + "," + pos.coords.longitude; 
                         alert("✅ Lokasi Anda berhasil dideteksi!");
                     },
                     () => { 
@@ -560,29 +561,56 @@
 
             const promo = document.getElementById('promo_terpilih').value;
             const nama = document.getElementById('nama').value;
-            const waCustomer = document.getElementById('whatsapp').value;
+            let waCustomer = document.getElementById('whatsapp').value.trim();
+            if(waCustomer.startsWith('0')) waCustomer = '62' + waCustomer.slice(1); // Normalisasi nomor wa ke 62
+
             let shareLoc = document.getElementById('share_loc').value;
-            let alamat = document.getElementById('alamat').value;
-            const kategori = document.getElementById('kategori').value;
-            const kendaraan = document.getElementById('kendaraan').value;
-            const keluhan = document.getElementById('keluhan').value;
+            let alamatInput = document.getElementById('alamat').value;
 
             const gpsKosong = (!shareLoc || shareLoc.trim() === "" || shareLoc.includes("Sedang melacak"));
-            const alamatKosong = (!alamat || alamat.trim() === "");
+            const alamatKosong = (!alamatInput || alamatInput.trim() === "");
 
             if (gpsKosong && alamatKosong) {
                 alert("❌ Mohon isi salah satu: Gunakan tombol 'Ambil Lokasi Otomatis' atau ketik 'Alamat Lengkap'!");
                 return;
             }
 
-            if (gpsKosong) shareLoc = "(Tidak dilampirkan)";
-            if (alamatKosong) alamat = "(Tidak dilampirkan, mengacu pada titik GPS)";
+            // Gabungkan data lokasi/GPS ke dalam satu variabel alamat untuk disinkronkan dengan dashboard internal.html
+            let alamatDatabase = "";
+            if (!gpsKosong && !alamatKosong) {
+                alamatDatabase = `${alamatInput} (Lokasi GPS: ${shareLoc})`;
+            } else if (!gpsKosong) {
+                alamatDatabase = shareLoc;
+                shareLoc = shareLoc;
+                alamatInput = "(Tidak dilampirkan, mengacu pada titik GPS)";
+            } else {
+                alamatDatabase = alamatInput;
+                shareLoc = "(Tidak dilampirkan)";
+            }
 
-            const idBooking = 'DNE-' + Date.now().toString().slice(-5);
+            const kategori = document.getElementById('kategori').value;
+            const kendaraan = document.getElementById('kendaraan').value;
+            const keluhan = document.getElementById('keluhan').value;
+
+            const dt = new Date();
+            const idBooking = 'DNE-' + dt.getFullYear() + String(dt.getMonth() + 1).padStart(2, '0') + String(dt.getDate()).padStart(2, '0') + '-' + Date.now().toString().slice(-4);
+            const tanggalStr = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+
             const dataBaru = {
-                id: idBooking, promo: promo || 'Tidak Ada', nama: nama, whatsapp: waCustomer,
-                lokasi: !gpsKosong ? shareLoc : alamat, kategori: kategori, kendaraan: kendaraan, keluhan: keluhan,
-                status: 'Menunggu', montir: 'Belum Diplot', biaya_jasa: 0, biaya_sparepart: 0, sparepart_detail: ''
+                id: idBooking, 
+                promo: promo || 'Tidak Ada', 
+                nama: nama, 
+                whatsapp: waCustomer,
+                alamat: alamatDatabase, // Properti krusial yang dibaca internal.html untuk SPK WA
+                kategori: kategori, 
+                kendaraan: kendaraan, 
+                keluhan: keluhan,
+                status: 'Menunggu', 
+                montir: '', 
+                biaya_jasa: 0, 
+                biaya_sparepart: 0, 
+                sparepart_detail: '',
+                tanggal: tanggalStr
             };
 
             set(ref(database, 'bookings/' + idBooking), dataBaru)
@@ -599,7 +627,7 @@
                         `*Nama Pelanggan  :* ${nama}\n` +
                         `*No. WhatsApp    :* ${waCustomer}\n` +
                         `*Share Location  :* ${shareLoc}\n` +
-                        `*Alamat Lengkap  :* ${alamat}\n` +
+                        `*Alamat Lengkap  :* ${alamatInput}\n` +
                         `*Kategori Servis :* ${kategori}\n` +
                         `*Jenis Kendaraan :* ${kendaraan}\n` +
                         `*Keluhan/Request :* ${keluhan}\n\n` +
