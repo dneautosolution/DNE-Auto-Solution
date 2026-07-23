@@ -48,18 +48,18 @@
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         nav a {
             color: #e2e8f0;
             text-decoration: none;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -151,20 +151,24 @@
         }
 
         /* --- LAYANAN BENGKEL --- */
-        .services {
+        .services, .promo-section, .booking, .status-section, .riwayat-section {
             padding: 80px 5%;
             background-color: #141418;
             text-align: center;
         }
 
-        .services h2, .promo-section h2, .booking h2 {
+        .promo-section, .status-section {
+            background-color: #0f0f11;
+        }
+
+        .services h2, .promo-section h2, .booking h2, .status-section h2, .riwayat-section h2 {
             font-size: 32px;
             margin-bottom: 50px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
-        .services h2 span, .promo-section h2 span {
+        .services h2 span, .promo-section h2 span, .status-section h2 span, .riwayat-section h2 span {
             color: #dc2626;
         }
 
@@ -204,27 +208,21 @@
             line-height: 45px;
         }
 
-        .service-card h3 {
+        .service-card h3, .promo-content h3 {
             margin-bottom: 15px;
             font-size: 22px;
         }
 
-        .service-card p {
+        .service-card p, .promo-content p {
             color: #94a3b8;
             font-size: 14px;
             line-height: 1.7;
         }
 
-        /* --- BAGIAN PROMO --- */
-        .promo-section {
-            padding: 80px 5%;
-            background-color: #0f0f11;
-            text-align: center;
-        }
-
+        /* --- PROMO --- */
         .promo-subtitle {
             color: #94a3b8;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             font-size: 15px;
         }
 
@@ -250,18 +248,6 @@
             text-transform: uppercase;
         }
 
-        .promo-content h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .promo-content p {
-            color: #94a3b8;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
         .promo-footer {
             font-size: 12px;
             color: #ef4444;
@@ -269,14 +255,8 @@
             margin-bottom: 15px;
         }
 
-        /* --- FORM BOOKING --- */
-        .booking {
-            padding: 80px 5%;
-            background-color: #141418;
-            text-align: center;
-        }
-
-        .booking p.subtitle {
+        /* --- FORM BOOKING, CEK STATUS, RIWAYAT --- */
+        .booking p.subtitle, .status-section p.subtitle, .riwayat-section p.subtitle {
             color: #94a3b8;
             margin-bottom: 5px;
             font-size: 15px;
@@ -289,7 +269,7 @@
             font-weight: 500;
         }
 
-        .booking-form {
+        .form-container, .result-card {
             max-width: 600px;
             margin: 0 auto;
             background-color: #1e1e24;
@@ -297,6 +277,7 @@
             border-radius: 12px;
             border: 1px solid #2a2a35;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            text-align: left;
         }
 
         .form-group {
@@ -360,6 +341,179 @@
         .btn-gps:hover { background: #3b82f6; }
         .form-group input[readonly] { background-color: #1c1c22; color: #fbbf24; cursor: not-allowed; }
 
+        /* Style khusus untuk preview kamera & tombol ambil foto */
+        .camera-container {
+            margin-top: 10px;
+            background: #141418;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed #3f3f46;
+            text-align: center;
+        }
+
+        #video-kamera {
+            width: 100%;
+            max-height: 250px;
+            background: #000;
+            border-radius: 6px;
+            display: none;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        #canvas-foto {
+            display: none;
+        }
+
+        #preview-foto-hasil {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+            border: 1px solid #dc2626;
+        }
+
+        .btn-kamera-aksi {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        .btn-kamera-aksi:hover { background: #22c55e; }
+
+        .btn-kamera-tutup {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .btn-kamera-tutup:hover { background: #ef4444; }
+
+        /* Style untuk hasil cek status & riwayat */
+        .status-result-box {
+            margin-top: 25px;
+            background: #141418;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+            display: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: #ca8a04;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .riwayat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .riwayat-item {
+            background: #141418;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #2e2e38;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .riwayat-info h4 { color: #fff; font-size: 16px; margin-bottom: 5px; }
+        .riwayat-info p { color: #94a3b8; font-size: 13px; }
+
+        /* --- MODAL CUSTOM RAMAH PENGGUNA --- */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .custom-modal-box {
+            background: #1e1e24;
+            border: 1px solid #3f3f46;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .custom-modal-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+        .custom-modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .custom-modal-desc {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .custom-modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .modal-btn-primary {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+        }
+        .modal-btn-primary:hover { background: #22c55e; }
+        .modal-btn-secondary {
+            background: #3f3f46;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+        }
+        .modal-btn-secondary:hover { background: #52525b; }
+
         footer {
             background-color: #0a0a0c;
             padding: 40px 20px;
@@ -376,12 +530,12 @@
         }
 
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 20px; padding: 15px; }
-            nav { gap: 8px; flex-wrap: wrap; justify-content: center; }
-            nav a { font-size: 11px; padding: 6px 10px; }
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav { gap: 5px; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 10px; padding: 5px 8px; }
             .hero { height: auto; padding: 60px 20px; }
             .hero-logo { max-width: 240px; }
-            .booking-form { padding: 25px; }
+            .form-container, .result-card { padding: 25px; }
             .location-wrapper { flex-direction: column; }
             .btn-gps { padding: 12px; text-align: center; }
         }
@@ -397,12 +551,14 @@
             <a onclick="window.bukaHalaman('home')" id="nav-home" class="active">Beranda</a>
             <a onclick="window.bukaHalaman('layanan')" id="nav-layanan">Layanan</a>
             <a onclick="window.bukaHalaman('promo')" id="nav-promo">Promo</a>
-            <a onclick="window.bukaHalaman('booking')" id="nav-booking">Booking WA</a>
+            <a onclick="window.bukaHalaman('booking')" id="nav-booking">Booking</a>
+            <a onclick="window.bukaHalaman('status')" id="nav-status">Cek Status</a>
+            <a onclick="window.bukaHalaman('riwayat')" id="nav-riwayat">Riwayat</a>
         </nav>
     </header>
 
     <section class="hero page-section active" id="home">
-        <img src="https://i.ibb.co.com/9m9t9BdN/DAS-Full-Transparan.png" alt="DNE Auto Solution" class="hero-logo">
+        <img src="https://i.ibb.co.com/9m9t9BdN/DAS-Full-Transparan-Presisi.png" alt="DNE Auto Solution" class="hero-logo" onerror="this.src='https://i.ibb.co.com/9m9t9BdN/DAS-Full-Transparan.png'">
         <p>Solusi Perawatan & Perbaikan Terbaik Untuk Mobil dan Motor Anda</p>
         <div class="area-badge">📍 Layanan Saat Ini Baru Tersedia di Purwokerto & Sekitarnya</div>
         <button onclick="window.bukaHalaman('booking')" class="btn">Booking Sekarang</button>
@@ -414,7 +570,7 @@
             <div class="service-card">
                 <div class="service-icon">🚗</div>
                 <h3>Car Service</h3>
-                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, and perbaikan kaki-kaki mobil.</p>
+                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, dan perbaikan kaki-kaki mobil.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🏍️</div>
@@ -432,33 +588,23 @@
     <section class="promo-section page-section" id="promo">
         <h2>Promo <span>Spesial</span></h2>
         <p class="promo-subtitle">Jangan lewatkan penawaran menarik khusus bulan ini untuk kendaraan kesayangan Anda!</p>
-        <div class="promo-grid">
-            <div class="promo-card">
-                <span class="promo-badge">Diskon 15%</span>
-                <div class="promo-content">
-                    <h3>Paket Servis Lengkap Mobil</h3>
-                    <p>Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit. Berlaku untuk semua jenis mobil.</p>
-                    <div class="promo-footer">*Syarat & Ketentuan Berlaku</div>
-                    <button onclick="window.ambilPromo('Paket Servis Lengkap Mobil (Diskon 15%)')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
-                </div>
-            </div>
-            <div class="promo-card">
-                <span class="promo-badge">Hemat CVT</span>
-                <div class="promo-content">
-                    <h3>Service CVT Gratis Oli Gardan</h3>
-                    <p>Khusus pemilik Motor Matic! Lakukan perawatan dan pembersihan CVT berkala, gratis Oli Gardan berkualitas premium.</p>
-                    <div class="promo-footer">*Khusus Hari Senin - Kamis</div>
-                    <button onclick="window.ambilPromo('Service CVT Gratis Oli Gardan')" class="btn" style="padding: 10px 20px; font-size: 13px;">Ambil Promo</button>
-                </div>
-            </div>
+        
+        <!-- Pengaturan Promo Eksternal Terintegrasi (Tersembunyi dari Tampilan Publik, Hanya Internal Manajemen yang Tahu) -->
+        <div style="display: none;">
+            <input type="text" id="input-url-promo" value="">
+            <button type="button" id="btn-muat-promo-eksternal"></button>
+        </div>
+
+        <div class="promo-grid" id="container-grid-promo">
+            <!-- Data promo akan dimuat dinamis dari sistem eksternal atau default -->
         </div>
     </section>
 
     <section class="booking page-section" id="booking">
         <h2>Booking Servis Online</h2>
-        <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis terkirim ke WhatsApp bengkel.</p>
+        <p class="subtitle">Isi data di bawah ini, pesanan akan langsung otomatis tercatat ke sistem.</p>
         <p class="area-note">⚠️ Saat ini jangkauan servis kami baru tersedia khusus untuk area Purwokerto & Sekitarnya.</p>
-        <div class="booking-form">
+        <div class="form-container">
             <form id="formBengkelWA">
                 <div class="form-group" id="group-promo-terpilih">
                     <label for="promo_terpilih">Promo yang Anda Klaim</label>
@@ -473,6 +619,10 @@
                     <input type="tel" id="whatsapp" placeholder="Contoh: 0812345678" required>
                 </div>
                 <div class="form-group">
+                    <label for="tanggal_booking">Pilih Tanggal Servis</label>
+                    <input type="date" id="tanggal_booking" required>
+                </div>
+                <div class="form-group">
                     <label for="share_loc">Pilihan 1: Lokasi GPS Maps <span class="opsional">(Boleh isi ini saja)</span></label>
                     <div class="location-wrapper">
                         <input type="text" id="share_loc" placeholder="Klik tombol biru sebelah kanan ➡️">
@@ -480,7 +630,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="alamat">Pilihan 2: Alamat Lengkap / Patokan Rumah <span class="opsional">(Boleh ketik ini saja)</span></label>
+                    <label for="alamat">Pilihan 2: Alamat Lengkap / Patokan Rumah <span class="opsional">(Boleh ketik di sini saja)</span></label>
                     <input type="text" id="alamat" placeholder="Masukkan nama jalan, desa, RT/RW, atau nomor rumah">
                 </div>
                 <div class="form-group">
@@ -499,28 +649,157 @@
                     <label for="keluhan">Detail Kendala & Jenis Perbaikan</label>
                     <textarea id="keluhan" rows="4" placeholder="Contoh: Ganti oli berkala, rem berdecit, atau tune up mesin" required></textarea>
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">Kirim Booking via WhatsApp</button>
+                
+                <!-- Fitur Unggah File & Kamera Langsung dengan Live Preview dan Fungsinya -->
+                <div class="form-group">
+                    <label>Foto Kendaraan / Bagian Rusak <span class="opsional">(Opsional)</span></label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="file" id="foto_kendaraan" accept="image/*" style="padding: 10px; flex: 1;">
+                        <button type="button" id="btn-buka-kamera" class="btn-gps" style="background: #16a34a;">📸 Ambil Foto Langsung</button>
+                    </div>
+                    
+                    <!-- Container Live Preview Kamera Web/HP -->
+                    <div class="camera-container" id="container-kamera" style="display: none;">
+                        <video id="video-kamera" autoplay playsinline></video>
+                        <canvas id="canvas-foto"></canvas>
+                        <div>
+                            <button type="button" id="btn-jepret" class="btn-kamera-aksi">🔴 Jepret / Ambil Foto</button>
+                            <button type="button" id="btn-tutup-kamera" class="btn-kamera-tutup">❌ Tutup Kamera</button>
+                        </div>
+                    </div>
+
+                    <!-- Hasil Pratinjau Foto -->
+                    <img id="preview-foto-hasil" alt="Preview Foto Kendaraan">
+                    <p style="font-size: 11px; color: #94a3b8; margin-top: 5px;">Anda bisa mengunggah dari galeri file atau langsung menjepret foto lewat kamera perangkat.</p>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">Kirim Booking</button>
             </form>
         </div>
     </section>
 
+    <!-- Cek Status Servis -->
+    <section class="status-section page-section" id="status">
+        <h2>Cek Status <span>Servis</span></h2>
+        <p class="subtitle">Masukkan digit angka unik booking Anda untuk melacak status pengerjaan kendaraan secara real-time.</p>
+        <div class="form-container">
+            <div class="form-group">
+                <label for="input_id_cek">Digit Angka Unik Booking (Tanpa DNE-)</label>
+                <div class="location-wrapper">
+                    <input type="text" id="input_id_cek" placeholder="Contoh: 202607231234 atau cukup 4 digit terakhir">
+                    <button type="button" class="btn-gps" id="btn-proses-cek" style="background: #dc2626;">Cek Status</button>
+                </div>
+                <p style="font-size: 11px; color: #94a3b8; margin-top: 6px;">💡 Tips: Anda bebas memasukkan kode lengkap angka atau cukup beberapa digit terakhirnya saja.</p>
+            </div>
+            <div class="status-result-box" id="boxHasilStatus">
+                <span class="status-badge" id="resStatusBadge">Menunggu</span>
+                <p><strong>ID Booking:</strong> <span id="resId">-</span></p>
+                <p><strong>Nama:</strong> <span id="resNama">-</span></p>
+                <p><strong>Kendaraan:</strong> <span id="resKendaraan">-</span></p>
+                <p><strong>Jadwal Servis:</strong> <span id="resJadwal">-</span></p>
+                <p><strong>Montir Bertugas:</strong> <span id="resMontir">Belum ditentukan</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Riwayat Pesanan Lokal Perangkat -->
+    <section class="riwayat-section page-section" id="riwayat">
+        <h2>Riwayat <span>Booking</span></h2>
+        <p class="subtitle">Daftar pesanan servis yang pernah Anda lakukan menggunakan perangkat ini.</p>
+        <div class="form-container">
+            <div class="riwayat-list" id="daftarRiwayatContainer">
+                <p style="color: #94a3b8; text-align: center;">Belum ada riwayat booking tersimpan di perangkat ini.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Kustom Ramah Pengguna -->
+    <div class="custom-modal-overlay" id="customModalOverlay">
+        <div class="custom-modal-box">
+            <div class="custom-modal-icon" id="modalIcon">🎉</div>
+            <div class="custom-modal-title" id="modalTitle">Berhasil!</div>
+            <div class="custom-modal-desc" id="modalDesc">Pesan notifikasi ramah pengguna.</div>
+            <div class="custom-modal-buttons" id="modalButtonsContainer">
+                <!-- Tombol dinamis diatur via JS -->
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="footer-logo"><br>
+        <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Auto Solution" class="footer-logo" onerror="this.src='https://i.ibb.co.com/XrZ9h7jC/DAS-Full-Transparan.png'"><br>
         <p>© 2026 DNE Auto Solution - Motor & Car Service. Hak Cipta Dilindungi.</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = { databaseURL: "https://dneautosolution-5a2b1-default-rtdb.firebaseio.com/" };
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+        const storage = getStorage(app);
+
+        // --- SISTEM MODAL NOTIFIKASI RAMAH PENGGUNA ---
+        function tampilkanNotifikasiRamah({ icon, title, desc, tipe, dataAksi }) {
+            const overlay = document.getElementById('customModalOverlay');
+            document.getElementById('modalIcon').innerText = icon || '💡';
+            document.getElementById('modalTitle').innerText = title || 'Informasi';
+            document.getElementById('modalDesc').innerHTML = desc || '';
+            
+            const btnContainer = document.getElementById('modalButtonsContainer');
+            btnContainer.innerHTML = '';
+
+            if (tipe === 'konfirmasi_wa') {
+                const btnYa = document.createElement('button');
+                btnYa.className = 'modal-btn-primary';
+                btnYa.innerText = 'Ya, Kirim ke WA';
+                btnYa.onclick = () => {
+                    tutupModal();
+                    window.open(dataAksi.urlWA, '_blank');
+                };
+
+                const btnTidak = document.createElement('button');
+                btnTidak.className = 'modal-btn-secondary';
+                btnTidak.innerText = 'Tidak (Salin Kode)';
+                btnTidak.onclick = () => {
+                    tutupModal();
+                    navigator.clipboard.writeText(dataAksi.idBooking).then(() => {
+                        tampilkanNotifikasiRamah({
+                            icon: '📋',
+                            title: 'Kode Disalin!',
+                            desc: `Kode booking <strong>${dataAksi.idBooking}</strong> berhasil disalin ke clipboard Anda. Silakan simpan untuk mengecek status kapan saja.`,
+                            tipe: 'info'
+                        });
+                    }).catch(() => {
+                        alert("Kode Booking Anda: " + dataAksi.idBooking);
+                    });
+                };
+
+                btnContainer.appendChild(btnYa);
+                btnContainer.appendChild(btnTidak);
+            } else {
+                const btnOk = document.createElement('button');
+                btnOk.className = 'modal-btn-primary';
+                btnOk.innerText = 'Mengerti, Terima Kasih';
+                btnOk.onclick = tutupModal;
+                btnContainer.appendChild(btnOk);
+            }
+
+            overlay.style.display = 'flex';
+        }
+
+        function tutupModal() {
+            document.getElementById('customModalOverlay').style.display = 'none';
+        }
 
         window.bukaHalaman = function(idHalaman) {
             if (idHalaman !== 'booking') {
                 document.getElementById('group-promo-terpilih').style.display = 'none';
                 document.getElementById('promo_terpilih').value = '';
+            }
+            if (idHalaman === 'riwayat') {
+                muatRiwayatLokal();
             }
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(idHalaman).classList.add('active');
@@ -536,33 +815,205 @@
             document.getElementById('nama').focus();
         }
 
+        // --- SISTEM PROMO EKSTERNAL TERINTEGRASI (DIKELOLA INTERNAL MANAJEMEN) ---
+        const promoDefaultList = [
+            {
+                badge: "Diskon 15%",
+                judul: "Paket Servis Lengkap Mobil",
+                deskripsi: "Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit. Berlaku untuk semua jenis mobil.",
+                footer: "*Syarat & Ketentuan Berlaku"
+            },
+            {
+                badge: "Hemat CVT",
+                judul: "Service CVT Gratis Oli Gardan",
+                deskripsi: "Khusus pemilik Motor Matic! Lakukan perawatan dan pembersihan CVT berkala, gratis Oli Gardan berkualitas premium.",
+                footer: "*Khusus Hari Senin - Kamis"
+            }
+        ];
+
+        function renderPromo(listPromo) {
+            const gridContainer = document.getElementById('container-grid-promo');
+            let html = "";
+            listPromo.forEach(p => {
+                html += `
+                    <div class="promo-card">
+                        <span class="promo-badge">${p.badge}</span>
+                        <div class="promo-content" style="padding: 25px;">
+                            <h3>${p.judul}</h3>
+                            <p>${p.deskripsi}</p>
+                            <div class="promo-footer" style="margin-top: 15px;">${p.footer}</div>
+                            <button onclick="window.ambilPromo('${p.judul} (${p.badge})')" class="btn" style="padding: 10px 20px; font-size: 13px; margin-top: 10px;">Ambil Promo</button>
+                        </div>
+                    </div>
+                `;
+            });
+            gridContainer.innerHTML = html;
+        }
+
+        // Inisialisasi awal promo
+        renderPromo(promoDefaultList);
+
+        // Fungsi sinkronisasi internal manajemen (terintegrasi aplikasi eksternal di latar belakang)
+        async function sinkronisasiPromoEksternal(endpointUrl) {
+            if (!endpointUrl) return;
+            try {
+                const response = await fetch(endpointUrl);
+                const data = await response.json();
+                if (Array.isArray(data) && data.length > 0) {
+                    renderPromo(data);
+                }
+            } catch (err) {
+                console.log("Sinkronisasi promo eksternal berjalan dengan cadangan internal.");
+            }
+        }
+
+        // Contoh pemanggilan otomatis jika manajemen ingin set endpoint via variabel global/localStorage internal
+        const endpointPromoInternal = localStorage.getItem('dne_promo_endpoint') || "";
+        if (endpointPromoInternal) {
+            sinkronisasiPromoEksternal(endpointPromoInternal);
+        }
+
+        // Set minimum date picker ke hari ini
+        const todayStr = new Date().toISOString().split('T')[0];
+        document.getElementById('tanggal_booking').min = todayStr;
+
+        // --- FUNGSI 1: AMBIL LOKASI GPS OTOMATIS ---
         document.getElementById('btn-lacak-gps').addEventListener('click', () => {
             const kolomInputLokasi = document.getElementById('share_loc');
-            if (navigator.geolocation) {
-                kolomInputLokasi.value = "Sedang melacak lokasi GPS Anda...";
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => { 
-                        // Normalisasi format link agar valid dibuka di smartphone mekanik
-                        kolomInputLokasi.value = "https://maps.google.com/?q=" + pos.coords.latitude + "," + pos.coords.longitude; 
-                        alert("✅ Lokasi Anda berhasil dideteksi!");
-                    },
-                    () => { 
-                        kolomInputLokasi.value = ""; 
-                        alert("Gagal mendeteksi lokasi otomatis. Anda dapat mengetik alamat manual pada kolom di bawahnya."); 
-                    },
-                    { enableHighAccuracy: true, timeout: 10000 }
-                );
+            if (!navigator.geolocation) {
+                tampilkanNotifikasiRamah({
+                    icon: '⚠️',
+                    title: 'Perangkat Tidak Mendukung',
+                    desc: 'Maaf, browser Anda tidak mendukung fitur pendeteksi lokasi GPS otomatis.',
+                    tipe: 'info'
+                });
+                return;
+            }
+
+            kolomInputLokasi.value = "Sedang melacak lokasi GPS Anda...";
+            
+            navigator.geolocation.getCurrentPosition(
+                (pos) => { 
+                    const lat = pos.coords.latitude;
+                    const lon = pos.coords.longitude;
+                    kolomInputLokasi.value = `https://maps.google.com/?q=${lat},${lon}`; 
+                    tampilkanNotifikasiRamah({
+                        icon: '📍',
+                        title: 'Lokasi Ditemukan',
+                        desc: 'Titik koordinat GPS Anda berhasil dipasang pada formulir dengan akurat.',
+                        tipe: 'info'
+                    });
+                },
+                (error) => { 
+                    kolomInputLokasi.value = ""; 
+                    let pesanError = "Gagal mendeteksi lokasi otomatis. Pastikan izin GPS perangkat Anda aktif.";
+                    if (error.code === error.PERMISSION_DENIED) {
+                        pesanError = "Akses lokasi ditolak. Mohon izinkan akses lokasi pada pengaturan browser Anda, atau isi alamat secara manual.";
+                    }
+                    tampilkanNotifikasiRamah({
+                        icon: '⚠️',
+                        title: 'Kendala GPS',
+                        desc: pesanError,
+                        tipe: 'info'
+                    });
+                },
+                { 
+                    enableHighAccuracy: true, 
+                    timeout: 15000, 
+                    maximumAge: 0 
+                }
+            );
+        });
+
+        // --- FUNGSI 2: LIVE KAMERA LANGSUNG DI BROWSER ---
+        let streamKameraAktif = null;
+        let fileFotoHasilJepretan = null;
+
+        const btnBukaKamera = document.getElementById('btn-buka-kamera');
+        const containerKamera = document.getElementById('container-kamera');
+        const videoKamera = document.getElementById('video-kamera');
+        const canvasFoto = document.getElementById('canvas-foto');
+        const btnJepret = document.getElementById('btn-jepret');
+        const btnTutupKamera = document.getElementById('btn-tutup-kamera');
+        const previewFotoHasil = document.getElementById('preview-foto-hasil');
+        const inputFotoFile = document.getElementById('foto_kendaraan');
+
+        btnBukaKamera.addEventListener('click', async () => {
+            containerKamera.style.display = 'block';
+            videoKamera.style.display = 'block';
+            try {
+                streamKameraAktif = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' }, 
+                    audio: false 
+                });
+                videoKamera.srcObject = streamKameraAktif;
+            } catch (err) {
+                tampilkanNotifikasiRamah({
+                    icon: '📷',
+                    title: 'Akses Kamera',
+                    desc: 'Tidak dapat mengakses kamera perangkat. Pastikan izin kamera telah diberikan.',
+                    tipe: 'info'
+                });
+                containerKamera.style.display = 'none';
             }
         });
 
-        document.getElementById('formBengkelWA').addEventListener('submit', (event) => {
+        btnJepret.addEventListener('click', () => {
+            if (!streamKameraAktif) return;
+            
+            canvasFoto.width = videoKamera.videoWidth || 640;
+            canvasFoto.height = videoKamera.videoHeight || 480;
+            const ctx = canvasFoto.getContext('2d');
+            ctx.drawImage(videoKamera, 0, 0, canvasFoto.width, canvasFoto.height);
+
+            canvasFoto.toBlob((blob) => {
+                fileFotoHasilJepretan = new File([blob], "foto_kamera_" + Date.now() + ".jpg", { type: "image/jpeg" });
+                
+                previewFotoHasil.src = URL.createObjectURL(blob);
+                previewFotoHasil.style.display = 'block';
+
+                inputFotoFile.value = "";
+                matikanKamera();
+                
+                tampilkanNotifikasiRamah({
+                    icon: '📸',
+                    title: 'Berhasil Jepret',
+                    desc: 'Foto kondisi kendaraan berhasil diabadikan dan siap dilampirkan.',
+                    tipe: 'info'
+                });
+            }, 'image/jpeg', 0.85);
+        });
+
+        function matikanKamera() {
+            if (streamKameraAktif) {
+                streamKameraAktif.getTracks().forEach(track => track.stop());
+                streamKameraAktif = null;
+            }
+            videoKamera.style.display = 'none';
+            containerKamera.style.display = 'none';
+        }
+
+        btnTutupKamera.addEventListener('click', matikanKamera);
+
+        inputFotoFile.addEventListener('change', (e) => {
+            if (e.target.files[0]) {
+                fileFotoHasilJepretan = null;
+                previewFotoHasil.src = URL.createObjectURL(e.target.files[0]);
+                previewFotoHasil.style.display = 'block';
+            }
+        });
+
+        // Submit Form Booking dengan Logika Ramah & Pilihan Tombol WhatsApp
+        document.getElementById('formBengkelWA').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nomorWABengkel = "62881080809993"; 
 
             const promo = document.getElementById('promo_terpilih').value;
             const nama = document.getElementById('nama').value;
             let waCustomer = document.getElementById('whatsapp').value.trim();
-            if(waCustomer.startsWith('0')) waCustomer = '62' + waCustomer.slice(1); // Normalisasi nomor wa ke 62
+            if(waCustomer.startsWith('0')) waCustomer = '62' + waCustomer.slice(1);
+
+            const tglBooking = document.getElementById('tanggal_booking').value;
 
             let shareLoc = document.getElementById('share_loc').value;
             let alamatInput = document.getElementById('alamat').value;
@@ -571,17 +1022,20 @@
             const alamatKosong = (!alamatInput || alamatInput.trim() === "");
 
             if (gpsKosong && alamatKosong) {
-                alert("❌ Mohon isi salah satu: Gunakan tombol 'Ambil Lokasi Otomatis' atau ketik 'Alamat Lengkap'!");
+                tampilkanNotifikasiRamah({
+                    icon: '📍',
+                    title: 'Lokasi Belum Lengkap',
+                    desc: 'Mohon isi salah satu: Gunakan tombol "Ambil Lokasi Otomatis" atau ketik "Alamat Lengkap" rumah Anda ya!',
+                    tipe: 'info'
+                });
                 return;
             }
 
-            // Gabungkan data lokasi/GPS ke dalam satu variabel alamat untuk disinkronkan dengan dashboard internal.html
             let alamatDatabase = "";
             if (!gpsKosong && !alamatKosong) {
                 alamatDatabase = `${alamatInput} (Lokasi GPS: ${shareLoc})`;
             } else if (!gpsKosong) {
                 alamatDatabase = shareLoc;
-                shareLoc = shareLoc;
                 alamatInput = "(Tidak dilampirkan, mengacu pada titik GPS)";
             } else {
                 alamatDatabase = alamatInput;
@@ -591,20 +1045,35 @@
             const kategori = document.getElementById('kategori').value;
             const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
+            
+            const fotoInput = fileFotoHasilJepretan || document.getElementById('foto_kendaraan').files[0];
 
             const dt = new Date();
             const idBooking = 'DNE-' + dt.getFullYear() + String(dt.getMonth() + 1).padStart(2, '0') + String(dt.getDate()).padStart(2, '0') + '-' + Date.now().toString().slice(-4);
             const tanggalStr = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+
+            let fotoUrl = "";
+            if (fotoInput) {
+                try {
+                    const storageRef = sRef(storage, 'booking_images/' + idBooking + '_' + fotoInput.name);
+                    const snapshot = await uploadBytes(storageRef, fotoInput);
+                    fotoUrl = await getDownloadURL(snapshot.ref);
+                } catch (err) {
+                    console.log("Upload foto berjalan secara opsional.");
+                }
+            }
 
             const dataBaru = {
                 id: idBooking, 
                 promo: promo || 'Tidak Ada', 
                 nama: nama, 
                 whatsapp: waCustomer,
-                alamat: alamatDatabase, // Properti krusial yang dibaca internal.html untuk SPK WA
+                tanggal_servis: tglBooking,
+                alamat: alamatDatabase, 
                 kategori: kategori, 
                 kendaraan: kendaraan, 
                 keluhan: keluhan,
+                foto_url: fotoUrl,
                 status: 'Menunggu', 
                 montir: '', 
                 biaya_jasa: 0, 
@@ -615,6 +1084,9 @@
 
             set(ref(database, 'bookings/' + idBooking), dataBaru)
                 .then(() => {
+                    // Otomatis tercatat di riwayat perangkat
+                    simpanRiwayatLokal(dataBaru);
+
                     let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
                     let barisPromo = promo ? `*Promo Diklaim   :* ${promo}\n` : "";
                     if (promo) judulPesan = "*KLAIM PROMO SPESIAL - DNE AUTO SOLUTION*";
@@ -626,21 +1098,159 @@
                         barisPromo +
                         `*Nama Pelanggan  :* ${nama}\n` +
                         `*No. WhatsApp    :* ${waCustomer}\n` +
+                        `*Tanggal Servis  :* ${tglBooking}\n` +
                         `*Share Location  :* ${shareLoc}\n` +
                         `*Alamat Lengkap  :* ${alamatInput}\n` +
                         `*Kategori Servis :* ${kategori}\n` +
                         `*Jenis Kendaraan :* ${kendaraan}\n` +
-                        `*Keluhan/Request :* ${keluhan}\n\n` +
-                        "_Pesan ini disimpan secara real-time ke sistem kasir dan terkirim otomatis._";
+                        `*Keluhan/Request :* ${keluhan}\n` +
+                        (fotoUrl ? `*Foto Kendaraan  :* ${fotoUrl}\n\n` : "\n") +
+                        "_Pesan ini tercatat secara otomatis._";
 
-                    window.open(`https://api.whatsapp.com/send?phone=${nomorWABengkel}&text=${encodeURIComponent(templatePesan)}`, '_blank');
-                    alert(`✅ Booking Berhasil Terkirim & Tersimpan! ID: ${idBooking}`);
+                    const urlWA = `https://api.whatsapp.com/send?phone=${nomorWABengkel}&text=${encodeURIComponent(templatePesan)}`;
+
+                    // Reset form & preview
                     document.getElementById('formBengkelWA').reset();
+                    document.getElementById('preview-foto-hasil').style.display = 'none';
                     document.getElementById('group-promo-terpilih').style.display = 'none';
+
+                    // Munculkan Popup Notifikasi Ramah Pengguna sesuai ketentuan baru
+                    tampilkanNotifikasiRamah({
+                        icon: '🎉',
+                        title: 'Booking Berhasil!',
+                        desc: 'booking berhasil.!<br>Lanjutkan via WhatsApp untuk mempercepat proses perbaikan.!',
+                        tipe: 'konfirmasi_wa',
+                        dataAksi: {
+                            urlWA: urlWA,
+                            idBooking: idBooking
+                        }
+                    });
+
                     window.bukaHalaman('home');
                 })
-                .catch((error) => { alert("Koneksi Firebase Gagal: " + error.message); });
+                .catch((error) => { 
+                    tampilkanNotifikasiRamah({
+                        icon: '⚠️',
+                        title: 'Kendala Koneksi',
+                        desc: 'Mohon maaf, terjadi kendala saat menyimpan data ke server. Silakan coba beberapa saat lagi.',
+                        tipe: 'info'
+                    }); 
+                });
         });
+
+        // --- CEK STATUS BERDASARKAN PENCARIAN DIGIT ANGKA (MENDUKUNG KODE TANPA DNE-) ---
+        document.getElementById('btn-proses-cek').addEventListener('click', () => {
+            let inputCari = document.getElementById('input_id_cek').value.trim();
+            const boxHasil = document.getElementById('boxHasilStatus');
+            
+            if (!inputCari) {
+                tampilkanNotifikasiRamah({
+                    icon: '🔍',
+                    title: 'Kolom Kosong',
+                    desc: 'Silakan masukkan digit angka unik booking Anda terlebih dahulu untuk melacaknya.',
+                    tipe: 'info'
+                });
+                return;
+            }
+
+            // Bersihkan jika pengguna tidak sengaja mengetik huruf DNE atau strip
+            inputCari = inputCari.replace(/DNE-?/gi, "").trim();
+
+            const dbRef = ref(database);
+            get(child(dbRef, `bookings`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const semuaData = snapshot.val();
+                    let dataDitemukan = null;
+
+                    // Cari apakah ada ID di database yang mengandung digit angka yang dimasukkan pengguna
+                    for (let key in semuaData) {
+                        if (key.includes(inputCari)) {
+                            dataDitemukan = semuaData[key];
+                            break;
+                        }
+                    }
+
+                    if (dataDitemukan) {
+                        document.getElementById('resId').innerText = dataDitemukan.id;
+                        document.getElementById('resNama').innerText = dataDitemukan.nama;
+                        document.getElementById('resKendaraan').innerText = `${dataDitemukan.kategori} - ${dataDitemukan.kendaraan}`;
+                        document.getElementById('resJadwal').innerText = dataDitemukan.tanggal_servis || dataDitemukan.tanggal;
+                        document.getElementById('resMontir').innerText = dataDitemukan.montir || 'Belum ditentukan';
+                        
+                        const badge = document.getElementById('resStatusBadge');
+                        badge.innerText = dataDitemukan.status;
+                        if(dataDitemukan.status === 'Selesai') badge.style.background = '#16a34a';
+                        else if(dataDitemukan.status === 'Proses') badge.style.background = '#2563eb';
+                        else badge.style.background = '#ca8a04';
+
+                        boxHasil.style.display = 'block';
+                    } else {
+                        tampilkanNotifikasiRamah({
+                            icon: '🔍',
+                            title: 'Tidak Ditemukan',
+                            desc: 'Maaf, kami tidak dapat menemukan data servis dengan digit angka tersebut. Periksa kembali angka unik booking Anda.',
+                            tipe: 'info'
+                        });
+                        boxHasil.style.display = 'none';
+                    }
+                } else {
+                    tampilkanNotifikasiRamah({
+                        icon: 'ℹ️',
+                        title: 'Data Kosong',
+                        desc: 'Belum ada data pendaftaran servis yang tercatat di sistem saat ini.',
+                        tipe: 'info'
+                    });
+                    boxHasil.style.display = 'none';
+                }
+            }).catch((error) => {
+                tampilkanNotifikasiRamah({
+                    icon: '⚠️',
+                    title: 'Gagal Membaca Data',
+                    desc: 'Terjadi kendala koneksi saat mencari data. Silakan coba kembali.',
+                    tipe: 'info'
+                });
+            });
+        });
+
+        // Fungsi Kelola Local Storage untuk Riwayat
+        function simpanRiwayatLokal(data) {
+            let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
+            riwayat.unshift(data);
+            if (riwayat.length > 10) riwayat.pop();
+            localStorage.setItem('dne_riwayat_booking', JSON.stringify(riwayat));
+        }
+
+        function muatRiwayatLokal() {
+            const container = document.getElementById('daftarRiwayatContainer');
+            let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
+            
+            if (riwayat.length === 0) {
+                container.innerHTML = `<p style="color: #94a3b8; text-align: center;">Belum ada riwayat booking tersimpan di perangkat ini.</p>`;
+                return;
+            }
+
+            let htmlContent = "";
+            riwayat.forEach(item => {
+                htmlContent += `
+                    <div class="riwayat-item">
+                        <div class="riwayat-info">
+                            <h4>${item.kendaraan} (${item.id})</h4>
+                            <p>Tanggal: ${item.tanggal_servis || item.tanggal} | Status: <strong>${item.status}</strong></p>
+                        </div>
+                        <button onclick="window.lacakDariRiwayat('${item.id}')" class="btn" style="padding: 6px 12px; font-size: 11px;">Cek</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = htmlContent;
+        }
+
+        window.lacakDariRiwayat = function(id) {
+            window.bukaHalaman('status');
+            // Ekstrak digit angka tanpa awalan DNE- untuk kemudahan pencarian
+            const angkaSaja = id.replace(/DNE-?/gi, "");
+            document.getElementById('input_id_cek').value = angkaSaja;
+            document.getElementById('btn-proses-cek').click();
+        }
     </script>
 </body>
 </html>
