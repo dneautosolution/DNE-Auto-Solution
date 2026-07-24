@@ -589,14 +589,8 @@
         <h2>Promo <span>Spesial</span></h2>
         <p class="promo-subtitle">Jangan lewatkan penawaran menarik khusus bulan ini untuk kendaraan kesayangan Anda!</p>
         
-        <!-- Pengaturan Promo Eksternal Terintegrasi (Tersembunyi dari Tampilan Publik, Hanya Internal Manajemen yang Tahu) -->
-        <div style="display: none;">
-            <input type="text" id="input-url-promo" value="">
-            <button type="button" id="btn-muat-promo-eksternal"></button>
-        </div>
-
         <div class="promo-grid" id="container-grid-promo">
-            <!-- Data promo akan dimuat dinamis dari sistem eksternal atau default -->
+            <!-- Data promo tersinkronisasi real-time otomatis dari database manager -->
         </div>
     </section>
 
@@ -619,7 +613,7 @@
                     <input type="tel" id="whatsapp" placeholder="Contoh: 0812345678" required>
                 </div>
                 <div class="form-group">
-                    <label for="tanggal_booking">Pilih Tanggal Servis</label>
+                    <label for="tanggal_booking">Pilih Jadwal Servis</label>
                     <input type="date" id="tanggal_booking" required>
                 </div>
                 <div class="form-group">
@@ -650,9 +644,9 @@
                     <textarea id="keluhan" rows="4" placeholder="Contoh: Ganti oli berkala, rem berdecit, atau tune up mesin" required></textarea>
                 </div>
                 
-                <!-- Fitur Unggah File & Kamera Langsung dengan Live Preview dan Fungsinya -->
+                <!-- Fitur Unggah File & Kamera Langsung dengan Live Preview -->
                 <div class="form-group">
-                    <label>Foto Kendaraan / Bagian Rusak <span class="opsional">(Opsional)</span></label>
+                    <label>Foto Kendaraan / Kerusakan <span class="opsional">(Opsional)</span></label>
                     <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="file" id="foto_kendaraan" accept="image/*" style="padding: 10px; flex: 1;">
                         <button type="button" id="btn-buka-kamera" class="btn-gps" style="background: #16a34a;">📸 Ambil Foto Langsung</button>
@@ -719,9 +713,7 @@
             <div class="custom-modal-icon" id="modalIcon">🎉</div>
             <div class="custom-modal-title" id="modalTitle">Berhasil!</div>
             <div class="custom-modal-desc" id="modalDesc">Pesan notifikasi ramah pengguna.</div>
-            <div class="custom-modal-buttons" id="modalButtonsContainer">
-                <!-- Tombol dinamis diatur via JS -->
-            </div>
+            <div class="custom-modal-buttons" id="modalButtonsContainer"></div>
         </div>
     </div>
 
@@ -732,7 +724,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
         import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = { databaseURL: "https://dneautosolution-5a2b1-default-rtdb.firebaseio.com/" };
@@ -815,69 +807,52 @@
             document.getElementById('nama').focus();
         }
 
-        // --- SISTEM PROMO EKSTERNAL TERINTEGRASI (DIKELOLA INTERNAL MANAJEMEN) ---
-        const promoDefaultList = [
-            {
-                badge: "Diskon 15%",
-                judul: "Paket Servis Lengkap Mobil",
-                deskripsi: "Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit. Berlaku untuk semua jenis mobil.",
-                footer: "*Syarat & Ketentuan Berlaku"
-            },
-            {
-                badge: "Hemat CVT",
-                judul: "Service CVT Gratis Oli Gardan",
-                deskripsi: "Khusus pemilik Motor Matic! Lakukan perawatan dan pembersihan CVT berkala, gratis Oli Gardan berkualitas premium.",
-                footer: "*Khusus Hari Senin - Kamis"
-            }
-        ];
-
+        // --- REAL-TIME PROMO LISTENER DARI PANEL MANAJER ---
         function renderPromo(listPromo) {
             const gridContainer = document.getElementById('container-grid-promo');
+            if (!listPromo || listPromo.length === 0) {
+                gridContainer.innerHTML = `<p style="color: #94a3b8; text-align: center; grid-column: 1/-1;">Belum ada promo aktif saat ini.</p>`;
+                return;
+            }
             let html = "";
             listPromo.forEach(p => {
-                html += `
-                    <div class="promo-card">
-                        <span class="promo-badge">${p.badge}</span>
-                        <div class="promo-content" style="padding: 25px;">
-                            <h3>${p.judul}</h3>
-                            <p>${p.deskripsi}</p>
-                            <div class="promo-footer" style="margin-top: 15px;">${p.footer}</div>
-                            <button onclick="window.ambilPromo('${p.judul} (${p.badge})')" class="btn" style="padding: 10px 20px; font-size: 13px; margin-top: 10px;">Ambil Promo</button>
+                if(p && p.status !== 'Inactive') {
+                    html += `
+                        <div class="promo-card">
+                            <span class="promo-badge">${p.badge}</span>
+                            <div class="promo-content" style="padding: 25px;">
+                                <h3>${p.judul}</h3>
+                                <p>${p.deskripsi}</p>
+                                <div class="promo-footer" style="margin-top: 15px;">${p.footer || '*Syarat & Ketentuan Berlaku'}</div>
+                                <button onclick="window.ambilPromo('${p.judul} (${p.badge})')" class="btn" style="padding: 10px 20px; font-size: 13px; margin-top: 10px;">Ambil Promo</button>
+                            </div>
                         </div>
-                    </div>
-                `;
-            });
-            gridContainer.innerHTML = html;
-        }
-
-        // Inisialisasi awal promo
-        renderPromo(promoDefaultList);
-
-        // Fungsi sinkronisasi internal manajemen (terintegrasi aplikasi eksternal di latar belakang)
-        async function sinkronisasiPromoEksternal(endpointUrl) {
-            if (!endpointUrl) return;
-            try {
-                const response = await fetch(endpointUrl);
-                const data = await response.json();
-                if (Array.isArray(data) && data.length > 0) {
-                    renderPromo(data);
+                    `;
                 }
-            } catch (err) {
-                console.log("Sinkronisasi promo eksternal berjalan dengan cadangan internal.");
-            }
+            });
+            gridContainer.innerHTML = html || `<p style="color: #94a3b8; text-align: center; grid-column: 1/-1;">Belum ada promo aktif saat ini.</p>`;
         }
 
-        // Contoh pemanggilan otomatis jika manajemen ingin set endpoint via variabel global/localStorage internal
-        const endpointPromoInternal = localStorage.getItem('dne_promo_endpoint') || "";
-        if (endpointPromoInternal) {
-            sinkronisasiPromoEksternal(endpointPromoInternal);
-        }
+        // Sinkronisasi reaktif data promo dari database secara real-time
+        onValue(ref(database, 'promos'), (snapshot) => {
+            if (snapshot.exists()) {
+                const dataObj = snapshot.val();
+                const promoArray = Object.keys(dataObj).map(key => ({ id: key, ...dataObj[key] }));
+                renderPromo(promoArray);
+            } else {
+                // Cadangan default jika belum ada data promo dari manajer
+                renderPromo([
+                    { badge: "Diskon 15%", judul: "Paket Servis Lengkap Mobil", deskripsi: "Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit.", footer: "*Syarat & Ketentuan Berlaku" },
+                    { badge: "Hemat CVT", judul: "Service CVT Gratis Oli Gardan", deskripsi: "Khusus pemilik Motor Matic! Lakukan perawatan CVT berkala, gratis Oli Gardan.", footer: "*Khusus Hari Senin - Kamis" }
+                ]);
+            }
+        });
 
         // Set minimum date picker ke hari ini
         const todayStr = new Date().toISOString().split('T')[0];
         document.getElementById('tanggal_booking').min = todayStr;
 
-        // --- FUNGSI 1: AMBIL LOKASI GPS OTOMATIS ---
+        // --- FUNGSI AMBIL LOKASI GPS OTOMATIS ---
         document.getElementById('btn-lacak-gps').addEventListener('click', () => {
             const kolomInputLokasi = document.getElementById('share_loc');
             if (!navigator.geolocation) {
@@ -917,15 +892,11 @@
                         tipe: 'info'
                     });
                 },
-                { 
-                    enableHighAccuracy: true, 
-                    timeout: 15000, 
-                    maximumAge: 0 
-                }
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
             );
         });
 
-        // --- FUNGSI 2: LIVE KAMERA LANGSUNG DI BROWSER ---
+        // --- FUNGSI LIVE KAMERA LANGSUNG DI BROWSER ---
         let streamKameraAktif = null;
         let fileFotoHasilJepretan = null;
 
@@ -1003,7 +974,7 @@
             }
         });
 
-        // Submit Form Booking dengan Logika Ramah & Pilihan Tombol WhatsApp
+        // Submit Form Booking dengan Jadwal Servis & Foto Opsional
         document.getElementById('formBengkelWA').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nomorWABengkel = "62881080809993"; 
@@ -1084,7 +1055,6 @@
 
             set(ref(database, 'bookings/' + idBooking), dataBaru)
                 .then(() => {
-                    // Otomatis tercatat di riwayat perangkat
                     simpanRiwayatLokal(dataBaru);
 
                     let judulPesan = "*BOOKING ONLINE - DNE AUTO SOLUTION*";
@@ -1098,7 +1068,7 @@
                         barisPromo +
                         `*Nama Pelanggan  :* ${nama}\n` +
                         `*No. WhatsApp    :* ${waCustomer}\n` +
-                        `*Tanggal Servis  :* ${tglBooking}\n` +
+                        `*Jadwal Servis   :* ${tglBooking}\n` +
                         `*Share Location  :* ${shareLoc}\n` +
                         `*Alamat Lengkap  :* ${alamatInput}\n` +
                         `*Kategori Servis :* ${kategori}\n` +
@@ -1109,12 +1079,11 @@
 
                     const urlWA = `https://api.whatsapp.com/send?phone=${nomorWABengkel}&text=${encodeURIComponent(templatePesan)}`;
 
-                    // Reset form & preview
                     document.getElementById('formBengkelWA').reset();
                     document.getElementById('preview-foto-hasil').style.display = 'none';
                     document.getElementById('group-promo-terpilih').style.display = 'none';
+                    fileFotoHasilJepretan = null;
 
-                    // Munculkan Popup Notifikasi Ramah Pengguna sesuai ketentuan baru
                     tampilkanNotifikasiRamah({
                         icon: '🎉',
                         title: 'Booking Berhasil!',
@@ -1138,7 +1107,7 @@
                 });
         });
 
-        // --- CEK STATUS BERDASARKAN PENCARIAN DIGIT ANGKA (MENDUKUNG KODE TANPA DNE-) ---
+        // --- CEK STATUS BERDASARKAN PENCARIAN DIGIT ANGKA ---
         document.getElementById('btn-proses-cek').addEventListener('click', () => {
             let inputCari = document.getElementById('input_id_cek').value.trim();
             const boxHasil = document.getElementById('boxHasilStatus');
@@ -1153,7 +1122,6 @@
                 return;
             }
 
-            // Bersihkan jika pengguna tidak sengaja mengetik huruf DNE atau strip
             inputCari = inputCari.replace(/DNE-?/gi, "").trim();
 
             const dbRef = ref(database);
@@ -1162,7 +1130,6 @@
                     const semuaData = snapshot.val();
                     let dataDitemukan = null;
 
-                    // Cari apakah ada ID di database yang mengandung digit angka yang dimasukkan pengguna
                     for (let key in semuaData) {
                         if (key.includes(inputCari)) {
                             dataDitemukan = semuaData[key];
@@ -1235,7 +1202,7 @@
                     <div class="riwayat-item">
                         <div class="riwayat-info">
                             <h4>${item.kendaraan} (${item.id})</h4>
-                            <p>Tanggal: ${item.tanggal_servis || item.tanggal} | Status: <strong>${item.status}</strong></p>
+                            <p>Jadwal: ${item.tanggal_servis || item.tanggal} | Status: <strong>${item.status}</strong></p>
                         </div>
                         <button onclick="window.lacakDariRiwayat('${item.id}')" class="btn" style="padding: 6px 12px; font-size: 11px;">Cek</button>
                     </div>
@@ -1246,7 +1213,6 @@
 
         window.lacakDariRiwayat = function(id) {
             window.bukaHalaman('status');
-            // Ekstrak digit angka tanpa awalan DNE- untuk kemudahan pencarian
             const angkaSaja = id.replace(/DNE-?/gi, "");
             document.getElementById('input_id_cek').value = angkaSaja;
             document.getElementById('btn-proses-cek').click();
