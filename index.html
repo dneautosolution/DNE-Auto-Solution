@@ -341,66 +341,6 @@
         .btn-gps:hover { background: #3b82f6; }
         .form-group input[readonly] { background-color: #1c1c22; color: #fbbf24; cursor: not-allowed; }
 
-        /* Style khusus untuk preview kamera & tombol ambil foto */
-        .camera-container {
-            margin-top: 10px;
-            background: #141418;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed #3f3f46;
-            text-align: center;
-        }
-
-        #video-kamera {
-            width: 100%;
-            max-height: 250px;
-            background: #000;
-            border-radius: 6px;
-            display: none;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        #canvas-foto {
-            display: none;
-        }
-
-        #preview-foto-hasil {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 6px;
-            margin-top: 10px;
-            display: none;
-            border: 1px solid #dc2626;
-        }
-
-        .btn-kamera-aksi {
-            background: #16a34a;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            margin-right: 5px;
-            margin-top: 5px;
-        }
-        .btn-kamera-aksi:hover { background: #22c55e; }
-
-        .btn-kamera-tutup {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-        .btn-kamera-tutup:hover { background: #ef4444; }
-
         /* Style untuk hasil cek status & riwayat */
         .status-result-box {
             margin-top: 25px;
@@ -643,29 +583,6 @@
                     <label for="keluhan">Detail Kendala & Jenis Perbaikan</label>
                     <textarea id="keluhan" rows="4" placeholder="Contoh: Ganti oli berkala, rem berdecit, atau tune up mesin" required></textarea>
                 </div>
-                
-                <!-- Fitur Unggah File & Kamera Langsung dengan Live Preview -->
-                <div class="form-group">
-                    <label>Foto Kendaraan / Kerusakan <span class="opsional">(Opsional)</span></label>
-                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <input type="file" id="foto_kendaraan" accept="image/*" style="padding: 10px; flex: 1;">
-                        <button type="button" id="btn-buka-kamera" class="btn-gps" style="background: #16a34a;">📸 Ambil Foto Langsung</button>
-                    </div>
-                    
-                    <!-- Container Live Preview Kamera Web/HP -->
-                    <div class="camera-container" id="container-kamera" style="display: none;">
-                        <video id="video-kamera" autoplay playsinline></video>
-                        <canvas id="canvas-foto"></canvas>
-                        <div>
-                            <button type="button" id="btn-jepret" class="btn-kamera-aksi">🔴 Jepret / Ambil Foto</button>
-                            <button type="button" id="btn-tutup-kamera" class="btn-kamera-tutup">❌ Tutup Kamera</button>
-                        </div>
-                    </div>
-
-                    <!-- Hasil Pratinjau Foto -->
-                    <img id="preview-foto-hasil" alt="Preview Foto Kendaraan">
-                    <p style="font-size: 11px; color: #94a3b8; margin-top: 5px;">Anda bisa mengunggah dari galeri file atau langsung menjepret foto lewat kamera perangkat.</p>
-                </div>
 
                 <button type="submit" class="btn" style="width: 100%;">Kirim Booking</button>
             </form>
@@ -725,12 +642,10 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-        import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = { databaseURL: "https://dneautosolution-5a2b1-default-rtdb.firebaseio.com/" };
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        const storage = getStorage(app);
 
         // --- SISTEM MODAL NOTIFIKASI RAMAH PENGGUNA ---
         function tampilkanNotifikasiRamah({ icon, title, desc, tipe, dataAksi }) {
@@ -840,7 +755,6 @@
                 const promoArray = Object.keys(dataObj).map(key => ({ id: key, ...dataObj[key] }));
                 renderPromo(promoArray);
             } else {
-                // Cadangan default jika belum ada data promo dari manajer
                 renderPromo([
                     { badge: "Diskon 15%", judul: "Paket Servis Lengkap Mobil", deskripsi: "Dapatkan diskon 15% untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit.", footer: "*Syarat & Ketentuan Berlaku" },
                     { badge: "Hemat CVT", judul: "Service CVT Gratis Oli Gardan", deskripsi: "Khusus pemilik Motor Matic! Lakukan perawatan CVT berkala, gratis Oli Gardan.", footer: "*Khusus Hari Senin - Kamis" }
@@ -896,85 +810,7 @@
             );
         });
 
-        // --- FUNGSI LIVE KAMERA LANGSUNG DI BROWSER ---
-        let streamKameraAktif = null;
-        let fileFotoHasilJepretan = null;
-
-        const btnBukaKamera = document.getElementById('btn-buka-kamera');
-        const containerKamera = document.getElementById('container-kamera');
-        const videoKamera = document.getElementById('video-kamera');
-        const canvasFoto = document.getElementById('canvas-foto');
-        const btnJepret = document.getElementById('btn-jepret');
-        const btnTutupKamera = document.getElementById('btn-tutup-kamera');
-        const previewFotoHasil = document.getElementById('preview-foto-hasil');
-        const inputFotoFile = document.getElementById('foto_kendaraan');
-
-        btnBukaKamera.addEventListener('click', async () => {
-            containerKamera.style.display = 'block';
-            videoKamera.style.display = 'block';
-            try {
-                streamKameraAktif = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'environment' }, 
-                    audio: false 
-                });
-                videoKamera.srcObject = streamKameraAktif;
-            } catch (err) {
-                tampilkanNotifikasiRamah({
-                    icon: '📷',
-                    title: 'Akses Kamera',
-                    desc: 'Tidak dapat mengakses kamera perangkat. Pastikan izin kamera telah diberikan.',
-                    tipe: 'info'
-                });
-                containerKamera.style.display = 'none';
-            }
-        });
-
-        btnJepret.addEventListener('click', () => {
-            if (!streamKameraAktif) return;
-            
-            canvasFoto.width = videoKamera.videoWidth || 640;
-            canvasFoto.height = videoKamera.videoHeight || 480;
-            const ctx = canvasFoto.getContext('2d');
-            ctx.drawImage(videoKamera, 0, 0, canvasFoto.width, canvasFoto.height);
-
-            canvasFoto.toBlob((blob) => {
-                fileFotoHasilJepretan = new File([blob], "foto_kamera_" + Date.now() + ".jpg", { type: "image/jpeg" });
-                
-                previewFotoHasil.src = URL.createObjectURL(blob);
-                previewFotoHasil.style.display = 'block';
-
-                inputFotoFile.value = "";
-                matikanKamera();
-                
-                tampilkanNotifikasiRamah({
-                    icon: '📸',
-                    title: 'Berhasil Jepret',
-                    desc: 'Foto kondisi kendaraan berhasil diabadikan dan siap dilampirkan.',
-                    tipe: 'info'
-                });
-            }, 'image/jpeg', 0.85);
-        });
-
-        function matikanKamera() {
-            if (streamKameraAktif) {
-                streamKameraAktif.getTracks().forEach(track => track.stop());
-                streamKameraAktif = null;
-            }
-            videoKamera.style.display = 'none';
-            containerKamera.style.display = 'none';
-        }
-
-        btnTutupKamera.addEventListener('click', matikanKamera);
-
-        inputFotoFile.addEventListener('change', (e) => {
-            if (e.target.files[0]) {
-                fileFotoHasilJepretan = null;
-                previewFotoHasil.src = URL.createObjectURL(e.target.files[0]);
-                previewFotoHasil.style.display = 'block';
-            }
-        });
-
-        // Submit Form Booking dengan Jadwal Servis & Foto Opsional
+        // Submit Form Booking dengan Jadwal Servis (Tanpa Foto)
         document.getElementById('formBengkelWA').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nomorWABengkel = "62881080809993"; 
@@ -1016,23 +852,10 @@
             const kategori = document.getElementById('kategori').value;
             const kendaraan = document.getElementById('kendaraan').value;
             const keluhan = document.getElementById('keluhan').value;
-            
-            const fotoInput = fileFotoHasilJepretan || document.getElementById('foto_kendaraan').files[0];
 
             const dt = new Date();
             const idBooking = 'DNE-' + dt.getFullYear() + String(dt.getMonth() + 1).padStart(2, '0') + String(dt.getDate()).padStart(2, '0') + '-' + Date.now().toString().slice(-4);
             const tanggalStr = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
-
-            let fotoUrl = "";
-            if (fotoInput) {
-                try {
-                    const storageRef = sRef(storage, 'booking_images/' + idBooking + '_' + fotoInput.name);
-                    const snapshot = await uploadBytes(storageRef, fotoInput);
-                    fotoUrl = await getDownloadURL(snapshot.ref);
-                } catch (err) {
-                    console.log("Upload foto berjalan secara opsional.");
-                }
-            }
 
             const dataBaru = {
                 id: idBooking, 
@@ -1044,7 +867,6 @@
                 kategori: kategori, 
                 kendaraan: kendaraan, 
                 keluhan: keluhan,
-                foto_url: fotoUrl,
                 status: 'Menunggu', 
                 montir: '', 
                 biaya_jasa: 0, 
@@ -1073,16 +895,13 @@
                         `*Alamat Lengkap  :* ${alamatInput}\n` +
                         `*Kategori Servis :* ${kategori}\n` +
                         `*Jenis Kendaraan :* ${kendaraan}\n` +
-                        `*Keluhan/Request :* ${keluhan}\n` +
-                        (fotoUrl ? `*Foto Kendaraan  :* ${fotoUrl}\n\n` : "\n") +
+                        `*Keluhan/Request :* ${keluhan}\n\n` +
                         "_Pesan ini tercatat secara otomatis._";
 
                     const urlWA = `https://api.whatsapp.com/send?phone=${nomorWABengkel}&text=${encodeURIComponent(templatePesan)}`;
 
                     document.getElementById('formBengkelWA').reset();
-                    document.getElementById('preview-foto-hasil').style.display = 'none';
                     document.getElementById('group-promo-terpilih').style.display = 'none';
-                    fileFotoHasilJepretan = null;
 
                     tampilkanNotifikasiRamah({
                         icon: '🎉',
