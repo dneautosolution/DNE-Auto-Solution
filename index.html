@@ -40,7 +40,7 @@
         }
 
         .logo-img {
-            height: 65px;
+            height: 60px;
             width: auto;
             object-fit: contain;
             filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.5));
@@ -85,8 +85,8 @@
         /* --- HERO BANNER --- */
         .hero {
             background: linear-gradient(rgba(10, 10, 12, 0.85), rgba(15, 15, 17, 0.95)), url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200') no-repeat center center/cover;
-            height: calc(100vh - 88px); 
-            min-height: 500px; 
+            height: calc(100vh - 83px); 
+            min-height: 480px; 
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -96,20 +96,20 @@
         }
 
         .hero-logo {
-            max-width: 320px; 
+            max-width: 300px; 
             width: 100%;
             height: auto;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             filter: drop-shadow(0 10px 20px rgba(220, 38, 38, 0.2));
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 16px;
             color: #cbd5e1;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 400;
             letter-spacing: 0.5px;
-            max-width: 550px;
+            max-width: 520px;
             line-height: 1.4;
         }
 
@@ -117,11 +117,11 @@
             background-color: rgba(220, 38, 38, 0.15);
             color: #f87171;
             border: 1px solid #dc2626;
-            padding: 6px 16px;
-            font-size: 13px;
+            padding: 5px 14px;
+            font-size: 12px;
             font-weight: 600;
             border-radius: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -130,10 +130,10 @@
         .btn {
             background: linear-gradient(135deg, #dc2626, #991b1b);
             color: white;
-            padding: 12px 30px;
+            padding: 10px 26px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-radius: 6px;
@@ -150,9 +150,9 @@
             box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
         }
 
-        /* --- LAYANAN BENGKEL --- */
+        /* --- LAYANAN & PROMO SECTION --- */
         .services, .promo-section, .booking, .status-section, .riwayat-section {
-            padding: 80px 5%;
+            padding: 50px 5%;
             background-color: #141418;
             text-align: center;
         }
@@ -162,8 +162,8 @@
         }
 
         .services h2, .promo-section h2, .booking h2, .status-section h2, .riwayat-section h2 {
-            font-size: 32px;
-            margin-bottom: 50px;
+            font-size: 28px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
@@ -172,84 +172,148 @@
             color: #dc2626;
         }
 
+        /* UKURAN GRID DISEPAKATI SAMA (MINMAX 260px - 320px) */
         .services-grid, .promo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        .service-card, .promo-card {
+        /* --- KARTU LAYANAN (DISAMAKAN UKURANNYA DENGAN PROMO) --- */
+        .service-card {
             background-color: #1e1e24;
-            padding: 40px 30px;
+            padding: 20px;
             border-radius: 10px;
-            border-bottom: 4px solid #2e2e38;
+            border: 1px solid #2e2e38;
+            border-bottom: 3px solid #2e2e38;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .service-card:hover, .promo-card:hover {
+        .service-card:hover {
             border-bottom-color: #dc2626;
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            border-color: #dc2626;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .service-top-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
         }
 
         .service-icon {
-            font-size: 40px;
+            font-size: 24px;
             color: #dc2626;
-            margin-bottom: 20px;
-            display: inline-block;
             background: rgba(220, 38, 38, 0.1);
-            padding: 15px;
-            border-radius: 50%;
-            width: 75px;
-            height: 75px;
-            line-height: 45px;
+            padding: 8px;
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .service-card h3, .promo-content h3 {
-            margin-bottom: 15px;
-            font-size: 22px;
+        .service-card h3 {
+            font-size: 17px;
+            color: #ffffff;
+            margin-bottom: 2px;
         }
 
-        .service-card p, .promo-content p {
+        .service-card p {
             color: #94a3b8;
-            font-size: 14px;
-            line-height: 1.7;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        /* --- PROMO --- */
+        .service-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #f87171;
+            font-weight: 600;
+            border-top: 1px solid #2a2a35;
+            padding-top: 12px;
+        }
+
+        /* --- PROMO CARD --- */
         .promo-subtitle {
             color: #94a3b8;
-            margin-bottom: 40px;
-            font-size: 15px;
+            margin-bottom: 30px;
+            font-size: 14px;
         }
 
         .promo-card {
             background: linear-gradient(145deg, #1e1e24, #141418);
             border: 1px solid #2e2e38;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            position: relative;
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-4px);
+            border-color: #dc2626;
+        }
+
+        .promo-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .promo-card h3 {
+            font-size: 17px;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .promo-card p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 15px;
         }
 
         .promo-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
             background-color: #dc2626;
             color: white;
-            padding: 5px 12px;
-            font-size: 12px;
+            padding: 4px 10px;
+            font-size: 11px;
             font-weight: bold;
             border-radius: 20px;
             text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .promo-footer {
-            font-size: 12px;
+            font-size: 11px;
             color: #ef4444;
             font-weight: 600;
             margin-bottom: 15px;
@@ -259,29 +323,29 @@
         .booking p.subtitle, .status-section p.subtitle, .riwayat-section p.subtitle {
             color: #94a3b8;
             margin-bottom: 5px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .booking p.area-note {
             color: #fbbf24;
-            font-size: 13px;
-            margin-bottom: 35px;
+            font-size: 12px;
+            margin-bottom: 25px;
             font-weight: 500;
         }
 
         .form-container, .result-card {
-            max-width: 600px;
+            max-width: 550px;
             margin: 0 auto;
             background-color: #1e1e24;
-            padding: 40px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 10px;
             border: 1px solid #2a2a35;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             text-align: left;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 18px;
             text-align: left;
         }
 
@@ -291,61 +355,60 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             color: #cbd5e1;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
         }
 
         .form-group label span.opsional {
             color: #fbbf24;
-            font-size: 11px;
+            font-size: 10px;
             text-transform: none;
             margin-left: 5px;
         }
 
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 14px;
+            padding: 11px 13px;
             background-color: #141418;
             border: 1px solid #3f3f46;
             color: white;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
             border-color: #dc2626;
-            box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);
         }
 
         .location-wrapper {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn-gps {
             background: #2563eb;
             color: white;
             border: none;
-            padding: 0 15px;
+            padding: 0 14px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 12px;
             white-space: nowrap;
         }
 
         .btn-gps:hover { background: #3b82f6; }
         .form-group input[readonly] { background-color: #1c1c22; color: #fbbf24; cursor: not-allowed; }
 
-        /* Style untuk hasil cek status & riwayat */
         .status-result-box {
-            margin-top: 25px;
+            margin-top: 20px;
             background: #141418;
-            padding: 20px;
+            padding: 16px;
             border-radius: 8px;
             border-left: 4px solid #dc2626;
             display: none;
@@ -353,26 +416,26 @@
 
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             text-transform: uppercase;
             background: #ca8a04;
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .riwayat-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .riwayat-item {
             background: #141418;
-            padding: 15px 20px;
+            padding: 12px 16px;
             border-radius: 8px;
             border: 1px solid #2e2e38;
             display: flex;
@@ -380,8 +443,98 @@
             align-items: center;
         }
 
-        .riwayat-info h4 { color: #fff; font-size: 16px; margin-bottom: 5px; }
-        .riwayat-info p { color: #94a3b8; font-size: 13px; }
+        .riwayat-info h4 { color: #fff; font-size: 14px; margin-bottom: 3px; }
+        .riwayat-info p { color: #94a3b8; font-size: 12px; }
+
+        /* --- MODAL DETAIL LAYANAN --- */
+        .service-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 15px;
+        }
+        .service-modal-box {
+            background: #1e1e24;
+            border: 1px solid #3f3f46;
+            border-radius: 12px;
+            max-width: 460px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            animation: modalPop 0.3s ease;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #2e2e38;
+            color: #fff;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .modal-close-btn:hover { background: #dc2626; }
+        
+        .service-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #2e2e38;
+            padding-bottom: 10px;
+        }
+        .service-detail-icon {
+            font-size: 26px;
+            background: rgba(220, 38, 38, 0.15);
+            padding: 8px;
+            border-radius: 8px;
+        }
+        .service-detail-title h3 { font-size: 18px; color: #fff; margin-bottom: 2px; }
+        .service-detail-title span { color: #f87171; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+        
+        .service-detail-body p {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .service-items-list {
+            margin-bottom: 15px;
+        }
+        .service-items-list h4 {
+            font-size: 12px;
+            color: #fff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 10px;
+            background: #141418;
+            border: 1px solid #2e2e38;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+        .item-row span:last-child {
+            color: #4ade80;
+            font-weight: bold;
+        }
 
         /* --- MODAL CUSTOM RAMAH PENGGUNA --- */
         .custom-modal-overlay {
@@ -393,15 +546,15 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            padding: 20px;
+            padding: 15px;
         }
         .custom-modal-box {
             background: #1e1e24;
             border: 1px solid #3f3f46;
-            border-radius: 12px;
-            max-width: 420px;
+            border-radius: 10px;
+            max-width: 380px;
             width: 100%;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             animation: modalPop 0.3s ease;
@@ -411,34 +564,35 @@
             100% { transform: scale(1); opacity: 1; }
         }
         .custom-modal-icon {
-            font-size: 45px;
-            margin-bottom: 15px;
+            font-size: 38px;
+            margin-bottom: 12px;
         }
         .custom-modal-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #fff;
         }
         .custom-modal-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: #cbd5e1;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
         .custom-modal-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
         }
         .modal-btn-primary {
             background: #16a34a;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 9px 16px;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 13px;
             flex: 1;
         }
         .modal-btn-primary:hover { background: #22c55e; }
@@ -446,38 +600,39 @@
             background: #3f3f46;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 9px 16px;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 13px;
             flex: 1;
         }
         .modal-btn-secondary:hover { background: #52525b; }
 
         footer {
             background-color: #0a0a0c;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             border-top: 1px solid #1e1e24;
             color: #64748b;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         footer .footer-logo {
-            height: 50px;
-            margin-bottom: 15px;
+            height: 44px;
+            margin-bottom: 12px;
             opacity: 0.7;
         }
 
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 15px; padding: 15px; }
-            nav { gap: 5px; flex-wrap: wrap; justify-content: center; }
-            nav a { font-size: 10px; padding: 5px 8px; }
-            .hero { height: auto; padding: 60px 20px; }
-            .hero-logo { max-width: 240px; }
-            .form-container, .result-card { padding: 25px; }
+            header { flex-direction: column; gap: 12px; padding: 12px; }
+            nav { gap: 4px; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 10px; padding: 5px 7px; }
+            .hero { height: auto; padding: 50px 15px; }
+            .hero-logo { max-width: 220px; }
+            .form-container, .result-card { padding: 20px; }
             .location-wrapper { flex-direction: column; }
-            .btn-gps { padding: 12px; text-align: center; }
+            .btn-gps { padding: 10px; text-align: center; }
         }
     </style>
 </head>
@@ -504,27 +659,16 @@
         <button onclick="window.bukaHalaman('booking')" class="btn">Booking Sekarang</button>
     </section>
 
+    <!-- SECTION LAYANAN UTAMA (UKURAN LEBAR DISAMAKAN DENGAN PROMO) -->
     <section class="services page-section" id="layanan">
         <h2>Layanan <span>Kami</span></h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🚗</div>
-                <h3>Car Service</h3>
-                <p>Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, dan perbaikan kaki-kaki mobil.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏍️</div>
-                <h3>Motor Service</h3>
-                <p>Servis berkala motor matic & manual, bersihkan sistem injeksi/karburator, ganti oli mesin & gardan, serta perawatan CVT.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">⚙️</div>
-                <h3>Sparepart</h3>
-                <p>Penyediaan suku cadang original dan komponen aftermarket berkualitas tinggi demi jaminan ketahanan performa kendaraan Anda.</p>
-            </div>
+        <p class="promo-subtitle">Klik salah satu kategori layanan di bawah ini untuk melihat detail produk dan jasa.</p>
+        <div class="services-grid" id="container-grid-layanan">
+            <!-- Data layanan dirender secara dinamis dari Firebase -->
         </div>
     </section>
 
+    <!-- SECTION PROMO -->
     <section class="promo-section page-section" id="promo">
         <h2>Promo <span>Spesial</span></h2>
         <p class="promo-subtitle">Jangan lewatkan penawaran menarik khusus bulan ini untuk kendaraan kesayangan Anda!</p>
@@ -560,7 +704,7 @@
                     <label for="share_loc">Pilihan 1: Lokasi GPS Maps <span class="opsional">(Boleh isi ini saja)</span></label>
                     <div class="location-wrapper">
                         <input type="text" id="share_loc" placeholder="Klik tombol biru sebelah kanan ➡️">
-                        <button type="button" class="btn-gps" id="btn-lacak-gps">📍 Ambil Lokasi Otomatis</button>
+                        <button type="button" class="btn-gps" id="btn-lacak-gps">📍 Ambil Lokasi</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -581,7 +725,7 @@
                 </div>
                 <div class="form-group">
                     <label for="keluhan">Detail Kendala & Jenis Perbaikan</label>
-                    <textarea id="keluhan" rows="4" placeholder="Contoh: Ganti oli berkala, rem berdecit, atau tune up mesin" required></textarea>
+                    <textarea id="keluhan" rows="3" placeholder="Contoh: Ganti oli berkala, rem berdecit, atau tune up mesin" required></textarea>
                 </div>
 
                 <button type="submit" class="btn" style="width: 100%;">Kirim Booking</button>
@@ -592,7 +736,7 @@
     <!-- Cek Status Servis -->
     <section class="status-section page-section" id="status">
         <h2>Cek Status <span>Servis</span></h2>
-        <p class="subtitle">Masukkan digit angka unik booking Anda untuk melacak status pengerjaan kendaraan secara real-time.</p>
+        <p class="subtitle">Masukkan digit angka unik booking Anda untuk melacak status pengerjaan secara real-time.</p>
         <div class="form-container">
             <div class="form-group">
                 <label for="input_id_cek">Digit Angka Unik Booking (DNE-) </label>
@@ -600,7 +744,7 @@
                     <input type="text" id="input_id_cek" placeholder=" 20260723-1234 atau 4 digit terakhir">
                     <button type="button" class="btn-gps" id="btn-proses-cek" style="background: #dc2626;">Cek Status</button>
                 </div>
-                <p style="font-size: 11px; color: #94a3b8; margin-top: 6px;">💡 Tips: Anda bebas memasukkan kode lengkap angka atau cukup beberapa digit terakhirnya saja.</p>
+                <p style="font-size: 11px; color: #94a3b8; margin-top: 5px;">💡 Tips: Anda bebas memasukkan kode lengkap angka atau cukup beberapa digit terakhirnya saja.</p>
             </div>
             <div class="status-result-box" id="boxHasilStatus">
                 <span class="status-badge" id="resStatusBadge">Menunggu</span>
@@ -623,6 +767,30 @@
             </div>
         </div>
     </section>
+
+    <!-- MODAL POPUP DETAIL LAYANAN -->
+    <div class="service-modal-overlay" id="serviceModalOverlay">
+        <div class="service-modal-box">
+            <button class="modal-close-btn" onclick="window.tutupModalLayanan()">✕</button>
+            <div class="service-detail-header">
+                <div class="service-detail-icon" id="modalServiceIcon">🚗</div>
+                <div class="service-detail-title">
+                    <span id="modalServiceTag">Kategori Servis</span>
+                    <h3 id="modalServiceTitle">Judul Layanan</h3>
+                </div>
+            </div>
+            <div class="service-detail-body">
+                <p id="modalServiceDesc">Deskripsi lengkap layanan akan tampil di sini.</p>
+                <div class="service-items-list">
+                    <h4>Rincian Jasa & Komponen Tersedia:</h4>
+                    <div id="modalServiceSubItems">
+                        <!-- List sub item/jasa -->
+                    </div>
+                </div>
+                <button onclick="window.pesanDariModal()" class="btn" style="width: 100%; margin-top: 5px; padding: 9px;">Booking Layanan Ini</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Kustom Ramah Pengguna -->
     <div class="custom-modal-overlay" id="customModalOverlay">
@@ -662,7 +830,7 @@
                 btnYa.className = 'modal-btn-primary';
                 btnYa.innerText = 'Ya, Kirim ke WA';
                 btnYa.onclick = () => {
-                    tutupModal();
+                    tutupModalNotif();
                     window.open(dataAksi.urlWA, '_blank');
                 };
 
@@ -670,7 +838,7 @@
                 btnTidak.className = 'modal-btn-secondary';
                 btnTidak.innerText = 'Tidak (Salin Kode)';
                 btnTidak.onclick = () => {
-                    tutupModal();
+                    tutupModalNotif();
                     navigator.clipboard.writeText(dataAksi.idBooking).then(() => {
                         tampilkanNotifikasiRamah({
                             icon: '📋',
@@ -689,14 +857,14 @@
                 const btnOk = document.createElement('button');
                 btnOk.className = 'modal-btn-primary';
                 btnOk.innerText = 'Mengerti, Terima Kasih';
-                btnOk.onclick = tutupModal;
+                btnOk.onclick = tutupModalNotif;
                 btnContainer.appendChild(btnOk);
             }
 
             overlay.style.display = 'flex';
         }
 
-        function tutupModal() {
+        function tutupModalNotif() {
             document.getElementById('customModalOverlay').style.display = 'none';
         }
 
@@ -722,7 +890,101 @@
             document.getElementById('nama').focus();
         }
 
-        // --- REAL-TIME PROMO LISTENER DARI PANEL MANAJER ---
+        // --- MANAJEMEN DETAIL & MODAL LAYANAN ---
+        let layananTerpilihGlobal = "";
+
+        window.bukaDetailLayanan = function(idLayanan) {
+            get(child(ref(database), `services/${idLayanan}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    document.getElementById('modalServiceIcon').innerText = data.icon || '🚗';
+                    document.getElementById('modalServiceTag').innerText = data.tag || 'Layanan Profesional';
+                    document.getElementById('modalServiceTitle').innerText = data.judul || '';
+                    document.getElementById('modalServiceDesc').innerText = data.deskripsi || '';
+
+                    layananTerpilihGlobal = data.judul;
+
+                    const subContainer = document.getElementById('modalServiceSubItems');
+                    subContainer.innerHTML = '';
+                    
+                    if (data.rincian && Array.isArray(data.rincian)) {
+                        data.rincian.forEach(item => {
+                            subContainer.innerHTML += `
+                                <div class="item-row">
+                                    <span>${item.nama}</span>
+                                    <span>${item.harga}</span>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        subContainer.innerHTML = `<p style="color: #94a3b8; font-size: 12px;">Pemeriksaan menyeluruh sesuai standar operasional bengkel.</p>`;
+                    }
+
+                    document.getElementById('serviceModalOverlay').style.display = 'flex';
+                }
+            }).catch(() => {
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Gagal Memuat', desc: 'Tidak dapat memuat detail layanan saat ini.', tipe: 'info' });
+            });
+        }
+
+        window.tutupModalLayanan = function() {
+            document.getElementById('serviceModalOverlay').style.display = 'none';
+        }
+
+        window.pesanDariModal = function() {
+            window.tutupModalLayanan();
+            window.bukaHalaman('booking');
+            const keluhanField = document.getElementById('keluhan');
+            keluhanField.value = `Booking layanan via katalog: ${layananTerpilihGlobal}. `;
+            keluhanField.focus();
+        }
+
+        // --- REAL-TIME LISTENER LAYANAN ---
+        function renderLayanan(listLayanan) {
+            const gridContainer = document.getElementById('container-grid-layanan');
+            if (!listLayanan || listLayanan.length === 0) {
+                gridContainer.innerHTML = `<p style="color: #94a3b8; text-align: center; grid-column: 1/-1;">Belum ada layanan aktif saat ini.</p>`;
+                return;
+            }
+            let html = "";
+            listLayanan.forEach(item => {
+                if(item && item.status !== 'Inactive') {
+                    html += `
+                        <div class="service-card" onclick="window.bukaDetailLayanan('${item.id}')">
+                            <div class="service-top-content">
+                                <div class="service-icon">${item.icon || '🚗'}</div>
+                                <div>
+                                    <h3>${item.judul}</h3>
+                                    <span style="font-size: 10px; background: rgba(220,38,38,0.2); padding: 2px 6px; border-radius: 4px; color: #f87171; display: inline-block; margin-top: 2px;">${item.tag || 'Servis'}</span>
+                                </div>
+                            </div>
+                            <p>${item.deskripsi}</p>
+                            <div class="service-card-footer">
+                                <span>Lihat Detail</span>
+                                <span>&rarr;</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            gridContainer.innerHTML = html;
+        }
+
+        onValue(ref(database, 'services'), (snapshot) => {
+            if (snapshot.exists()) {
+                const dataObj = snapshot.val();
+                const layananArray = Object.keys(dataObj).map(key => ({ id: key, ...dataObj[key] }));
+                renderLayanan(layananArray);
+            } else {
+                renderLayanan([
+                    { id: "car_service", icon: "🚗", tag: "Mobil", judul: "Car Service", deskripsi: "Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, dan kaki-kaki mobil." },
+                    { id: "motor_service", icon: "🏍️", tag: "Motor", judul: "Motor Service", deskripsi: "Servis berkala matic & manual, bersihkan injeksi/karburator, ganti oli, serta perawatan CVT." },
+                    { id: "sparepart", icon: "⚙️", tag: "Komponen", judul: "Sparepart", deskripsi: "Penyediaan suku cadang original dan komponen aftermarket berkualitas tinggi untuk kendaraan." }
+                ]);
+            }
+        });
+
+        // --- REAL-TIME PROMO LISTENER ---
         function renderPromo(listPromo) {
             const gridContainer = document.getElementById('container-grid-promo');
             if (!listPromo || listPromo.length === 0) {
@@ -734,12 +996,14 @@
                 if(p && p.status !== 'Inactive') {
                     html += `
                         <div class="promo-card">
-                            <span class="promo-badge">${p.badge}</span>
-                            <div class="promo-content" style="padding: 25px;">
-                                <h3>${p.judul}</h3>
+                            <div style="padding: 20px;">
+                                <div class="promo-header-row">
+                                    <h3>${p.judul}</h3>
+                                    <span class="promo-badge">${p.badge}</span>
+                                </div>
                                 <p>${p.deskripsi}</p>
-                                <div class="promo-footer" style="margin-top: 15px;">${p.footer || '*Syarat & Ketentuan Berlaku'}</div>
-                                <button onclick="window.ambilPromo('${p.judul} (${p.badge})')" class="btn" style="padding: 10px 20px; font-size: 13px; margin-top: 10px;">Ambil Promo</button>
+                                <div class="promo-footer">${p.footer || '*Syarat & Ketentuan Berlaku'}</div>
+                                <button onclick="window.ambilPromo('${p.judul} (${p.badge})')" class="btn" style="padding: 8px 16px; font-size: 12px; width: 100%;">Ambil Promo</button>
                             </div>
                         </div>
                     `;
@@ -748,7 +1012,6 @@
             gridContainer.innerHTML = html || `<p style="color: #94a3b8; text-align: center; grid-column: 1/-1;">Belum ada promo aktif saat ini.</p>`;
         }
 
-        // Sinkronisasi reaktif data promo dari database secara real-time
         onValue(ref(database, 'promos'), (snapshot) => {
             if (snapshot.exists()) {
                 const dataObj = snapshot.val();
@@ -762,7 +1025,6 @@
             }
         });
 
-        // Set minimum date picker ke hari ini
         const todayStr = new Date().toISOString().split('T')[0];
         document.getElementById('tanggal_booking').min = todayStr;
 
@@ -770,12 +1032,7 @@
         document.getElementById('btn-lacak-gps').addEventListener('click', () => {
             const kolomInputLokasi = document.getElementById('share_loc');
             if (!navigator.geolocation) {
-                tampilkanNotifikasiRamah({
-                    icon: '⚠️',
-                    title: 'Perangkat Tidak Mendukung',
-                    desc: 'Maaf, browser Anda tidak mendukung fitur pendeteksi lokasi GPS otomatis.',
-                    tipe: 'info'
-                });
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Perangkat Tidak Mendukung', desc: 'Maaf, browser Anda tidak mendukung fitur pendeteksi lokasi GPS otomatis.', tipe: 'info' });
                 return;
             }
 
@@ -786,12 +1043,7 @@
                     const lat = pos.coords.latitude;
                     const lon = pos.coords.longitude;
                     kolomInputLokasi.value = `https://maps.google.com/?q=${lat},${lon}`; 
-                    tampilkanNotifikasiRamah({
-                        icon: '📍',
-                        title: 'Lokasi Ditemukan',
-                        desc: 'Titik koordinat GPS Anda berhasil dipasang pada formulir dengan akurat.',
-                        tipe: 'info'
-                    });
+                    tampilkanNotifikasiRamah({ icon: '📍', title: 'Lokasi Ditemukan', desc: 'Titik koordinat GPS Anda berhasil dipasang pada formulir dengan akurat.', tipe: 'info' });
                 },
                 (error) => { 
                     kolomInputLokasi.value = ""; 
@@ -799,18 +1051,13 @@
                     if (error.code === error.PERMISSION_DENIED) {
                         pesanError = "Akses lokasi ditolak. Mohon izinkan akses lokasi pada pengaturan browser Anda, atau isi alamat secara manual.";
                     }
-                    tampilkanNotifikasiRamah({
-                        icon: '⚠️',
-                        title: 'Kendala GPS',
-                        desc: pesanError,
-                        tipe: 'info'
-                    });
+                    tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Kendala GPS', desc: pesanError, tipe: 'info' });
                 },
                 { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
             );
         });
 
-        // Submit Form Booking dengan Jadwal Servis (Tanpa Foto)
+        // Submit Form Booking
         document.getElementById('formBengkelWA').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nomorWABengkel = "62881080809993"; 
@@ -821,7 +1068,6 @@
             if(waCustomer.startsWith('0')) waCustomer = '62' + waCustomer.slice(1);
 
             const tglBooking = document.getElementById('tanggal_booking').value;
-
             let shareLoc = document.getElementById('share_loc').value;
             let alamatInput = document.getElementById('alamat').value;
 
@@ -829,12 +1075,7 @@
             const alamatKosong = (!alamatInput || alamatInput.trim() === "");
 
             if (gpsKosong && alamatKosong) {
-                tampilkanNotifikasiRamah({
-                    icon: '📍',
-                    title: 'Lokasi Belum Lengkap',
-                    desc: 'Mohon isi salah satu: Gunakan tombol "Ambil Lokasi Otomatis" atau ketik "Alamat Lengkap" rumah Anda ya!',
-                    tipe: 'info'
-                });
+                tampilkanNotifikasiRamah({ icon: '📍', title: 'Lokasi Belum Lengkap', desc: 'Mohon isi salah satu: Gunakan tombol "Ambil Lokasi" atau ketik "Alamat Lengkap" rumah Anda ya!', tipe: 'info' });
                 return;
             }
 
@@ -906,23 +1147,15 @@
                     tampilkanNotifikasiRamah({
                         icon: '🎉',
                         title: 'Booking Berhasil!',
-                        desc: 'booking berhasil.!<br>Lanjutkan via WhatsApp untuk mempercepat proses perbaikan.!',
+                        desc: 'Booking berhasil!<br>Lanjutkan via WhatsApp untuk mempercepat proses perbaikan.',
                         tipe: 'konfirmasi_wa',
-                        dataAksi: {
-                            urlWA: urlWA,
-                            idBooking: idBooking
-                        }
+                        dataAksi: { urlWA: urlWA, idBooking: idBooking }
                     });
 
                     window.bukaHalaman('home');
                 })
-                .catch((error) => { 
-                    tampilkanNotifikasiRamah({
-                        icon: '⚠️',
-                        title: 'Kendala Koneksi',
-                        desc: 'Mohon maaf, terjadi kendala saat menyimpan data ke server. Silakan coba beberapa saat lagi.',
-                        tipe: 'info'
-                    }); 
+                .catch(() => { 
+                    tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Kendala Koneksi', desc: 'Mohon maaf, terjadi kendala saat menyimpan data ke server. Silakan coba beberapa saat lagi.', tipe: 'info' }); 
                 });
         });
 
@@ -932,19 +1165,13 @@
             const boxHasil = document.getElementById('boxHasilStatus');
             
             if (!inputCari) {
-                tampilkanNotifikasiRamah({
-                    icon: '🔍',
-                    title: 'Kolom Kosong',
-                    desc: 'Silakan masukkan digit angka unik booking Anda terlebih dahulu untuk melacaknya.',
-                    tipe: 'info'
-                });
+                tampilkanNotifikasiRamah({ icon: '🔍', title: 'Kolom Kosong', desc: 'Silakan masukkan digit angka unik booking Anda terlebih dahulu untuk melacaknya.', tipe: 'info' });
                 return;
             }
 
             inputCari = inputCari.replace(/DNE-?/gi, "").trim();
 
-            const dbRef = ref(database);
-            get(child(dbRef, `bookings`)).then((snapshot) => {
+            get(child(ref(database), `bookings`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     const semuaData = snapshot.val();
                     let dataDitemukan = null;
@@ -971,34 +1198,18 @@
 
                         boxHasil.style.display = 'block';
                     } else {
-                        tampilkanNotifikasiRamah({
-                            icon: '🔍',
-                            title: 'Tidak Ditemukan',
-                            desc: 'Maaf, kami tidak dapat menemukan data servis dengan digit angka tersebut. Periksa kembali angka unik booking Anda.',
-                            tipe: 'info'
-                        });
+                        tampilkanNotifikasiRamah({ icon: '🔍', title: 'Tidak Ditemukan', desc: 'Maaf, kami tidak dapat menemukan data servis dengan digit angka tersebut.', tipe: 'info' });
                         boxHasil.style.display = 'none';
                     }
                 } else {
-                    tampilkanNotifikasiRamah({
-                        icon: 'ℹ️',
-                        title: 'Data Kosong',
-                        desc: 'Belum ada data pendaftaran servis yang tercatat di sistem saat ini.',
-                        tipe: 'info'
-                    });
+                    tampilkanNotifikasiRamah({ icon: 'ℹ️', title: 'Data Kosong', desc: 'Belum ada data pendaftaran servis yang tercatat di sistem saat ini.', tipe: 'info' });
                     boxHasil.style.display = 'none';
                 }
-            }).catch((error) => {
-                tampilkanNotifikasiRamah({
-                    icon: '⚠️',
-                    title: 'Gagal Membaca Data',
-                    desc: 'Terjadi kendala koneksi saat mencari data. Silakan coba kembali.',
-                    tipe: 'info'
-                });
+            }).catch(() => {
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Gagal Membaca Data', desc: 'Terjadi kendala koneksi saat mencari data. Silakan coba kembali.', tipe: 'info' });
             });
         });
 
-        // Fungsi Kelola Local Storage untuk Riwayat
         function simpanRiwayatLokal(data) {
             let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
             riwayat.unshift(data);
@@ -1023,7 +1234,7 @@
                             <h4>${item.kendaraan} (${item.id})</h4>
                             <p>Jadwal: ${item.tanggal_servis || item.tanggal} | Status: <strong>${item.status}</strong></p>
                         </div>
-                        <button onclick="window.lacakDariRiwayat('${item.id}')" class="btn" style="padding: 6px 12px; font-size: 11px;">Cek</button>
+                        <button onclick="window.lacakDariRiwayat('${item.id}')" class="btn" style="padding: 5px 10px; font-size: 11px;">Cek</button>
                     </div>
                 `;
             });
