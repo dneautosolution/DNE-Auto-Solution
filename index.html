@@ -48,18 +48,19 @@
 
         nav {
             display: flex;
-            gap: 15px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
         nav a {
             color: #e2e8f0;
             text-decoration: none;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            padding: 8px 10px;
+            padding: 8px 6px;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -150,8 +151,8 @@
             box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
         }
 
-        /* --- LAYANAN & PROMO SECTION --- */
-        .services, .promo-section, .booking, .status-section, .riwayat-section {
+        /* --- LAYANAN, PROMO & SECTIONS --- */
+        .services, .promo-section, .booking, .status-section, .riwayat-section, .membership-section {
             padding: 50px 5%;
             background-color: #141418;
             text-align: center;
@@ -161,14 +162,14 @@
             background-color: #0f0f11;
         }
 
-        .services h2, .promo-section h2, .booking h2, .status-section h2, .riwayat-section h2 {
+        .services h2, .promo-section h2, .booking h2, .status-section h2, .riwayat-section h2, .membership-section h2 {
             font-size: 28px;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
-        .services h2 span, .promo-section h2 span, .status-section h2 span, .riwayat-section h2 span {
+        .services h2 span, .promo-section h2 span, .status-section h2 span, .riwayat-section h2 span, .membership-section h2 span {
             color: #dc2626;
         }
 
@@ -318,22 +319,329 @@
             margin-bottom: 15px;
         }
 
-        /* --- FORM BOOKING, CEK STATUS, RIWAYAT --- */
-        .booking p.subtitle, .status-section p.subtitle, .riwayat-section p.subtitle {
+        /* ========================================================= */
+        /* --- DESIGN SISTEM MEMBERSHIP BERBAYAR REALTIME --- */
+        /* ========================================================= */
+        .membership-tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .membership-tab-btn {
+            background: #1e1e24;
             color: #94a3b8;
-            margin-bottom: 5px;
-            font-size: 14px;
+            border: 1px solid #2e2e38;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .booking p.area-note {
-            color: #fbbf24;
-            font-size: 12px;
+        .membership-tab-btn:hover {
+            color: #fff;
+            border-color: #dc2626;
+        }
+
+        .membership-tab-btn.active {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: #fff;
+            border-color: #dc2626;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .membership-tab-content {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            animation: fadeInTab 0.3s ease;
+        }
+
+        .membership-tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BENEFIT SECTION REALTIME */
+        .benefit-container-modern {
+            background: #1e1e24;
+            border: 1px solid #2e2e38;
+            border-radius: 12px;
+            padding: 20px;
             margin-bottom: 25px;
-            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
+        .benefit-container-modern h3 {
+            font-size: 14px;
+            color: #f87171;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefit-list-modern {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .benefit-list-modern li {
+            font-size: 13px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .benefit-list-modern li::before {
+            content: "✔";
+            color: #4ade80;
+            font-weight: bold;
+            background: rgba(74, 222, 128, 0.1);
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
+        /* KARTU MEMBER PREMIUM */
+        .member-card-premium {
+            background: #0a0a0c;
+            border: 2px solid #eab308;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(234, 179, 8, 0.15);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .member-card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #27272a;
+            padding-bottom: 15px;
+        }
+
+        .member-card-logo {
+            height: 34px;
+            object-fit: contain;
+        }
+
+        .member-card-label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #eab308;
+            background: rgba(234, 179, 8, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .member-card-body-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .member-card-info p {
+            font-size: 10px;
+            color: #71717a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .member-card-info h4 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .member-card-info h4.member-id-text {
+            font-family: monospace;
+            color: #4ade80;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .member-card-qr-box {
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            width: 75px;
+            height: 75px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .member-card-qr-box img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+        }
+
+        .member-card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px dashed #27272a;
+            padding-top: 15px;
+        }
+
+        .member-card-points-label {
+            font-size: 11px;
+            color: #a1a1aa;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .member-card-points-val {
+            font-size: 16px;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .member-card-level-badge {
+            background: linear-gradient(135deg, #eab308, #ca8a04);
+            color: #000;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 5px 14px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* DETAIL STATISTIK & KENDARAAN */
+        .member-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .member-stat-card {
+            background: #1e1e24;
+            border: 1px solid #2e2e38;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: left;
+        }
+
+        .member-stat-card p {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .member-stat-card h4 {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* BADGE STATUS DENGAN WARNA SPESIFIK */
+        .badge-status-kuning {
+            background: #ca8a04 !important;
+            color: white !important;
+        }
+        .badge-status-hijau {
+            background: #16a34a !important;
+            color: white !important;
+        }
+        .badge-status-merah {
+            background: #dc2626 !important;
+            color: white !important;
+        }
+
+        /* SKELETON & EMPTY STATE */
+        .skeleton-loader {
+            display: none;
+            background: #1e1e24;
+            border: 1px solid #2e2e38;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .skeleton-pulse {
+            width: 100%;
+            height: 18px;
+            background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+            background-size: 200% 100%;
+            animation: skeletonLoading 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        @keyframes skeletonLoading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .empty-state-modern {
+            display: none;
+            background: #1e1e24;
+            border: 1px solid #2e2e38;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .empty-state-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .empty-state-desc {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* FORM CONTAINER */
         .form-container, .result-card {
-            max-width: 550px;
+            max-width: 600px;
             margin: 0 auto;
             background-color: #1e1e24;
             padding: 30px;
@@ -445,7 +753,7 @@
         .riwayat-info h4 { color: #fff; font-size: 14px; margin-bottom: 3px; }
         .riwayat-info p { color: #94a3b8; font-size: 12px; }
 
-        /* --- MODAL DETAIL LAYANAN SATUAN --- */
+        /* --- MODAL --- */
         .service-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -521,7 +829,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Baris Pilihan Satuan */
         .item-row {
             display: flex;
             justify-content: space-between;
@@ -551,7 +858,6 @@
             margin-top: 2px;
         }
 
-        /* --- MODAL CUSTOM NOTIFIKASI --- */
         .custom-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -642,12 +948,13 @@
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 12px; padding: 12px; }
             nav { gap: 4px; flex-wrap: wrap; justify-content: center; }
-            nav a { font-size: 10px; padding: 5px 7px; }
+            nav a { font-size: 10px; padding: 5px 6px; }
             .hero { height: auto; padding: 50px 15px; }
             .hero-logo { max-width: 220px; }
             .form-container, .result-card { padding: 20px; }
             .location-wrapper { flex-direction: column; }
             .btn-gps { padding: 10px; text-align: center; }
+            .member-stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -664,6 +971,7 @@
             <a onclick="window.bukaHalaman('booking')" id="nav-booking">Booking</a>
             <a onclick="window.bukaHalaman('status')" id="nav-status">Cek Status</a>
             <a onclick="window.bukaHalaman('riwayat')" id="nav-riwayat">Riwayat</a>
+            <a onclick="window.bukaHalaman('membership')" id="nav-membership">Membership</a>
         </nav>
     </header>
 
@@ -674,23 +982,16 @@
         <button onclick="window.bukaHalaman('booking')" class="btn">Booking Sekarang</button>
     </section>
 
-    <!-- SECTION LAYANAN UTAMA -->
     <section class="services page-section" id="layanan">
         <h2>Layanan <span>Kami</span></h2>
         <p class="promo-subtitle">Silakan klik salah satu kartu di bawah ini untuk melihat rincian serta memilih jenis perbaikan kendaraan Anda.</p>
-        <div class="services-grid" id="container-grid-layanan">
-            <!-- Data layanan real-time dari Firebase -->
-        </div>
+        <div class="services-grid" id="container-grid-layanan"></div>
     </section>
 
-    <!-- SECTION PROMO -->
     <section class="promo-section page-section" id="promo">
         <h2>Promo <span>Spesial</span></h2>
         <p class="promo-subtitle">Jangan lewatkan penawaran menarik khusus bulan ini untuk kendaraan kesayangan Anda!</p>
-        
-        <div class="promo-grid" id="container-grid-promo">
-            <!-- Data promo real-time dari Firebase -->
-        </div>
+        <div class="promo-grid" id="container-grid-promo"></div>
     </section>
 
     <section class="booking page-section" id="booking">
@@ -748,7 +1049,6 @@
         </div>
     </section>
 
-    <!-- Cek Status Servis -->
     <section class="status-section page-section" id="status">
         <h2>Cek Status <span>Servis</span></h2>
         <p class="subtitle">Masukkan beberapa digit angka unik booking Anda untuk melihat progres pengerjaan secara real-time.</p>
@@ -772,7 +1072,6 @@
         </div>
     </section>
 
-    <!-- Riwayat Pesanan Lokal Perangkat -->
     <section class="riwayat-section page-section" id="riwayat">
         <h2>Riwayat <span>Booking</span></h2>
         <p class="subtitle">Daftar pesanan servis yang pernah Anda lakukan menggunakan perangkat ini.</p>
@@ -783,7 +1082,139 @@
         </div>
     </section>
 
-    <!-- MODAL POPUP RINCIAN LAYANAN SATUAN -->
+    <section class="membership-section page-section" id="membership">
+        <h2>Pusat <span>Membership Berbayar</span></h2>
+        <p class="subtitle" style="margin-bottom: 25px;">Nikmati berbagai keuntungan eksklusif dan kelola kartu member Anda secara real-time.</p>
+        
+        <div class="membership-tabs-container">
+            <button class="membership-tab-btn active" id="btn-tab-reg" onclick="window.switchMembershipTab('reg')">1. Registrasi Member</button>
+            <button class="membership-tab-btn" id="btn-tab-profile" onclick="window.switchMembershipTab('profile')">2. Profil Member</button>
+        </div>
+
+        <div class="membership-tab-content active" id="tab-content-reg">
+            <div class="benefit-container-modern">
+                <h3>✨ Keuntungan Menjadi Member</h3>
+                <ul class="benefit-list-modern" id="container-benefit-list-realtime">
+                    <li>Memuat keuntungan member secara real-time...</li>
+                </ul>
+            </div>
+
+            <div class="form-container">
+                <form id="formMemberReg">
+                    <div class="form-group">
+                        <label for="member_nama">Nama Lengkap</label>
+                        <input type="text" id="member_nama" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member_whatsapp">Nomor WhatsApp Aktif</label>
+                        <input type="tel" id="member_whatsapp" placeholder="Contoh: 081234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member_alamat">Alamat Lengkap</label>
+                        <input type="text" id="member_alamat" placeholder="Masukkan alamat domisili Anda" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Daftar Member Berbayar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="membership-tab-content" id="tab-content-profile">
+            <div class="form-container" style="margin-bottom: 25px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="input_id_member">Cari ID Member <span class="opsional">(Bisa ketik lengkap atau cukup 4 digit angka terakhir)</span></label>
+                    <div class="location-wrapper">
+                        <input type="text" id="input_id_member" placeholder="Contoh: DNE-...-001 atau cukup 4 digit angka">
+                        <button type="button" class="btn-gps" id="btn-cari-member-profile" style="background: #dc2626;">Cari Member</button>
+                    </div>
+                    <p style="font-size: 11px; color: #94a3b8; margin-top: 5px;">💡 Tips: Cukup masukkan 4 digit angka terakhir ID Anda jika lupa kode lengkapnya.</p>
+                </div>
+            </div>
+
+            <div class="skeleton-loader" id="memberSkeletonLoader">
+                <div class="skeleton-pulse" style="width: 60%; height: 22px; margin: 0 auto 20px auto;"></div>
+                <div class="skeleton-pulse"></div>
+                <div class="skeleton-pulse" style="width: 80%;"></div>
+                <div class="skeleton-pulse" style="width: 40%;"></div>
+            </div>
+
+            <div class="empty-state-modern" id="memberEmptyState">
+                <div class="empty-state-icon">🔍</div>
+                <div class="empty-state-title" id="emptyStateTitleText">Member tidak ditemukan</div>
+                <div class="empty-state-desc" id="emptyStateDescText">Silakan periksa kembali ID Member Anda atau pastikan data sudah terdaftar.</div>
+            </div>
+
+            <div id="boxProfilMemberContent" style="display: none;">
+                
+                <div class="member-card-premium">
+                    <div class="member-card-header-row">
+                        <img src="https://i.ibb.co.com/XrZ9h7jC/DAS-Transparan-Presisi.png" alt="DNE Logo" class="member-card-logo" onerror="this.src='https://i.ibb.co.com/XrZ9h7jC/DAS-Full-Transparan.png'">
+                        <span class="member-card-label" id="cardValLevelBadgeTop">MEMBER CARD</span>
+                    </div>
+                    
+                    <div class="member-card-body-grid">
+                        <div class="member-card-info">
+                            <p>ID Member</p>
+                            <h4 class="member-id-text" id="cardValId">-</h4>
+                            <p>Nama Member</p>
+                            <h4 id="cardValNama">-</h4>
+                            <p>Nomor WhatsApp</p>
+                            <h4 id="cardValWa" style="font-weight: normal; font-size: 14px; color: #cbd5e1;">-</h4>
+                        </div>
+                        <div class="member-card-qr-box">
+                            <img id="cardValQrImg" src="" alt="QR Code Member">
+                            <span style="font-size: 8px; color: #000; font-weight: bold; margin-top: 2px;">SCAN ME</span>
+                        </div>
+                    </div>
+
+                    <div class="member-card-footer-row">
+                        <div>
+                            <span class="member-card-points-label">Jumlah Poin</span>
+                            <span class="member-card-points-val" id="cardValPoin">0 Poin</span>
+                        </div>
+                        <div>
+                            <span class="member-card-level-badge" id="cardValLevel">Gold Member</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-stats-grid">
+                    <div class="member-stat-card">
+                        <p>Kendaraan Registered</p>
+                        <h4 id="statValKendaraan">-</h4>
+                    </div>
+                    <div class="member-stat-card">
+                        <p>Tanggal Bergabung</p>
+                        <h4 id="statValTglBergabung">-</h4>
+                    </div>
+                    <div class="member-stat-card">
+                        <p>Masa Berlaku</p>
+                        <h4 id="statValMasaBerlaku">-</h4>
+                    </div>
+                    <div class="member-stat-card">
+                        <p>Status Member</p>
+                        <h4 id="statValStatus">-</h4>
+                    </div>
+                    <div class="member-stat-card">
+                        <p>Total Transaksi</p>
+                        <h4 id="statValTotalTransaksi">Rp 0</h4>
+                    </div>
+                    <div class="member-stat-card">
+                        <p>Total Kunjungan</p>
+                        <h4 id="statValTotalKunjungan">0 Kali</h4>
+                    </div>
+                </div>
+
+                <div class="benefit-container-modern" style="margin-top: 20px;">
+                    <h3>🎁 Benefit Member Anda (<span id="titleLevelBenefitText">Gold</span>)</h3>
+                    <ul class="benefit-list-modern" id="container-profile-benefit-list">
+                        <li>Memuat benefit member...</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <div class="service-modal-overlay" id="serviceModalOverlay">
         <div class="service-modal-box">
             <button class="modal-close-btn" onclick="window.tutupModalLayanan()">✕</button>
@@ -798,15 +1229,12 @@
                 <p id="modalServiceDesc">Deskripsi layanan...</p>
                 <div class="service-items-list">
                     <h4>Silakan ketuk salah satu jenis perbaikan di bawah untuk langsung memasukkannya ke formulir:</h4>
-                    <div id="modalServiceSubItems">
-                        <!-- List rincian satuan -->
-                    </div>
+                    <div id="modalServiceSubItems"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Kustom Notifikasi -->
     <div class="custom-modal-overlay" id="customModalOverlay">
         <div class="custom-modal-box">
             <div class="custom-modal-icon" id="modalIcon">🎉</div>
@@ -829,6 +1257,8 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
+        let activeMemberListener = null;
+
         function tampilkanNotifikasiRamah({ icon, title, desc, tipe, dataAksi }) {
             const overlay = document.getElementById('customModalOverlay');
             document.getElementById('modalIcon').innerText = icon || '💡';
@@ -849,18 +1279,18 @@
 
                 const btnTidak = document.createElement('button');
                 btnTidak.className = 'modal-btn-secondary';
-                btnTidak.innerText = 'Salin Kode Booking';
+                btnTidak.innerText = 'Salin Nomor Registrasi';
                 btnTidak.onclick = () => {
                     tutupModalNotif();
-                    navigator.clipboard.writeText(dataAksi.idBooking).then(() => {
+                    navigator.clipboard.writeText(dataAksi.idMember).then(() => {
                         tampilkanNotifikasiRamah({
                             icon: '📋',
                             title: 'Berhasil Disalin!',
-                            desc: `Kode booking <strong>${dataAksi.idBooking}</strong> berhasil disalin ke perangkat Anda.`,
+                            desc: `Nomor Registrasi <strong>${dataAksi.idMember}</strong> berhasil disalin ke perangkat Anda.`,
                             tipe: 'info'
                         });
                     }).catch(() => {
-                        alert("Kode Booking Anda: " + dataAksi.idBooking);
+                        alert("Nomor Registrasi Anda: " + dataAksi.idMember);
                     });
                 };
 
@@ -896,6 +1326,19 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
+        window.switchMembershipTab = function(tabName) {
+            document.querySelectorAll('.membership-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.membership-tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tabName === 'reg') {
+                document.getElementById('btn-tab-reg').classList.add('active');
+                document.getElementById('tab-content-reg').classList.add('active');
+            } else if (tabName === 'profile') {
+                document.getElementById('btn-tab-profile').classList.add('active');
+                document.getElementById('tab-content-profile').classList.add('active');
+            }
+        }
+
         window.ambilPromo = function(namaPromo) {
             document.getElementById('group-promo-terpilih').style.display = 'block';
             document.getElementById('promo_terpilih').value = namaPromo;
@@ -903,7 +1346,6 @@
             document.getElementById('nama').focus();
         }
 
-        // --- MANAJEMEN KLIK KARTU & PILIH RINCIAN SATUAN ---
         let kategoriUtamaGlobal = "";
 
         window.bukaDetailLayanan = function(idLayanan) {
@@ -928,7 +1370,7 @@
                                         <strong>${item.nama}</strong>
                                         <span class="item-row-desc">Estimasi Biaya: ${item.harga}</span>
                                     </div>
-                                    <span class="harga-item">&rarr; Pilih Ini</span>
+                                    <span class="harga-item">→ Pilih Ini</span>
                                 </div>
                             `;
                         });
@@ -939,7 +1381,7 @@
                                     <strong>Servis Umum & Pengecekan Menyeluruh</strong>
                                     <span class="item-row-desc">Standar Pelayanan Terbaik DNE Auto Solution</span>
                                 </div>
-                                <span class="harga-item">&rarr; Pilih Ini</span>
+                                <span class="harga-item">→ Pilih Ini</span>
                             </div>
                         `;
                     }
@@ -955,8 +1397,7 @@
             document.getElementById('serviceModalOverlay').style.display = 'none';
         }
 
-        // Fungsi saat rincian/item satuan diklik: otomatis isi textarea form booking & pindah halaman
-        window.pilihItemSatuan = function( namaItem, hargaItem) {
+        window.pilihItemSatuan = function(namaItem, hargaItem) {
             window.tutupModalLayanan();
             window.bukaHalaman('booking');
             
@@ -972,7 +1413,6 @@
             }
         }
 
-        // --- REAL-TIME LISTENER LAYANAN ---
         function renderLayanan(listLayanan) {
             const gridContainer = document.getElementById('container-grid-layanan');
             if (!listLayanan || listLayanan.length === 0) {
@@ -994,7 +1434,7 @@
                             <p>${item.deskripsi}</p>
                             <div class="service-card-footer">
                                 <span>Lihat Rincian & Pilih</span>
-                                <span>&rarr;</span>
+                                <span>→</span>
                             </div>
                         </div>
                     `;
@@ -1008,16 +1448,11 @@
                 const dataObj = snapshot.val();
                 const layananArray = Object.keys(dataObj).map(key => ({ id: key, ...dataObj[key] }));
                 renderLayanan(layananArray);
-            } else {
-                renderLayanan([
-                    { id: "car_service", icon: "🚗", tag: "Mobil", judul: "Car Service", deskripsi: "Tune-up mesin, ganti oli, servis sistem rem, perbaikan kelistrikan, ganti aki, dan kaki-kaki mobil.", rincian: [{nama: "Tune-Up Mesin", harga: "Rp 150.000"}, {nama: "Ganti Oli Mesin", harga: "Rp 75.000"}, {nama: "Servis Rem Komplit", harga: "Rp 100.000"}] },
-                    { id: "motor_service", icon: "🏍️", tag: "Motor", judul: "Motor Service", deskripsi: "Servis berkala matic & manual, bersihkan injeksi/karburator, ganti oli, serta perawatan CVT.", rincian: [{nama: "Servis Berkala Matic", harga: "Rp 50.000"}, {nama: "Perawatan CVT", harga: "Rp 40.000"}, {nama: "Injeksi Cleaning", harga: "Rp 45.000"}] },
-                    { id: "sparepart", icon: "⚙️", tag: "Komponen", judul: "Sparepart", deskripsi: "Penyediaan suku cadang original dan komponen aftermarket berkualitas tinggi untuk kendaraan." }
-                ]);
             }
+        }, (error) => {
+            console.error("Error internet terputus (services):", error);
         });
 
-        // --- REAL-TIME PROMO LISTENER ---
         function renderPromo(listPromo) {
             const gridContainer = document.getElementById('container-grid-promo');
             if (!listPromo || listPromo.length === 0) {
@@ -1042,7 +1477,7 @@
                     `;
                 }
             });
-            gridContainer.innerHTML = html || `<p style="color: #94a3b8; text-align: center; grid-column: 1/-1;">Belum ada promo aktif saat ini.</p>`;
+            gridContainer.innerHTML = html;
         }
 
         onValue(ref(database, 'promos'), (snapshot) => {
@@ -1050,18 +1485,35 @@
                 const dataObj = snapshot.val();
                 const promoArray = Object.keys(dataObj).map(key => ({ id: key, ...dataObj[key] }));
                 renderPromo(promoArray);
-            } else {
-                renderPromo([
-                    { badge: "Diskon 15%", judul: "Paket Servis Lengkap Mobil", deskripsi: "Dapatkan diskon menarik untuk paket Tune-up + Ganti Oli Mesin + Cek Rem Komplit.", footer: "*Syarat & Ketentuan Berlaku" },
-                    { badge: "Hemat CVT", judul: "Service CVT Gratis Oli Gardan", deskripsi: "Khusus pemilik Motor Matic! Lakukan perawatan CVT berkala, dapatkan gratis Oli Gardan.", footer: "*Khusus Hari Senin - Kamis" }
-                ]);
             }
+        }, (error) => {
+            console.error("Error internet terputus (promos):", error);
+        });
+
+        onValue(ref(database, 'member_benefits'), (snapshot) => {
+            const benefitListContainer = document.getElementById('container-benefit-list-realtime');
+            if (snapshot.exists()) {
+                const dataObj = snapshot.val();
+                let html = "";
+                Object.values(dataObj).forEach(benefit => {
+                    html += `<li>${benefit}</li>`;
+                });
+                benefitListContainer.innerHTML = html;
+            } else {
+                benefitListContainer.innerHTML = `
+                    <li>Diskon khusus biaya jasa servis berkala</li>
+                    <li>Akumulasi poin reward dari setiap transaksi</li>
+                    <li>Prioritas antrean penanganan bengkel</li>
+                    <li>Gratis pengecekan kesehatan mesin berkala</li>
+                `;
+            }
+        }, (error) => {
+            console.error("Error internet terputus (benefits):", error);
         });
 
         const todayStr = new Date().toISOString().split('T')[0];
         document.getElementById('tanggal_booking').min = todayStr;
 
-        // --- FUNGSI AMBIL LOKASI GPS OTOMATIS ---
         document.getElementById('btn-lacak-gps').addEventListener('click', () => {
             const kolomInputLokasi = document.getElementById('share_loc');
             if (!navigator.geolocation) {
@@ -1090,7 +1542,280 @@
             );
         });
 
-        // Submit Form Booking
+        // =========================================================================
+        // --- VALIDASI REGISTRASI MEMBERSHIP & DEBUG LOG SESUAI PERMINTAAN ---
+        // =========================================================================
+        document.getElementById('formMemberReg').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const nama = document.getElementById('member_nama').value.trim();
+            let wa = document.getElementById('member_whatsapp').value.trim();
+            const alamat = document.getElementById('member_alamat').value.trim();
+
+            if (!nama || !wa || !alamat) {
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Form Belum Lengkap', desc: 'Mohon isi seluruh field (Nama, Nomor WhatsApp, dan Alamat) dengan benar.', tipe: 'info' });
+                return;
+            }
+
+            if (!/^\d+$/.test(wa)) {
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Format Nomor Salah', desc: 'Nomor WhatsApp wajib hanya berisi angka saja tanpa spasi atau simbol.', tipe: 'info' });
+                return;
+            }
+
+            if(wa.startsWith('0')) wa = '62' + wa.slice(1);
+
+            console.log(`[DEBUG LOG] 1. Nomor WhatsApp yang dicek: ${wa}`);
+
+            let searchResultStatus = "Tidak Ditemukan";
+            let alreadyRegistered = false;
+
+            try {
+                const snapshot = await get(child(ref(database), 'members'));
+                console.log("[DEBUG LOG] 2. Hasil pencarian raw database members:", snapshot.val());
+
+                if (snapshot.exists()) {
+                    const allMembers = snapshot.val();
+                    for (let key in allMembers) {
+                        if (allMembers[key].whatsapp === wa) {
+                            alreadyRegistered = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (alreadyRegistered) {
+                    searchResultStatus = "Ditemukan";
+                    console.log(`[DEBUG LOG] 3. Status data: ${searchResultStatus}`);
+                    console.log("[DEBUG LOG] 4. Status penyimpanan: Dibatalkan (Nomor sudah terdaftar)");
+
+                    tampilkanNotifikasiRamah({
+                        icon: '⚠️',
+                        title: 'Registrasi Ditolak',
+                        desc: 'Nomor WhatsApp sudah terdaftar sebagai Member.',
+                        tipe: 'info'
+                    });
+                    return;
+                } else {
+                    searchResultStatus = "Tidak Ditemukan";
+                    console.log(`[DEBUG LOG] 3. Status data: ${searchResultStatus} (Data sudah dihapus Admin atau belum pernah terdaftar. Mengizinkan registrasi baru).`);
+                }
+
+            } catch (err) {
+                console.error("[DEBUG LOG] 5. Error Firebase atau API saat validasi:", err);
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Koneksi Terputus', desc: 'Gagal terhubung ke database utama manajemen. Mohon periksa jaringan Anda.', tipe: 'info' });
+                return;
+            }
+
+            const dt = new Date();
+            const thnBln = dt.getFullYear() + String(dt.getMonth() + 1).padStart(2, '0');
+            const randomSeq = String(Math.floor(100 + Math.random() * 900));
+            const nomorRegistrasi = `REG-MBR-${thnBln}-${randomSeq}`;
+            const tanggalStr = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+
+            const dataMemberBaru = {
+                id: nomorRegistrasi,
+                nama: nama,
+                whatsapp: wa,
+                alamat: alamat,
+                poin: 0,
+                level: 'Gold Member',
+                status: 'MENUNGGU PEMBAYARAN',
+                tanggal_bergabung: tanggalStr,
+                masa_berlaku: '-',
+                tanggal_berakhir: '-',
+                kendaraan: 'Belum Terdaftar',
+                total_transaksi: 'Rp 0',
+                total_kunjungan: '0 Kali',
+                qr_code: `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${nomorRegistrasi}`,
+                benefit: ["Diskon Jasa Servis Berkala", "Akumulasi Poin Reward Transaksi", "Prioritas Penanganan Bengkel"]
+            };
+
+            set(ref(database, 'members/' + nomorRegistrasi), dataMemberBaru)
+                .then(() => {
+                    console.log("[DEBUG LOG] 4. Status penyimpanan: Berhasil tersimpan di database utama (members/" + nomorRegistrasi + ")");
+
+                    document.getElementById('formMemberReg').reset();
+                    
+                    const nomorWABengkel = "62881080809993";
+                    const templatePesanAdmin = 
+                        "*REGISTRASI MEMBERSHIP BERBAYAR - DNE AUTO SOLUTION*\n" +
+                        "-------------------------------------------\n" +
+                        `*Nomor Registrasi:* ${nomorRegistrasi}\n` +
+                        `*Nama            :* ${nama}\n` +
+                        `*WhatsApp        :* ${wa}\n` +
+                        `*Alamat          :* ${alamat}\n` +
+                        `*Tanggal         :* ${tanggalStr}\n\n` +
+                        "_Mohon verifikasi pembayaran membership ini._";
+
+                    const urlWAAdmin = `https://api.whatsapp.com/send?phone=${nomorWABengkel}&text=${encodeURIComponent(templatePesanAdmin)}`;
+
+                    tampilkanNotifikasiRamah({
+                        icon: '⏳',
+                        title: 'Pendaftaran Berhasil',
+                        desc: `Status: <strong style="color: #fbbf24;">MENUNGGU PEMBAYARAN</strong><br><br>Nomor Registrasi Anda: <strong style="color: #4ade80; font-family: monospace; font-size: 15px;">${nomorRegistrasi}</strong><br>Silakan konfirmasi pembayaran ke Admin melalui WhatsApp.`,
+                        tipe: 'konfirmasi_wa',
+                        dataAksi: { 
+                            urlWA: urlWAAdmin, 
+                            idMember: nomorRegistrasi 
+                        }
+                    });
+
+                    document.getElementById('input_id_member').value = nomorRegistrasi;
+                    window.switchMembershipTab('profile');
+                    document.getElementById('btn-cari-member-profile').click();
+                })
+                .catch((error) => {
+                    console.error("[DEBUG LOG] 5. Error Firebase atau API saat penyimpanan:", error);
+                    tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Gagal Menyimpan', desc: 'Registrasi dianggap gagal karena data gagal tersimpan di database utama.', tipe: 'info' });
+                });
+        });
+
+        // --- PENCARIAN PROFIL MEMBER & REALTIME LISTENER ---
+        document.getElementById('btn-cari-member-profile').addEventListener('click', () => {
+            let inputCari = document.getElementById('input_id_member').value.trim();
+            const skeleton = document.getElementById('memberSkeletonLoader');
+            const emptyState = document.getElementById('memberEmptyState');
+            const profileBox = document.getElementById('boxProfilMemberContent');
+
+            if (!inputCari) {
+                tampilkanNotifikasiRamah({ icon: '🔍', title: 'ID Member Kosong', desc: 'Silakan masukkan ID Member Anda atau 4 digit angka terakhir pada kolom yang tersedia.', tipe: 'info' });
+                return;
+            }
+
+            inputCari = inputCari.toUpperCase();
+            skeleton.style.display = 'block';
+            emptyState.style.display = 'none';
+            profileBox.style.display = 'none';
+
+            get(child(ref(database), `members`)).then((snapshot) => {
+                skeleton.style.display = 'none';
+                if (snapshot.exists()) {
+                    const semuaMember = snapshot.val();
+                    let dataDitemukan = null;
+                    let foundKey = null;
+
+                    for (let idKey in semuaMember) {
+                        if (idKey.includes(inputCari)) {
+                            dataDitemukan = semuaMember[idKey];
+                            foundKey = idKey;
+                            break;
+                        }
+                    }
+
+                    if (dataDitemukan) {
+                        // Batalkan listener sebelumnya jika ada
+                        if (activeMemberListener) {
+                            // Firebase menangani pembaruan callback lewat onValue secara otomatis
+                        }
+
+                        // Listener realtime yang sama dengan sistem Membership tanpa refresh
+                        activeMemberListener = onValue(ref(database, `members/${foundKey}`), (snapUpdate) => {
+                            if (snapUpdate.exists()) {
+                                const updatedData = snapUpdate.val();
+                                
+                                // Cek transisi status dari MENUNGGU PEMBAYARAN menjadi AKTIF secara realtime
+                                if (updatedData.status === 'AKTIF' && window.lastKnownStatus && window.lastKnownStatus === 'MENUNGGU PEMBAYARAN') {
+                                    tampilkanNotifikasiRamah({
+                                        icon: '🎉',
+                                        title: 'Selamat!',
+                                        desc: 'Pembayaran Anda telah diverifikasi.<br>Membership Anda telah aktif.',
+                                        tipe: 'info'
+                                    });
+                                } else if (updatedData.status === 'DITOLAK' && window.lastKnownStatus && window.lastKnownStatus !== 'DITOLAK') {
+                                    const alasan = updatedData.alasan_penolakan ? `<br><br>Alasan: <em>${updatedData.alasan_penolakan}</em>` : '';
+                                    tampilkanNotifikasiRamah({
+                                        icon: '❌',
+                                        title: 'Pembayaran Ditolak',
+                                        desc: `Status pembayaran Anda ditolak oleh Admin.${alasan}`,
+                                        tipe: 'info'
+                                    });
+                                }
+                                window.lastKnownStatus = updatedData.status;
+
+                                renderProfilMemberData(updatedData);
+                                profileBox.style.display = 'block';
+                            } else {
+                                profileBox.style.display = 'none';
+                                emptyState.style.display = 'block';
+                                document.getElementById('emptyStateTitleText').innerText = "Member Telah Dihapus";
+                                document.getElementById('emptyStateDescText').innerText = "Data member ini baru saja dihapus oleh Admin.";
+                            }
+                        }, (error) => {
+                            console.error("[DEBUG LOG] Error realtime listener member:", error);
+                        });
+
+                    } else {
+                        emptyState.style.display = 'block';
+                        document.getElementById('emptyStateTitleText').innerText = "Member tidak ditemukan";
+                        document.getElementById('emptyStateDescText').innerText = `Data dengan kata kunci "${inputCari}" tidak terdaftar di sistem manajemen.`;
+                    }
+                } else {
+                    emptyState.style.display = 'block';
+                    document.getElementById('emptyStateTitleText').innerText = "Belum Ada Data Member";
+                    document.getElementById('emptyStateDescText').innerText = "Belum ada data member yang tersimpan di server manajemen saat ini.";
+                }
+            }).catch((err) => {
+                skeleton.style.display = 'none';
+                emptyState.style.display = 'block';
+                document.getElementById('emptyStateTitleText').innerText = "Gagal Memuat Data";
+                document.getElementById('emptyStateDescText').innerText = "Terjadi kendala koneksi internet atau timeout ke server manajemen.";
+                console.error("[DEBUG LOG] Error pencarian profil:", err);
+            });
+        });
+
+        window.lastKnownStatus = null;
+
+        function renderProfilMemberData(data) {
+            document.getElementById('cardValId').innerText = data.id || '-';
+            document.getElementById('cardValNama').innerText = data.nama || '-';
+            document.getElementById('cardValWa').innerText = data.whatsapp || '-';
+            document.getElementById('cardValPoin').innerText = `${data.poin || 0} Poin`;
+            
+            const levelMember = data.level || 'Gold Member';
+            document.getElementById('cardValLevel').innerText = levelMember;
+            document.getElementById('titleLevelBenefitText').innerText = levelMember;
+            document.getElementById('cardValLevelBadgeTop').innerText = levelMember.toUpperCase();
+
+            const qrImgUrl = data.qr_code || `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.id}`;
+            document.getElementById('cardValQrImg').src = qrImgUrl;
+
+            document.getElementById('statValKendaraan').innerText = data.kendaraan || 'Belum Terdaftar';
+            document.getElementById('statValTglBergabung').innerText = data.tanggal_bergabung || '-';
+            
+            // Mengambil masa aktif / tanggal berakhir langsung dari aplikasi Manajemen
+            document.getElementById('statValMasaBerlaku').innerText = data.tanggal_berakhir || data.masa_berlaku || '-';
+            
+            const statusValEl = document.getElementById('statValStatus');
+            const statusText = data.status || 'MENUNGGU PEMBAYARAN';
+            statusValEl.innerText = statusText;
+            statusValEl.className = ""; 
+            
+            if (statusText.toLowerCase().includes('aktif')) {
+                statusValEl.classList.add('badge-status-hijau');
+            } else if (statusText.toLowerCase().includes('ditolak')) {
+                statusValEl.classList.add('badge-status-merah');
+            } else {
+                statusValEl.classList.add('badge-status-kuning');
+            }
+
+            document.getElementById('statValTotalTransaksi').innerText = data.total_transaksi || 'Rp 0';
+            document.getElementById('statValTotalKunjungan').innerText = data.total_kunjungan || '0 Kali';
+
+            const benefitListUl = document.getElementById('container-profile-benefit-list');
+            let benefitHtml = "";
+            if (data.benefit && Array.isArray(data.benefit) && data.benefit.length > 0) {
+                data.benefit.forEach(b => {
+                    benefitHtml += `<li>${b}</li>`;
+                });
+            } else {
+                benefitHtml += `
+                    <li>Diskon Jasa Servis Berkala</li>
+                    <li>Akumulasi Poin Reward Transaksi</li>
+                    <li>Prioritas Penanganan Bengkel</li>
+                `;
+            }
+            benefitListUl.innerHTML = benefitHtml;
+        }
+
         document.getElementById('formBengkelWA').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nomorWABengkel = "62881080809993"; 
@@ -1192,7 +1917,6 @@
                 });
         });
 
-        // --- CEK STATUS BERDASARKAN PENCARIAN DIGIT ANGKA ---
         document.getElementById('btn-proses-cek').addEventListener('click', () => {
             let inputCari = document.getElementById('input_id_cek').value.trim();
             const boxHasil = document.getElementById('boxHasilStatus');
