@@ -1203,7 +1203,7 @@
         const database = getDatabase(app);
 
         window.hubungiAdminCS = function(pesanCustom) {
-            let nomorWA = "62881080809993"; // Nomor WhatsApp Admin/CS telah diperbarui
+            let nomorWA = "62881080809993";
             get(ref(database, 'settings/whatsapp_admin')).then((snapshot) => {
                 if(snapshot.exists()) { nomorWA = snapshot.val(); }
                 const textPesan = encodeURIComponent(pesanCustom || 'Halo Kak, saya ingin terhubung dengan Customer Service DNE Auto Solution.');
@@ -1529,8 +1529,15 @@
             const kel = document.getElementById('keluhan').value;
             const promo = document.getElementById('promo_terpilih').value;
 
-            const newBookingRef = push(ref(database, 'bookings'));
-            const idBooking = 'BK-' + new Date().toISOString().split('T')[0].replace(/-/g,'') + '-' + newBookingRef.key.slice(-5).toUpperCase();
+            // Generate Kode Booking Otomatis oleh Sistem/Database dengan Format DNE-YYYYMMDDHHmm (Sesuai Permintaan)
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+            const randomSuffix = Math.floor(10 + Math.random() * 90); // 2 digit acak tambahan untuk unik
+            const idBooking = `DNE-${year}${month}${day}${hour}${minute}${randomSuffix}`;
 
             const dataBooking = {
                 id: idBooking,
@@ -1545,7 +1552,7 @@
                 tanggal: new Date().toISOString().split('T')[0]
             };
 
-            set(newBookingRef, dataBooking).then(() => {
+            set(ref(database, 'bookings/' + idBooking), dataBooking).then(() => {
                 let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
                 riwayat.unshift(dataBooking);
                 localStorage.setItem('dne_riwayat_booking', JSON.stringify(riwayat));
@@ -1761,20 +1768,12 @@
             inisialisasiListenerRealtimeMember(key);
         }
 
-        let currentMemberListenerRef = null;
-
         function inisialisasiListenerRealtimeMember(memberKey) {
-            if (currentMemberListenerRef) {}
-
             const memberRef = ref(database, `members/${memberKey}`);
-            currentMemberListenerRef = memberRef;
-
             onValue(memberRef, (snapshot) => {
                 if(snapshot.exists()) {
                     const m = snapshot.val();
                     perbaruiTampilanMembership(m);
-                } else {
-                    tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Data Berubah', desc: 'Data member ini telah dihapus atau diperbarui oleh sistem.' });
                 }
             });
         }
@@ -1801,6 +1800,7 @@
             const benefitContainer = document.getElementById('membershipBenefitsContainer');
             if (m.benefit && Array.isArray(m.benefit)) {
                 let benefitHtml = '';
+                m.benefit.title = '';
                 m.benefit.forEach(b => {
                     benefitHtml += `
                         <div class="benefit-item">
@@ -1828,8 +1828,8 @@
                 if (statusServer.toUpperCase() === 'AKTIF') {
                     tampilkanNotifikasiRamah({
                         icon: '🎉',
-                        title: 'Kartu Member Diperbarui!',
-                        desc: `Data member Anda telah tersinkronisasi secara real-time dari server.<br><br><strong>Level:</strong> ${m.level}<br><strong>Poin:</strong> ${m.jumlah_poin || 0}`
+                        title: 'Kartu Member Siap Digunakan!',
+                        desc: `Data member Anda berhasil dimuat dengan baik.<br><br><strong>ID:</strong> ${m.id}<br><strong>Level:</strong> ${m.level}<br><strong>Poin:</strong> ${m.jumlah_poin || 0}`
                     });
                 }
             }
