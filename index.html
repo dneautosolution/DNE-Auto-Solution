@@ -1517,6 +1517,7 @@
             window.nextStep(2);
         }
 
+        // VALIDASI AGAR TIDAK ADA DOBEL BOOKING BERDASARKAN NOMOR WHATSAPP
         document.getElementById('formBengkelWA').addEventListener('submit', (e) => {
             e.preventDefault();
             const nama = document.getElementById('nama').value;
@@ -1529,38 +1530,65 @@
             const kel = document.getElementById('keluhan').value;
             const promo = document.getElementById('promo_terpilih').value;
 
-            // Generate Kode Booking Otomatis oleh Sistem/Database dengan Format DNE-YYYYMMDDHHmm (Sesuai Permintaan)
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hour = String(now.getHours()).padStart(2, '0');
-            const minute = String(now.getMinutes()).padStart(2, '0');
-            const randomSuffix = Math.floor(10 + Math.random() * 90); // 2 digit acak tambahan untuk unik
-            const idBooking = `DNE-${year}${month}${day}${hour}${minute}${randomSuffix}`;
+            // Cek ke database apakah nomor WhatsApp ini masih memiliki booking dengan status belum selesai (Menunggu / Proses / Menunggu Sparepart)
+            get(ref(database, 'bookings')).then((snapshot) => {
+                let adaBookingAktif = false;
+                if (snapshot.exists()) {
+                    const allBookings = snapshot.val();
+                    Object.keys(allBookings).forEach(key => {
+                        const b = allBookings[key];
+                        if (b && b.whatsapp === wa) {
+                            const statusB = (b.status || '').toLowerCase();
+                            // Jika status belum selesai atau belum dibatalkan/dihapus
+                            if (statusB === 'menunggu' || statusB === 'proses' || statusB === 'menunggu sparepart') {
+                                adaBookingAktif = true;
+                            }
+                        }
+                    });
+                }
 
-            const dataBooking = {
-                id: idBooking,
-                nama: nama,
-                whatsapp: wa,
-                tanggal_servis: tgl,
-                kategori: kat,
-                kendaraan: kend,
-                keluhan: kel,
-                promo: promo || 'Tidak Ada',
-                status: 'Menunggu',
-                tanggal: new Date().toISOString().split('T')[0]
-            };
+                if (adaBookingAktif) {
+                    tampilkanNotifikasiRamah({
+                        icon: '⚠️',
+                        title: 'Gagal Melakukan Booking',
+                        desc: 'Anda masih memiliki riwayat booking yang <strong>belum selesai</strong> di sistem. Anda baru bisa melakukan booking baru setelah status booking sebelumnya berubah menjadi <strong>Selesai</strong> atau data dibersihkan oleh manager.'
+                    });
+                    return;
+                }
 
-            set(ref(database, 'bookings/' + idBooking), dataBooking).then(() => {
-                let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
-                riwayat.unshift(dataBooking);
-                localStorage.setItem('dne_riwayat_booking', JSON.stringify(riwayat));
+                // Jika aman (tidak ada dobel booking), lanjutkan proses simpan
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hour = String(now.getHours()).padStart(2, '0');
+                const minute = String(now.getMinutes()).padStart(2, '0');
+                const randomSuffix = Math.floor(10 + Math.random() * 90);
+                const idBooking = `DNE-${year}${month}${day}${hour}${minute}${randomSuffix}`;
 
-                document.getElementById('successBookingId').innerText = idBooking;
-                window.bukaHalaman('berhasil');
-            }).catch(() => {
-                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Kendala Koneksi', desc: 'Mohon maaf, terjadi kendala saat menyimpan data pesanan Anda. Silakan coba beberapa saat lagi ya.' });
+                const dataBooking = {
+                    id: idBooking,
+                    nama: nama,
+                    whatsapp: wa,
+                    tanggal_servis: tgl,
+                    kategori: kat,
+                    kendaraan: kend,
+                    keluhan: kel,
+                    promo: promo || 'Tidak Ada',
+                    status: 'Menunggu',
+                    tanggal: new Date().toISOString().split('T')[0]
+                };
+
+                set(ref(database, 'bookings/' + idBooking), dataBooking).then(() => {
+                    let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
+                    riwayat.unshift(dataBooking);
+                    localStorage.setItem('dne_riwayat_booking', JSON.stringify(riwayat));
+
+                    document.getElementById('successBookingId').innerText = idBooking;
+                    window.bukaHalaman('berhasil');
+                }).catch(() => {
+                    tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Kendala Koneksi', desc: 'Mohon maaf, terjadi kendala saat menyimpan data pesanan Anda. Silakan coba beberapa saat lagi ya.' });
+                });
             });
         });
 
