@@ -170,11 +170,13 @@
         .page-section { display: none; width: 100%; }
         .page-section.active { display: block; }
 
-        /* --- HERO BANNER SLIDER BERSIH --- */
+        /* --- HERO BANNER SLIDER DIPERBAIKI UNTUK DESKTOP --- */
         .hero {
             padding: 16px 4%;
             background: #0b0b0e;
             width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
         .hero-slider-wrapper {
@@ -186,6 +188,18 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             min-height: 200px;
             width: 100%;
+        }
+
+        /* Perbaikan ukuran tinggi banner khusus Desktop / Laptop agar proporsional (Rasio 1200 x 500) */
+        @media (min-width: 768px) {
+            .hero-slider-wrapper {
+                min-height: 380px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .hero-slider-wrapper {
+                min-height: 440px;
+            }
         }
 
         .hero-slides-container {
@@ -208,6 +222,17 @@
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .hero-slide-item {
+                min-height: 380px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .hero-slide-item {
+                min-height: 440px;
+            }
         }
 
         .skeleton-loader {
@@ -253,6 +278,9 @@
             padding: 0 4%;
             margin-bottom: 20px;
             width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .stat-card {
@@ -335,6 +363,9 @@
             padding: 0 4%;
             margin-bottom: 12px;
             width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .section-header-row h3 {
@@ -361,6 +392,9 @@
             padding: 0 4%;
             margin-bottom: 24px;
             width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @media(min-width: 600px) {
@@ -413,6 +447,9 @@
             gap: 14px;
             margin-bottom: 24px;
             width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
         }
         @media(min-width: 600px) {
             .promo-container-list { grid-template-columns: repeat(2, 1fr); }
@@ -470,7 +507,7 @@
         }
 
         /* --- BOOKING & STEPPER --- */
-        .booking-section-wrapper { padding: 16px 4%; width: 100%; }
+        .booking-section-wrapper { padding: 16px 4%; width: 100%; max-width: 1280px; margin: 0 auto; }
 
         .stepper-container {
             display: flex;
@@ -612,7 +649,8 @@
             border-radius: 14px;
             padding: 24px 16px;
             text-align: center;
-            margin: 16px 4%;
+            margin: 16px auto;
+            max-width: 600px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
@@ -868,7 +906,7 @@
         </div>
         <div class="services-grid-home" id="container-home-services"></div>
 
-        <div class="quick-booking-box">
+        <div class="quick-booking-box" style="max-width: 1280px; margin-left: auto; margin-right: auto;">
             <h3>⚡ Booking Cepat</h3>
             <p>Isi data singkat di bawah untuk langsung menjadwalkan servis.</p>
             <form id="quickBookingForm" onsubmit="window.submitQuickBooking(event)">
@@ -895,7 +933,7 @@
         <div class="section-header-row" style="padding-top: 16px;">
             <h3>Seluruh <span>Layanan</span></h3>
         </div>
-        <p style="padding: 0 4% 12px 4%; font-size: 11px; color: #94a3b8;">Ketuk salah satu layanan untuk melihat rincian dan estimasi biaya.</p>
+        <p style="padding: 0 4% 12px 4%; font-size: 11px; color: #94a3b8; max-width: 1280px; margin-left: auto; margin-right: auto;">Ketuk salah satu layanan untuk melihat rincian dan estimasi biaya.</p>
         <div class="services-grid-home" id="container-full-services" style="grid-template-columns: repeat(2, 1fr); padding-bottom: 20px;"></div>
     </section>
 
@@ -904,7 +942,7 @@
             <h3>Promo <span>Spesial</span></h3>
             <span class="see-all-link" onclick="window.bukaHalaman('booking')">Pakai Voucher</span>
         </div>
-        <p style="padding: 0 4% 12px 4%; font-size: 11px; color: #94a3b8;">Penawaran terbaik khusus bulan ini untuk kendaraan kesayangan Anda.</p>
+        <p style="padding: 0 4% 12px 4%; font-size: 11px; color: #94a3b8; max-width: 1280px; margin-left: auto; margin-right: auto;">Penawaran terbaik khusus bulan ini untuk kendaraan kesayangan Anda.</p>
         <div class="promo-container-list" id="container-grid-promo">
             <p style="color: #94a3b8; font-size: 11px; grid-column: 1/-1; text-align: center;">Memuat daftar promo...</p>
         </div>
@@ -1296,7 +1334,7 @@
                     listBannerData.forEach((b, idx) => {
                         const imgUrl = b.url_gambar || b.banner || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200';
                         slidesHtml += `
-                            <div class="hero-slide-item" style="background-image: url('${imgUrl}');" onclick="window.klikBanner('${b.link_tujuan || '#'}')"></div>
+                            <div class="hero-slide-item" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;" onclick="window.klikBanner('${b.link_tujuan || '#'}')"></div>
                         `;
                         dotsHtml += `<div class="hero-dot ${idx === 0 ? 'active' : ''}" onclick="event.stopPropagation(); window.currentSlide(${idx})"></div>`;
                     });
@@ -1311,7 +1349,7 @@
                 } else {
                     container.classList.remove('skeleton-loader');
                     container.innerHTML = `
-                        <div class="hero-slide-item" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200');"></div>
+                        <div class="hero-slide-item" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200'); background-size: cover; background-position: center;"></div>
                     `;
                     dotsContainer.innerHTML = `<div class="hero-dot active"></div>`;
                 }
@@ -1517,7 +1555,6 @@
             window.nextStep(2);
         }
 
-        // VALIDASI AGAR TIDAK ADA DOBEL BOOKING BERDASARKAN NOMOR WHATSAPP
         document.getElementById('formBengkelWA').addEventListener('submit', (e) => {
             e.preventDefault();
             const nama = document.getElementById('nama').value;
@@ -1800,7 +1837,6 @@
                     const m = snapshot.val();
                     perbaruiTampilanMembership(m);
                     
-                    // OTOMATIS TAMPILKAN SEMUA RIWAYAT BOOKING BERDASARKAN NOMOR WHATSAPP MEMBER
                     if (m.whatsapp) {
                         muatRiwayatOtomatisMember(m.whatsapp, m.nama);
                     }
@@ -1808,7 +1844,6 @@
             });
         }
 
-        // FUNGSI UNTUK MEMUAT SEMUA RIWAYAT BOOKING BERDASARKAN NOMOR WA MEMBER KE HALAMAN RIWAYAT
         function muatRiwayatOtomatisMember(whatsappMember, namaMember) {
             let waClean = whatsappMember.trim();
             if(waClean.startsWith('0')) waClean = '62' + waClean.slice(1);
@@ -1833,7 +1868,6 @@
                 if (matchedBookings.length > 0) {
                     let html = `<p style="font-size: 10px; color: #4ade80; margin-bottom: 8px; text-align: center;">Menampilkan seluruh riwayat booking untuk member: <strong>${namaMember}</strong></p>`;
                     
-                    // Urutkan dari yang terbaru jika ada properti tanggal/id
                     matchedBookings.reverse();
 
                     matchedBookings.forEach(item => {
@@ -1852,8 +1886,7 @@
                     });
                     riwayatContainer.innerHTML = html;
 
-                    // Simpan juga ke localStorage perangkat agar sinkron
-                    localStorage.setItem('dne_riwayat_booking', JSON.stringify(matchedBookings));
+                    localStorage.setItem('dne_riwayat_banner', JSON.stringify(matchedBookings));
                 } else {
                     riwayatContainer.innerHTML = `<p style="color: #94a3b8; text-align: center; font-size: 11px;">Belum ada riwayat booking yang terdaftar untuk nomor WhatsApp member ini.</p>`;
                 }
@@ -1882,7 +1915,6 @@
             const benefitContainer = document.getElementById('membershipBenefitsContainer');
             if (m.benefit && Array.isArray(m.benefit)) {
                 let benefitHtml = '';
-                m.benefit.title = '';
                 m.benefit.forEach(b => {
                     benefitHtml += `
                         <div class="benefit-item">
