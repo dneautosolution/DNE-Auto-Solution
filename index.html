@@ -1530,7 +1530,6 @@
             const kel = document.getElementById('keluhan').value;
             const promo = document.getElementById('promo_terpilih').value;
 
-            // Cek ke database apakah nomor WhatsApp ini masih memiliki booking dengan status belum selesai (Menunggu / Proses / Menunggu Sparepart)
             get(ref(database, 'bookings')).then((snapshot) => {
                 let adaBookingAktif = false;
                 if (snapshot.exists()) {
@@ -1539,7 +1538,6 @@
                         const b = allBookings[key];
                         if (b && b.whatsapp === wa) {
                             const statusB = (b.status || '').toLowerCase();
-                            // Jika status belum selesai atau belum dibatalkan/dihapus
                             if (statusB === 'menunggu' || statusB === 'proses' || statusB === 'menunggu sparepart') {
                                 adaBookingAktif = true;
                             }
@@ -1556,7 +1554,6 @@
                     return;
                 }
 
-                // Jika aman (tidak ada dobel booking), lanjutkan proses simpan
                 const now = new Date();
                 const year = now.getFullYear();
                 const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -1802,6 +1799,63 @@
                 if(snapshot.exists()) {
                     const m = snapshot.val();
                     perbaruiTampilanMembership(m);
+                    
+                    // OTOMATIS TAMPILKAN SEMUA RIWAYAT BOOKING BERDASARKAN NOMOR WHATSAPP MEMBER
+                    if (m.whatsapp) {
+                        muatRiwayatOtomatisMember(m.whatsapp, m.nama);
+                    }
+                }
+            });
+        }
+
+        // FUNGSI UNTUK MEMUAT SEMUA RIWAYAT BOOKING BERDASARKAN NOMOR WA MEMBER KE HALAMAN RIWAYAT
+        function muatRiwayatOtomatisMember(whatsappMember, namaMember) {
+            let waClean = whatsappMember.trim();
+            if(waClean.startsWith('0')) waClean = '62' + waClean.slice(1);
+
+            get(ref(database, 'bookings')).then((snapshot) => {
+                const riwayatContainer = document.getElementById('daftarRiwayatContainer');
+                if (!snapshot.exists()) {
+                    riwayatContainer.innerHTML = `<p style="color: #94a3b8; text-align: center; font-size: 11px;">Belum ada riwayat booking untuk member atas nama ${namaMember}.</p>`;
+                    return;
+                }
+
+                const allBookings = snapshot.val();
+                let matchedBookings = [];
+
+                Object.keys(allBookings).forEach(key => {
+                    const b = allBookings[key];
+                    if (b && (b.whatsapp === waClean || b.whatsapp === whatsappMember || (b.nama && b.nama.toLowerCase() === namaMember.toLowerCase()))) {
+                        matchedBookings.push(b);
+                    }
+                });
+
+                if (matchedBookings.length > 0) {
+                    let html = `<p style="font-size: 10px; color: #4ade80; margin-bottom: 8px; text-align: center;">Menampilkan seluruh riwayat booking untuk member: <strong>${namaMember}</strong></p>`;
+                    
+                    // Urutkan dari yang terbaru jika ada properti tanggal/id
+                    matchedBookings.reverse();
+
+                    matchedBookings.forEach(item => {
+                        const statusTerbaru = item.status || 'Menunggu';
+                        const badgeClass = statusTerbaru === 'Selesai' ? 'badge-selesai' : statusTerbaru === 'Proses' ? 'badge-proses' : statusTerbaru === 'Menunggu' ? 'badge-menunggu' : 'badge-batal';
+
+                        html += `
+                            <div class="riwayat-card-modern" onclick="window.cekDanBukaDetail('${item.id}')">
+                                <div>
+                                    <h4 style="font-size: 11px; color: #fff; margin-bottom: 2px;">${item.kendaraan}</h4>
+                                    <p style="font-size: 9px; color: #94a3b8;">ID: ${item.id} | ${item.tanggal_servis || item.tanggal}</p>
+                                </div>
+                                <span class="badge-status ${badgeClass}">${statusTerbaru}</span>
+                            </div>
+                        `;
+                    });
+                    riwayatContainer.innerHTML = html;
+
+                    // Simpan juga ke localStorage perangkat agar sinkron
+                    localStorage.setItem('dne_riwayat_booking', JSON.stringify(matchedBookings));
+                } else {
+                    riwayatContainer.innerHTML = `<p style="color: #94a3b8; text-align: center; font-size: 11px;">Belum ada riwayat booking yang terdaftar untuk nomor WhatsApp member ini.</p>`;
                 }
             });
         }
