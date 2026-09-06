@@ -170,7 +170,7 @@
         .page-section { display: none; width: 100%; }
         .page-section.active { display: block; }
 
-        /* --- HERO BANNER SLIDER DIPERBAIKI UNTUK DESKTOP --- */
+        /* --- HERO BANNER SLIDER --- */
         .hero {
             padding: 16px 4%;
             background: #0b0b0e;
@@ -190,16 +190,11 @@
             width: 100%;
         }
 
-        /* Perbaikan ukuran tinggi banner khusus Desktop / Laptop agar proporsional (Rasio 1200 x 500) */
         @media (min-width: 768px) {
-            .hero-slider-wrapper {
-                min-height: 380px;
-            }
+            .hero-slider-wrapper { min-height: 380px; }
         }
         @media (min-width: 1024px) {
-            .hero-slider-wrapper {
-                min-height: 440px;
-            }
+            .hero-slider-wrapper { min-height: 440px; }
         }
 
         .hero-slides-container {
@@ -225,14 +220,10 @@
         }
 
         @media (min-width: 768px) {
-            .hero-slide-item {
-                min-height: 380px;
-            }
+            .hero-slide-item { min-height: 380px; }
         }
         @media (min-width: 1024px) {
-            .hero-slide-item {
-                min-height: 440px;
-            }
+            .hero-slide-item { min-height: 440px; }
         }
 
         .skeleton-loader {
@@ -439,7 +430,7 @@
             text-overflow: ellipsis;
         }
 
-        /* --- PROMO SECTION --- */
+        /* --- PROMO SECTION (UPDATED FULLY FUNCTIONAL & CONSISTENT) --- */
         .promo-container-list {
             padding: 0 4%;
             display: grid;
@@ -465,6 +456,7 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.2s, border-color 0.2s;
+            position: relative;
         }
         .promo-card-modern:hover {
             border-color: #dc2626;
@@ -937,6 +929,7 @@
         <div class="services-grid-home" id="container-full-services" style="grid-template-columns: repeat(2, 1fr); padding-bottom: 20px;"></div>
     </section>
 
+    <!-- PROMO SECTION FULLY IMPLEMENTED -->
     <section class="page-section" id="promo">
         <div class="section-header-row" style="padding-top: 16px;">
             <h3>Promo <span>Spesial</span></h3>
@@ -973,6 +966,7 @@
                     <div class="form-group" id="group-promo-terpilih" style="display:none;">
                         <label>Promo / Voucher Diklaim</label>
                         <input type="text" id="promo_terpilih" readonly style="border: 1px dashed #fbbf24; color: #fbbf24;">
+                        <input type="hidden" id="promo_id_terpilih" value="">
                     </div>
                     <div class="form-group">
                         <label>Tanggal Booking</label>
@@ -1240,6 +1234,13 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
+        // Timezone WIB (Asia/Jakarta) Helper
+        function getWIBDateString() {
+            const options = { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' };
+            const formatter = new Intl.DateTimeFormat('en-CA', options);
+            return formatter.format(new Date()); // format YYYY-MM-DD
+        }
+
         window.hubungiAdminCS = function(pesanCustom) {
             let nomorWA = "62881080809993";
             get(ref(database, 'settings/whatsapp_admin')).then((snapshot) => {
@@ -1310,7 +1311,7 @@
             if (snapshot.exists()) {
                 const banners = snapshot.val();
                 listBannerData = [];
-                const tglHariIni = new Date().toISOString().split('T')[0];
+                const tglHariIni = getWIBDateString();
 
                 Object.keys(banners).forEach((key) => {
                     const b = banners[key];
@@ -1490,23 +1491,51 @@
             document.getElementById('keluhan').value = `Pilihan Layanan: ${namaItem} (Estimasi: ${hargaItem})`;
         }
 
+        // --- REAL-TIME FULLY FUNCTIONAL PROMO IMPLEMENTATION (WIB & RULES COMPLIANT) ---
         onValue(ref(database, 'promos'), (snapshot) => {
             const containerPromo = document.getElementById('container-grid-promo');
             if (snapshot.exists()) {
                 const dataObj = snapshot.val();
                 let html = "";
+                const todayWIB = getWIBDateString();
+
                 Object.keys(dataObj).forEach(key => {
                     const p = dataObj[key];
-                    if(p && p.status !== 'Inactive') {
+                    if (!p) return;
+
+                    // Evaluasi Status Otomatis & Tanggal Berdasarkan WIB
+                    let calculatedStatus = p.status || 'ACTIVE';
+                    if (calculatedStatus !== 'INACTIVE' && calculatedStatus !== 'Inactive' && calculatedStatus !== false) {
+                        if (p.tanggal_mulai && todayWIB < p.tanggal_mulai) {
+                            calculatedStatus = 'UPCOMING';
+                        } else if (p.tanggal_berakhir && todayWIB > p.tanggal_berakhir) {
+                            calculatedStatus = 'EXPIRED';
+                        } else {
+                            calculatedStatus = 'ACTIVE';
+                        }
+                    } else {
+                        calculatedStatus = 'INACTIVE';
+                    }
+
+                    // Sinkronisasi status otomatis ke database jika berubah (Real-time sync compliance)
+                    if (p.status !== calculatedStatus && calculatedStatus !== 'INACTIVE') {
+                        set(ref(database, `promos/${key}/status`), calculatedStatus).catch(() => {});
+                    }
+
+                    // Tampilkan HANYA Promo yang berstatus ACTIVE di daftar promo aktif
+                    if (calculatedStatus === 'ACTIVE') {
+                        const bannerImg = p.banner || p.url_gambar || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=800';
+                        const periodeText = (p.tanggal_mulai && p.tanggal_berakhir) ? `${p.tanggal_mulai} s/d ${p.tanggal_berakhir}` : (p.tanggal || 'Periode Terbatas');
+                        
                         html += `
-                            <div class="promo-card-modern">
-                                <img src="${p.banner || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=800'}" class="promo-card-banner" alt="Foto Promo">
+                            <div class="promo-card-modern" data-promo-id="${key}">
+                                <img src="${bannerImg}" class="promo-card-banner" alt="Foto Promo">
                                 <div class="promo-card-body">
-                                    <h4>${p.judul}</h4>
-                                    <p>${p.deskripsi}</p>
+                                    <h4>${p.judul || p.name}</h4>
+                                    <p>${p.deskripsi || p.description || ''}</p>
                                     <div class="promo-card-footer">
-                                        <span class="promo-badge-date">⏳ ${p.tanggal || 'Periode Terbatas'}</span>
-                                        <button onclick="window.ambilPromo('${p.judul.replace(/'/g, "\\'")}')" class="btn" style="padding: 5px 12px; font-size: 9px;">Klaim</button>
+                                        <span class="promo-badge-date">⏳ ${periodeText}</span>
+                                        <button onclick="window.ambilPromo('${key}', '${(p.judul || p.name || '').replace(/'/g, "\\'")}', '${p.tanggal_berakhir || ''}')" class="btn" style="padding: 5px 12px; font-size: 9px;">Klaim</button>
                                     </div>
                                 </div>
                             </div>
@@ -1519,15 +1548,22 @@
             }
         });
 
-        window.ambilPromo = function(namaPromo) {
+        window.ambilPromo = function(promoId, namaPromo, tanggalBerakhir) {
+            const todayWIB = getWIBDateString();
+            if (tanggalBerakhir && todayWIB > tanggalBerakhir) {
+                tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Promo Sudah Berakhir', desc: `Maaf, voucher <strong>${namaPromo}</strong> sudah melewati masa berlaku dan berstatus <strong>EXPIRED</strong>. Voucher tidak dapat digunakan.` });
+                return;
+            }
+
             document.getElementById('group-promo-terpilih').style.display = 'block';
             document.getElementById('promo_terpilih').value = namaPromo;
+            document.getElementById('promo_id_terpilih').value = promoId;
             window.bukaHalaman('booking');
             window.nextStep(1);
             tampilkanNotifikasiRamah({ icon: '🎟️', title: 'Voucher Berhasil Dipasang!', desc: `Wah, voucher <strong>${namaPromo}</strong> berhasil dipasang ke form booking Anda. Silakan lanjutkan pengisian data ya!` });
         }
 
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = getWIBDateString();
         document.getElementById('tanggal_booking').min = todayStr;
         if(document.getElementById('quick_tanggal')) document.getElementById('quick_tanggal').min = todayStr;
 
@@ -1566,64 +1602,91 @@
             const kend = document.getElementById('kendaraan').value;
             const kel = document.getElementById('keluhan').value;
             const promo = document.getElementById('promo_terpilih').value;
+            const promoId = document.getElementById('promo_id_terpilih').value;
 
-            get(ref(database, 'bookings')).then((snapshot) => {
-                let adaBookingAktif = false;
-                if (snapshot.exists()) {
-                    const allBookings = snapshot.val();
-                    Object.keys(allBookings).forEach(key => {
-                        const b = allBookings[key];
-                        if (b && b.whatsapp === wa) {
-                            const statusB = (b.status || '').toLowerCase();
-                            if (statusB === 'menunggu' || statusB === 'proses' || statusB === 'menunggu sparepart') {
-                                adaBookingAktif = true;
+            // Strict Validation Rule: Cek apakah promo sudah expired saat transaksi/booking dikirim
+            const lakukanPenyimpananBooking = () => {
+                get(ref(database, 'bookings')).then((snapshot) => {
+                    let adaBookingAktif = false;
+                    if (snapshot.exists()) {
+                        const allBookings = snapshot.val();
+                        Object.keys(allBookings).forEach(key => {
+                            const b = allBookings[key];
+                            if (b && b.whatsapp === wa) {
+                                const statusB = (b.status || '').toLowerCase();
+                                if (statusB === 'menunggu' || statusB === 'proses' || statusB === 'menunggu sparepart') {
+                                    adaBookingAktif = true;
+                                }
                             }
-                        }
+                        });
+                    }
+
+                    if (adaBookingAktif) {
+                        tampilkanNotifikasiRamah({
+                            icon: '⚠️',
+                            title: 'Gagal Melakukan Booking',
+                            desc: 'Anda masih memiliki riwayat booking yang <strong>belum selesai</strong> di sistem. Anda baru bisa melakukan booking baru setelah status booking sebelumnya berubah menjadi <strong>Selesai</strong> atau data dibersihkan oleh manager.'
+                        });
+                        return;
+                    }
+
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hour = String(now.getHours()).padStart(2, '0');
+                    const minute = String(now.getMinutes()).padStart(2, '0');
+                    const randomSuffix = Math.floor(10 + Math.random() * 90);
+                    const idBooking = `DNE-${year}${month}${day}${hour}${minute}${randomSuffix}`;
+
+                    const dataBooking = {
+                        id: idBooking,
+                        nama: nama,
+                        whatsapp: wa,
+                        tanggal_servis: tgl,
+                        kategori: kat,
+                        kendaraan: kend,
+                        keluhan: kel,
+                        promo: promo || 'Tidak Ada',
+                        promoId: promoId || '',
+                        status: 'Menunggu',
+                        tanggal: getWIBDateString()
+                    };
+
+                    set(ref(database, 'bookings/' + idBooking), dataBooking).then(() => {
+                        let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
+                        riwayat.unshift(dataBooking);
+                        localStorage.setItem('dne_riwayat_booking', JSON.stringify(riwayat));
+
+                        document.getElementById('successBookingId').innerText = idBooking;
+                        window.bukaHalaman('berhasil');
+                    }).catch(() => {
+                        tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Kendala Koneksi', desc: 'Mohon maaf, terjadi kendala saat menyimpan data pesanan Anda. Silakan coba beberapa saat lagi ya.' });
                     });
-                }
-
-                if (adaBookingAktif) {
-                    tampilkanNotifikasiRamah({
-                        icon: '⚠️',
-                        title: 'Gagal Melakukan Booking',
-                        desc: 'Anda masih memiliki riwayat booking yang <strong>belum selesai</strong> di sistem. Anda baru bisa melakukan booking baru setelah status booking sebelumnya berubah menjadi <strong>Selesai</strong> atau data dibersihkan oleh manager.'
-                    });
-                    return;
-                }
-
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const day = String(now.getDate()).padStart(2, '0');
-                const hour = String(now.getHours()).padStart(2, '0');
-                const minute = String(now.getMinutes()).padStart(2, '0');
-                const randomSuffix = Math.floor(10 + Math.random() * 90);
-                const idBooking = `DNE-${year}${month}${day}${hour}${minute}${randomSuffix}`;
-
-                const dataBooking = {
-                    id: idBooking,
-                    nama: nama,
-                    whatsapp: wa,
-                    tanggal_servis: tgl,
-                    kategori: kat,
-                    kendaraan: kend,
-                    keluhan: kel,
-                    promo: promo || 'Tidak Ada',
-                    status: 'Menunggu',
-                    tanggal: new Date().toISOString().split('T')[0]
-                };
-
-                set(ref(database, 'bookings/' + idBooking), dataBooking).then(() => {
-                    let riwayat = JSON.parse(localStorage.getItem('dne_riwayat_booking')) || [];
-                    riwayat.unshift(dataBooking);
-                    localStorage.setItem('dne_riwayat_booking', JSON.stringify(riwayat));
-
-                    document.getElementById('successBookingId').innerText = idBooking;
-                    window.bukaHalaman('berhasil');
-                }).catch(() => {
-                    tampilkanNotifikasiRamah({ icon: '⚠️', title: 'Kendala Koneksi', desc: 'Mohon maaf, terjadi kendala saat menyimpan data pesanan Anda. Silakan coba beberapa saat lagi ya.' });
                 });
-            });
+            };
+
+            if (promoId) {
+                get(ref(database, `promos/${promoId}`)).then((snap) => {
+                    if (snap.exists()) {
+                        const pData = snap.val();
+                        const todayWIB = getWIBDateString();
+                        if (pData.tanggal_berakhir && todayWIB > pData.tanggal_berakhir) {
+                            tampilkanNotifikasiRamah({
+                                icon: '❌',
+                                title: 'Promo Ditolak Sistem',
+                                desc: `Maaf, promo <strong>${pData.judul || promo}</strong> yang Anda gunakan sudah berstatus <strong>EXPIRED</strong> dan tidak dapat digunakan pada transaksi baru.`
+                            });
+                            return;
+                        }
+                    }
+                    lakukanPenyimpananBooking();
+                }).catch(() => {
+                    lakukanPenyimpananBooking();
+                });
+            } else {
+                lakukanPenyimpananBooking();
+            }
         });
 
         let selectedBookingData = null;
