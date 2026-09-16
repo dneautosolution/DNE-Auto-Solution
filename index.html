@@ -1334,8 +1334,9 @@
 
                     listBannerData.forEach((b, idx) => {
                         const imgUrl = b.url_gambar || b.banner || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200';
+                        const targetLink = b.link_tujuan || b.link || b.url || '';
                         slidesHtml += `
-                            <div class="hero-slide-item" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;" onclick="window.klikBanner('${b.link_tujuan || '#'}')"></div>
+                            <div class="hero-slide-item" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;" onclick="window.klikBanner('${targetLink}')"></div>
                         `;
                         dotsHtml += `<div class="hero-dot ${idx === 0 ? 'active' : ''}" onclick="event.stopPropagation(); window.currentSlide(${idx})"></div>`;
                     });
@@ -1407,18 +1408,38 @@
             }, {passive: true});
         }
 
+        /* --- LOGIKA DIBERBAIKI: JIKA TIDAK ADA LINK TUJUAN MAKA TETAP DI BERANDA TANPA EFEK --- */
         window.klikBanner = function(link) {
-            if (!link || link === '#') return;
-            if (link.startsWith('http://') || link.startsWith('https://')) {
-                window.open(link, '_blank');
-            } else if (link.toLowerCase().includes('booking')) {
+            // Jika link kosong, null, undefined, atau hanya '#', abaikan pemicuan event/navigasi (tetap di beranda)
+            if (!link || link.trim() === '' || link.trim() === '#') {
+                return;
+            }
+            
+            const cleanLink = link.trim();
+            if (cleanLink.startsWith('http://') || cleanLink.startsWith('https://')) {
+                window.open(cleanLink, '_blank');
+            } else if (cleanLink.toLowerCase().includes('booking')) {
                 window.bukaHalaman('booking');
-            } else if (link.toLowerCase().includes('member')) {
+            } else if (cleanLink.toLowerCase().includes('member')) {
                 window.bukaHalaman('membership');
-            } else if (link.toLowerCase().includes('promo')) {
+            } else if (cleanLink.toLowerCase().includes('promo')) {
                 window.bukaHalaman('promo');
+            } else if (cleanLink.toLowerCase().includes('layanan')) {
+                window.bukaHalaman('layanan');
+            } else if (cleanLink.toLowerCase().includes('riwayat')) {
+                window.bukaHalaman('riwayat');
+            } else if (cleanLink.toLowerCase().includes('status')) {
+                window.bukaHalaman('status');
+            } else if (cleanLink.toLowerCase().includes('akun')) {
+                window.bukaHalaman('akun');
+            } else if (cleanLink.toLowerCase().includes('home') || cleanLink.toLowerCase().includes('beranda')) {
+                window.bukaHalaman('home');
             } else {
-                window.bukaHalaman(link);
+                // Percobaan navigasi ID internal jika ada
+                const targetSec = document.getElementById(cleanLink);
+                if (targetSec) {
+                    window.bukaHalaman(cleanLink);
+                }
             }
         }
 
