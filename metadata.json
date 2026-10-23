@@ -1,0 +1,7 @@
+{
+  "name": "DNE Auto Solution",
+  "description": "Aplikasi layanan servis motor dan mobil terpadu dari DNE Auto Solution dengan fitur booking servis, pelacakan status realtime, promo voucher, membership, dan riwayat pengerjaan.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
