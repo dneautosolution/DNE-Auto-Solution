@@ -70,11 +70,19 @@ export const RegisterSection: React.FC<RegisterSectionProps> = ({
 
     if (res.success && res.user) {
       onRegisterSuccess(res.user);
-      onShowModal({
-        icon: '🎉',
-        title: 'Akun Berhasil Dibuat!',
-        desc: `Selamat <strong>${res.user.nama}</strong>! Kartu Member <strong>${res.user.id}</strong> Anda sudah aktif dan Anda mendapatkan <strong>+50 Poin</strong> selamat datang!`
-      });
+      if (res.isExistingLinked) {
+        onShowModal({
+          icon: '🔗',
+          title: 'Nomor WA Terverifikasi di Bengkel!',
+          desc: `Nomor WhatsApp <strong>${res.user.whatsapp}</strong> telah terdaftar di database manajemen bengkel dengan ID Member resmi <strong>${res.user.id}</strong> (Level: <strong>${res.user.level}</strong>, Total Kunjungan: <strong>${res.user.totalKunjungan || 0}</strong>). Akun Anda berhasil ditautkan tanpa data ganda!`
+        });
+      } else {
+        onShowModal({
+          icon: '🎉',
+          title: 'Pendaftaran Member Berhasil!',
+          desc: `Selamat <strong>${res.user.nama}</strong>! ID Member resmi bengkel Anda adalah <strong>${res.user.id}</strong> dengan level <strong>${res.user.level}</strong>. Data Anda telah disinkronkan ke manajemen bengkel.`
+        });
+      }
     } else {
       onShowModal({
         icon: '❌',

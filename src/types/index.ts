@@ -12,22 +12,55 @@ export type PageType =
   | 'login'
   | 'register';
 
+export interface MembershipSettings {
+  benefitBronze?: string[];
+  benefitSilver?: string[];
+  benefitGold?: string[];
+  benefitPlatinum?: string[];
+  diskonJasaBronze?: number;
+  diskonJasaSilver?: number;
+  diskonJasaGold?: number;
+  diskonJasaPlatinum?: number;
+  diskonSparepartBronze?: number;
+  diskonSparepartSilver?: number;
+  diskonSparepartGold?: number;
+  diskonSparepartPlatinum?: number;
+  minTransaksiSilver?: number;
+  minTransaksiGold?: number;
+  minTransaksiPlatinum?: number;
+  minPoinRedeem?: number;
+  nilaiRupiahPerPoin?: number;
+  poinPerKelipatanTransaksi?: number;
+  masaAktifTipe?: string;
+  biayaPendaftaran?: number;
+}
+
 export interface UserAccount {
-  id: string; // e.g. MBR-2026-004821
+  id: string; // e.g. DNE-MBR-202608001
+  nomorMember?: string;
   nama: string;
-  email: string;
-  whatsapp: string;
+  email?: string;
+  whatsapp: string; // Key utama (normalized 628...)
+  wa?: string;
   password?: string;
   kendaraanDefault?: string;
+  kendaraanList?: string[];
   kategoriDefault?: string;
   alamat?: string;
-  level: string;
-  masa_aktif: string;
-  tanggal_berakhir: string;
+  level: string; // Bronze, Silver, Gold, Platinum
+  masaBerlaku?: string;
+  masa_aktif?: string;
+  tanggal_berakhir?: string;
+  tanggalBergabung?: string;
+  poin?: number;
   jumlah_poin: number;
-  status: string;
+  totalKunjungan?: number | string;
+  totalTransaksi?: number | string;
+  status: string; // Aktif, Menunggu Verifikasi, Ditolak, Nonaktif
+  qrCode?: string;
   qr_code?: string;
-  createdAt: string;
+  barcode?: string;
+  createdAt?: string;
 }
 
 export interface BengkelSettings {
@@ -38,17 +71,24 @@ export interface BengkelSettings {
   pengalaman?: string;
   garansi?: string;
   whatsapp_admin?: string;
+  tagline?: string;
+  receiptFooter?: string;
 }
 
 export interface HeroBannerItem {
   id?: string;
   url_gambar?: string;
   banner?: string;
+  displayImageUrl?: string;
   link_tujuan?: string;
+  action_url?: string;
+  actionTarget?: string;
   link?: string;
   url?: string;
   status?: string | boolean;
   nomor_urut?: number | string;
+  is_clickable?: boolean;
+  clickable?: boolean;
   tanggal_aktif?: string;
   tanggal_berakhir?: string;
 }
@@ -64,6 +104,7 @@ export interface ServiceItem {
   icon?: string;
   status?: string;
   deskripsi?: string;
+  tag?: string;
   rincian?: ServiceRincian[];
 }
 
@@ -75,10 +116,13 @@ export interface PromoItem {
   description?: string;
   banner?: string;
   url_gambar?: string;
+  displayBannerUrl?: string;
   status?: string | boolean;
   tanggal_mulai?: string;
   tanggal_berakhir?: string;
   tanggal?: string;
+  badge?: string;
+  diskon_jasa_persen?: number;
 }
 
 export interface BookingData {
@@ -87,7 +131,9 @@ export interface BookingData {
   whatsapp: string;
   tanggal_servis: string;
   kategori: string;
+  jenis_kendaraan?: string;
   kendaraan: string;
+  plat_nomor?: string;
   keluhan: string;
   promo?: string;
   promoId?: string;
@@ -97,6 +143,16 @@ export interface BookingData {
   alamat?: string;
   share_loc?: string;
   jam_booking?: string;
+  jam?: string;
+  created_at?: number;
+  timestamp?: number;
+  biaya_jasa?: number;
+  biaya_sparepart?: number;
+  catatan_mekanik?: string;
+  jasa_detail?: string;
+  sparepart_detail?: string;
+  rekomendasi_kilometer?: number;
+  userId?: string;
 }
 
 export interface MemberBenefit {
@@ -105,18 +161,39 @@ export interface MemberBenefit {
 }
 
 export interface MemberData {
-  id: string;
+  id: string; // e.g. DNE-MBR-202608001
+  nomorMember?: string;
+  nomor_member?: string;
   nama: string;
-  whatsapp?: string;
-  level?: string;
+  namaPelanggan?: string;
+  whatsapp?: string; // Key utama (628...)
+  wa?: string;
+  email?: string;
+  level?: string; // Bronze, Silver, Gold, Platinum
+  masaBerlaku?: string;
+  masa_berlaku?: string;
   masa_aktif?: string;
   tanggal_berakhir?: string;
+  tanggalBergabung?: string;
+  tanggal_bergabung?: string;
+  poin?: number;
   jumlah_poin?: number | string;
-  status?: 'AKTIF' | 'DITOLAK' | 'MENUNGGU' | string;
+  totalKunjungan?: number | string;
+  total_kunjungan?: string;
+  totalTransaksi?: number | string;
+  total_transaksi?: string;
+  kendaraan?: string;
+  kendaraanList?: string[];
+  kendaraan_registered?: string;
+  alamat?: string;
+  catatan?: string;
+  status?: string; // Aktif, Ditolak, Menunggu, Nonaktif
+  qrCode?: string;
   qr_code?: string;
-  benefit?: MemberBenefit[] | string;
+  barcode?: string;
+  benefit?: MemberBenefit[] | string[] | string;
+  alasanPenolakan?: string;
   alasan_penolakan?: string;
-  alasan?: string;
 }
 
 export interface NotificationModal {

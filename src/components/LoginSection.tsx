@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PageType, UserAccount, NotificationModal } from '../types';
 import { loginUser } from '../services/auth';
-import { Lock, Mail, Eye, EyeOff, LogIn, UserPlus, Sparkles, ArrowLeft } from 'lucide-react';
+import { Lock, Mail, Phone, Eye, EyeOff, LogIn, UserPlus, Sparkles, ArrowLeft } from 'lucide-react';
 
 interface LoginSectionProps {
   onLoginSuccess: (user: UserAccount) => void;
@@ -118,20 +118,24 @@ export const LoginSection: React.FC<LoginSectionProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-[10px] font-semibold text-slate-300 uppercase mb-1">
-              Email / No. WhatsApp / ID Member
+            <label className="block text-[10px] font-semibold text-slate-300 uppercase mb-1 flex items-center justify-between">
+              <span>Nomor WhatsApp / Email / ID Member</span>
+              <span className="text-emerald-400 font-normal lowercase text-[9px]">utama: no. whatsapp</span>
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Phone className="w-4 h-4 text-emerald-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="nama@email.com atau 0812345..."
+                placeholder="Contoh: 085700570663 atau DNE-MBR-..."
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 className="w-full bg-[#0b0b0e] border border-[#2a2a3c] rounded-lg pl-9 pr-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-600 transition-colors"
                 required
               />
             </div>
+            <span className="text-[9px] text-slate-400 block mt-1">
+              Data member ditarik secara otomatis berdasarkan nomor WhatsApp terdaftar.
+            </span>
           </div>
 
           <div>

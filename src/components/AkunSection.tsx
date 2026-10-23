@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageType, UserAccount } from '../types';
+import { formatRupiah } from '../services/firebase';
 import { 
   ChevronRight, 
   User, 
@@ -66,29 +67,37 @@ export const AkunSection: React.FC<AkunSectionProps> = ({
 
           <div className="bg-[#0b0b0e]/80 rounded-xl p-3 border border-[#22222e] grid grid-cols-2 gap-2 text-xs mb-4">
             <div>
-              <span className="text-[9px] text-slate-400 block">ID MEMBER</span>
-              <span className="font-mono text-emerald-400 font-bold text-[11px]">{currentUser.id}</span>
+              <span className="text-[9px] text-slate-400 block">ID MEMBER RESMI</span>
+              <span className="font-mono text-emerald-400 font-bold text-[11px]">{currentUser.nomorMember || currentUser.id}</span>
             </div>
             <div>
               <span className="text-[9px] text-slate-400 block">STATUS</span>
-              <span className="text-amber-300 font-semibold text-[11px]">{currentUser.status || 'AKTIF'}</span>
+              <span className="text-amber-300 font-semibold text-[11px]">{currentUser.status || 'Aktif'}</span>
             </div>
             <div>
               <span className="text-[9px] text-slate-400 block flex items-center gap-1">
-                <Phone className="w-2.5 h-2.5 text-slate-500" /> WHATSAPP
+                <Phone className="w-2.5 h-2.5 text-slate-500" /> WHATSAPP TERDAFTAR
               </span>
-              <span className="text-slate-200 text-[11px] truncate block">{currentUser.whatsapp}</span>
+              <span className="text-slate-200 text-[11px] font-mono truncate block">{currentUser.whatsapp}</span>
             </div>
             <div>
               <span className="text-[9px] text-slate-400 block flex items-center gap-1">
                 <Mail className="w-2.5 h-2.5 text-slate-500" /> EMAIL
               </span>
-              <span className="text-slate-200 text-[11px] truncate block">{currentUser.email}</span>
+              <span className="text-slate-200 text-[11px] truncate block">{currentUser.email || '-'}</span>
+            </div>
+            <div className="pt-1 border-t border-[#1f1f2e]">
+              <span className="text-[9px] text-slate-400 block">TOTAL KUNJUNGAN</span>
+              <span className="text-amber-300 font-semibold text-[11px]">{typeof currentUser.totalKunjungan === 'number' ? `${currentUser.totalKunjungan} Kali` : (currentUser.totalKunjungan || '0 Kali')}</span>
+            </div>
+            <div className="pt-1 border-t border-[#1f1f2e]">
+              <span className="text-[9px] text-slate-400 block">TOTAL TRANSAKSI</span>
+              <span className="text-white font-semibold text-[11px] truncate block">{typeof currentUser.totalTransaksi === 'number' ? formatRupiah(currentUser.totalTransaksi) : (currentUser.totalTransaksi || 'Rp 0')}</span>
             </div>
             {currentUser.kendaraanDefault && (
               <div className="col-span-2 pt-1 border-t border-[#1f1f2e]">
                 <span className="text-[9px] text-slate-400 block flex items-center gap-1">
-                  <Car className="w-2.5 h-2.5 text-slate-500" /> KENDARAAN TERSIMPAN
+                  <Car className="w-2.5 h-2.5 text-slate-500" /> KENDARAAN TERDAFTAR DI BENGKEL
                 </span>
                 <span className="text-white font-medium text-[11px]">{currentUser.kendaraanDefault}</span>
               </div>
